@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,17 +19,14 @@ import java.util.Optional;
 import static ua.pp.darknsoft.simpledoc.constants.ControllerConstants.RECORD;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = RECORD, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecordController {
 
     private final RecordService recordService;
 
-    public RecordController(RecordService recordService) {
-        this.recordService = recordService;
-    }
-
     @GetMapping()
-    public ResponseEntity<Page<RecordDTO>> getRootItems(
+    public ResponseEntity<Page<RecordDTO>> getAllItems(
             @RequestParam(defaultValue = "node") String type,
             @RequestParam(defaultValue = "0") int page,            // номер сторінки
             @RequestParam(defaultValue = "10") int size,           // розмір сторінки

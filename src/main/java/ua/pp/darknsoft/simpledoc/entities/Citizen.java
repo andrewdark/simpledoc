@@ -5,8 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -15,10 +15,9 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "citizen")
-public class Citizen {
-    /**
-     * Идентификатор записи
-     */
+public class Citizen implements Serializable {
+    private static final long serialVersionUID = -1800638145313484296L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "citizen_sequence")
     @SequenceGenerator(
@@ -28,18 +27,22 @@ public class Citizen {
     )
     private Long id;
 
-    /** Полное имя гражданина. */
+    /**
+     * Полное имя гражданина.
+     */
     @Column(name = "full_name")
     private String fullName;
 
-    /** Адрес гражданина, куда отправляять письма, а не адрес вопроса. */
+    /**
+     * Адрес гражданина, куда отправляять письма, а не адрес вопроса.
+     */
     @Column(name = "address")
     private String address;
 
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */
-    @Column(name="deleted")
+    @Column(name = "deleted")
     private boolean deleted;
 
     /** Список социальных статусов гражданина */
@@ -47,7 +50,9 @@ public class Citizen {
 //    @JoinTable(name = "CitizenStatusLink", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "status_id"))
 //    private List<Citizenstatus> status;
 
-    /** Список социальных категорий гражданина */
+    /**
+     * Список социальных категорий гражданина
+     */
 //    @ManyToMany
 //    @JoinTable(name = "CitizenCategoryLink", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 //    private Set<Citizencategory> category;

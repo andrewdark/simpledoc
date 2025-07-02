@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.simpledoc.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,12 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class RecordGroupServiceImpl implements RecordGroupService {
 
     private final RecordGroupRepository recordGroupRepository;
     private final RecordGroupDTOToRecordGroupConverter toEntityConverter;
     private final RecordGroupToRecordGroupDTOConverter toDTOConverter;
-
-    public RecordGroupServiceImpl(RecordGroupRepository recordGroupRepository, RecordGroupDTOToRecordGroupConverter toEntityConverter, RecordGroupToRecordGroupDTOConverter toDTOConverter) {
-        this.recordGroupRepository = recordGroupRepository;
-
-        this.toEntityConverter = toEntityConverter;
-        this.toDTOConverter = toDTOConverter;
-    }
 
     @Override
     @Transactional
@@ -160,7 +155,6 @@ public class RecordGroupServiceImpl implements RecordGroupService {
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
 

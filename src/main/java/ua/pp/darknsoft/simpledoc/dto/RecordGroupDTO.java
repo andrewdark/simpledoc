@@ -1,8 +1,6 @@
 package ua.pp.darknsoft.simpledoc.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
 
@@ -11,6 +9,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class RecordGroupDTO {
     private Long id;

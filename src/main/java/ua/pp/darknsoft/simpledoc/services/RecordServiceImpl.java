@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,19 +20,13 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class RecordServiceImpl implements RecordService{
 
     private final RecordRepository recordRepository;
     private final RecordGroupService recordGroupService;
     private final RecordDTOToRecordConverter toEntityConverter;
     private final RecordToRecordDTOConverter toDTOConverter;
-
-    public RecordServiceImpl(RecordRepository recordRepository, RecordGroupService recordGroupService, RecordDTOToRecordConverter toEntityConverter, RecordToRecordDTOConverter toDTOConverter) {
-        this.recordRepository = recordRepository;
-        this.recordGroupService = recordGroupService;
-        this.toEntityConverter = toEntityConverter;
-        this.toDTOConverter = toDTOConverter;
-    }
 
     @Override
     @Transactional

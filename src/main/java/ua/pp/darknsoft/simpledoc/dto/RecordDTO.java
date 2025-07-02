@@ -3,10 +3,7 @@ package ua.pp.darknsoft.simpledoc.dto;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 
@@ -14,9 +11,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RecordDTO {
     private Long id;
     private RecordGroupDTO recordGroup;

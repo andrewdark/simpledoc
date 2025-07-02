@@ -1,17 +1,16 @@
 package ua.pp.darknsoft.simpledoc.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import ua.pp.darknsoft.simpledoc.entities.security.AppUser;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class DepartmentDTO {
     private Long id;
     private String name;

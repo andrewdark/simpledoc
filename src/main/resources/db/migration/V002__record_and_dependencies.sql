@@ -252,4 +252,50 @@ CREATE TABLE IF NOT EXISTS correspondent
 ALTER TABLE IF EXISTS public.correspondent OWNER to postgres;
 ALTER SEQUENCE public.correspondent_id_seq OWNED BY correspondent.id;
 
+--citizen_status--
+DROP SEQUENCE IF EXISTS public.citizen_status_id_seq;
+CREATE SEQUENCE IF NOT EXISTS public.citizen_status_id_seq
+    INCREMENT BY 10
+    START WITH 1
+    CACHE 1
+    NO CYCLE;
+
+DROP TABLE IF EXISTS public.citizen_status;
+
+CREATE TABLE IF NOT EXISTS public.citizen_status
+(
+    id BIGINT NOT NULL DEFAULT nextval('public.citizen_status_id_seq'),
+
+    version bigint,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone,
+
+    PRIMARY KEY (id)
+);
+ALTER TABLE IF EXISTS public.citizen_status OWNER to postgres;
+ALTER SEQUENCE public.citizen_status_id_seq OWNED BY public.citizen_status.id;
+
+--citizen_category--
+DROP SEQUENCE IF EXISTS public.citizen_category_id_seq;
+CREATE SEQUENCE IF NOT EXISTS public.citizen_category_id_seq
+    INCREMENT BY 10
+    START WITH 1
+    CACHE 1
+    NO CYCLE;
+
+DROP TABLE IF EXISTS public.citizen_category;
+
+CREATE TABLE IF NOT EXISTS public.citizen_category
+(
+    id BIGINT NOT NULL DEFAULT nextval('public.citizen_category_id_seq'),
+
+    version bigint,
+    created_at timestamp(6) without time zone,
+    updated_at timestamp(6) without time zone,
+
+    PRIMARY KEY (id)
+);
+ALTER TABLE IF EXISTS public.citizen_category OWNER to postgres;
+ALTER SEQUENCE public.citizen_category_id_seq OWNED BY public.citizen_category.id;
+
 COMMIT;

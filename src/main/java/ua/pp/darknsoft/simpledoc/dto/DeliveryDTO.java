@@ -1,15 +1,14 @@
 package ua.pp.darknsoft.simpledoc.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class DeliveryDTO {
     private Long id;
     private String name;

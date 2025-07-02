@@ -1,17 +1,17 @@
 package ua.pp.darknsoft.simpledoc.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import ua.pp.darknsoft.simpledoc.entities.Rubric;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Builder
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RubricDTO {
     private Long id;
     private String code;

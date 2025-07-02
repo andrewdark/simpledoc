@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,13 +17,10 @@ import java.util.Optional;
 import static ua.pp.darknsoft.simpledoc.constants.ControllerConstants.RECORDGROUP;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = RECORDGROUP, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RecordGroupController {
     private final RecordGroupService recordGroupService;
-
-    public RecordGroupController(RecordGroupService recordGroupService) {
-        this.recordGroupService = recordGroupService;
-    }
 
     @GetMapping()
     public ResponseEntity<Page<RecordGroupDTO>> getRootItems(
