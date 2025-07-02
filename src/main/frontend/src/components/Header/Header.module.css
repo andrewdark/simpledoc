@@ -1,0 +1,40 @@
+.header {
+    background-color: #edf2f9; /*333*/
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /*height: 70px;*/
+}
+
+.nav {
+    color: #008b8b;
+    font-size: 24px;
+}
+
+.auth {
+
+}
+@media only screen and (min-width: 768px) {
+    .container {
+        height: 72px;
+    }
+}
+
+@media only screen and (min-width: 1158px) {
+    .nav {
+        font-size: 32px;
+    }
+    .container {
+
+    }
+}
+
+
+

@@ -1,0 +1,13 @@
+.UserItem {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    border-color: #dee2e6;
+    border-style: solid;
+    border-radius: 8px;
+}
+
+.UserItem > div {
+    text-align: center;
+    width: 25%;
+}

@@ -1,0 +1,14 @@
+.catalogItem{
+    background-color: #fff;
+    border-color: #dee2e6;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: #6c6c6c;
+}
+.catalogItem:hover, .catalogItem:focus{
+    font-size: 1.2rem;
+    padding: 12px 16px;
+    border-color: #bfbfc2;
+    color: #000000;
+}

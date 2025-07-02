@@ -1,0 +1,43 @@
+.form {
+    padding-top: 20px;
+}
+.fInput,
+button {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 25px;
+    height: 40px;
+    border-radius: 5px;
+    outline: 0;
+    -moz-outline-style: none;
+}
+
+.fInput {
+    border: 1px solid #bbb;
+    padding: 0 0 0 10px;
+    font-size: 14px;
+}
+.fInput:focus {
+     border: 1px solid #3498db;
+}
+
+p{
+    padding-bottom: 10px;
+}
+
+button {
+    background: #e74c3c;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: box-shadow .4s ease;
+}
+button:hover {
+     box-shadow: 1px 1px 5px #555;
+}
+
+button:active {
+     box-shadow: 1px 1px 7px #222;
+}

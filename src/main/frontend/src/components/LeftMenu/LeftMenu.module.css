@@ -1,0 +1,34 @@
+.asideCls {
+    display: none;
+}
+
+@media only screen and (min-width: 1158px) {
+    .asideCls {
+        display: block;
+        width: 300px;
+        background-color: #edf2f9;;
+        padding: 1rem;
+        border-right: 1px solid #ddd;
+    }
+
+    .asideCls ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .asideCls ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .asideCls ul li a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 0.5rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .asideCls ul li a:hover {
+        background-color: #ddd;
+    }
+}

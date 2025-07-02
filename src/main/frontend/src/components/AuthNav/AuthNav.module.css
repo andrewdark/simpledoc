@@ -1,0 +1,9 @@
+.authNav{
+    display: flex;
+    justify-content: space-between;
+    min-width: 128px;
+    align-items: center;
+}
+.link{
+    display: block;
+}

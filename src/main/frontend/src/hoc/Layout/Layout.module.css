@@ -1,0 +1,23 @@
+.wrapper {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh; /* Обеспечивает, что футер будет внизу даже при малом контенте */
+}
+.container{
+    display: flex;
+    flex: 1; /* Позволяет этому контейнеру занимать доступное пространство */
+}
+.main{
+    flex: 1; /* Позволяет основной области занимать оставшееся пространство */
+    padding: 1rem;
+    background-color: #edf2f9;
+}
+.footer {
+    background-color: #edf2f9;
+    /*color: white;*/
+    padding: 1rem;
+    text-align: center;
+    margin-top: auto; /* Прикрепляет футер к низу */
+}
