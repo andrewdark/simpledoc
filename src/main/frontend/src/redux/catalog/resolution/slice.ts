@@ -1,15 +1,15 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPageable} from "../../../models/IPageable";
-import {IOrganization} from "../../../models/catalog/IOrganization";
+import {IResolution} from "../../../models/catalog/IResolution";
 
-interface OrganizationState {
-    organizations: IOrganization[];
+interface ResolutionState {
+    resolutions: IResolution[];
     isLoading: boolean;
     error: string;
 }
 
-const initialState: OrganizationState = {
-    organizations: [],
+const initialState: ResolutionState = {
+    resolutions: [],
     isLoading: false,
     error: "",
 }

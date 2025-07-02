@@ -44,7 +44,7 @@ public class ResolutionServiceImpl implements ResolutionService {
     }
 
     @Override
-    public void delete(ResolutionDTO resolutionDTO) throws AppException {
+    public void softDeleteById(Long resolutionDTO) throws AppException {
 
     }
 

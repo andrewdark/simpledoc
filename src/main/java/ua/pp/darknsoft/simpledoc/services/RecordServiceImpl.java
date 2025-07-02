@@ -72,7 +72,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     @Transactional
-    public void delete(RecordDTO recordDTO) throws AppException {
+    public void softDeleteById(Long recordDTO) throws AppException {
 
     }
 

@@ -50,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     @Transactional
-    public void delete(DepartmentDTO departmentDTO) throws AppException {
+    public void softDeleteById(Long departmentDTO) throws AppException {
 
     }
 

@@ -51,7 +51,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public void delete(OrganizationDTO organizationDTO) throws AppException {
+    public void softDeleteById(Long organizationDTO) throws AppException {
 
     }
 

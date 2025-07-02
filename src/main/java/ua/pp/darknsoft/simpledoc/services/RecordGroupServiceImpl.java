@@ -114,11 +114,12 @@ public class RecordGroupServiceImpl implements RecordGroupService {
 
     @Override
     @Transactional
-    public void delete(RecordGroupDTO entity) {
+    public void softDeleteById(Long id) {
         try {
-            if (Objects.nonNull(entity)) {
-                deleteById(entity.getId());
-            }
+            RecordGroup entity = recordGroupRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+            entity.setDeleted(true);
+            recordGroupRepository.save(entity);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

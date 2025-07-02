@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class DeliveryDTO {
     private Long id;
     private String name;
-    private boolean deleted;
+    private Boolean deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

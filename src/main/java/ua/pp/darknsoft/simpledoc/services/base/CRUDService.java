@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public interface CRUDService<DTO, ID> {
 
     void deleteById(ID id) throws AppException;
 
-    void delete(DTO dto) throws AppException;
+    void softDeleteById(ID id) throws AppException;
 
     Optional<DTO> getById(ID id) throws AppException;
 

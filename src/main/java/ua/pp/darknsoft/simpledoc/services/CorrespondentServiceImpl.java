@@ -51,7 +51,7 @@ public class CorrespondentServiceImpl implements CorrespondentService{
 
     @Override
     @Transactional
-    public void delete(CorrespondentDTO correspondentDTO) throws AppException {
+    public void softDeleteById(Long correspondentDTO) throws AppException {
 
     }
 

@@ -51,7 +51,7 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
 
     @Override
     @Transactional
-    public void delete(ResolutionCategoryDTO resolutionCategoryDTO) throws AppException {
+    public void softDeleteById(Long resolutionCategoryDTO) throws AppException {
 
     }
 

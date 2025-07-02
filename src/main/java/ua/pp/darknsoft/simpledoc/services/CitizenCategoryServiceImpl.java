@@ -51,7 +51,7 @@ public class CitizenCategoryServiceImpl implements CitizenCategoryService{
 
     @Override
     @Transactional
-    public void delete(CitizenCategoryDTO citizenCategoryDTO) throws AppException {
+    public void softDeleteById(Long citizenCategoryDTO) throws AppException {
 
     }
 

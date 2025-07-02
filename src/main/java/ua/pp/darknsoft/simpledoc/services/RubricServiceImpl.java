@@ -51,7 +51,7 @@ public class RubricServiceImpl implements RubricService {
 
     @Override
     @Transactional
-    public void delete(RubricDTO rubricDTO) throws AppException {
+    public void softDeleteById(Long rubricDTO) throws AppException {
 
     }
 

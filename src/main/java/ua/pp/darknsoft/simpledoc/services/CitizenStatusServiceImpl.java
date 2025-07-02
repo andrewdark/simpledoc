@@ -51,7 +51,7 @@ public class CitizenStatusServiceImpl implements CitizenStatusService{
 
     @Override
     @Transactional
-    public void delete(CitizenStatusDTO citizenStatusDTO) throws AppException {
+    public void softDeleteById(Long citizenStatusDTO) throws AppException {
 
     }
 

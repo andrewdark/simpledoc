@@ -36,7 +36,7 @@ public class Delivery implements Serializable {
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */
-    private boolean deleted;
+    private Boolean deleted;
 
     @Version
     private Long version;

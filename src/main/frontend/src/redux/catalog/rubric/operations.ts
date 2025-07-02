@@ -1,3 +1,3 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {$api} from "../../../http";
-import {IOrganization} from "../../../models/catalog/IOrganization";
+import {IRubric} from "../../../models/catalog/IRubric";

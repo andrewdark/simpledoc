@@ -24,13 +24,13 @@ public class DeliveryController {
 
     @GetMapping()
     public ResponseEntity<Page<DeliveryDTO>> getAllItems(
-            @RequestParam(defaultValue = "0") int page,            // номер сторінки
-            @RequestParam(defaultValue = "10") int size,           // розмір сторінки
-            @RequestParam(defaultValue = "id") String sort,    // поле для сортування
-            @RequestParam(defaultValue = "asc") String order     // напрямок: asc/desc
+            @RequestParam(defaultValue = "0") int number,       // номер сторінки
+            @RequestParam(defaultValue = "10") int size,        // розмір сторінки
+            @RequestParam(defaultValue = "id") String sort,     // поле для сортування
+            @RequestParam(defaultValue = "asc") String order    // напрямок: asc/desc
     ) {
         Pageable pageable = PageRequest.of(
-                page,
+                number,
                 size,
                 order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
         );
@@ -62,7 +62,7 @@ public class DeliveryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        deliveryService.deleteById(id);
+        deliveryService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

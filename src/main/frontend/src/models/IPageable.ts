@@ -17,3 +17,5 @@ export interface IPageable<T>{
     "first": boolean;
     "empty": boolean;
 }
+
+export type SortOrder = 'ASC' | 'DESC';
