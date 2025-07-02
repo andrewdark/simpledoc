@@ -1,8 +1,6 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPageable} from "../../../models/IPageable";
 import {IDelivery} from "../../../models/catalog/IDelivery";
-import {fetchUsers} from "../../users/operations";
-import {IUser} from "../../../models/IUser";
 import {createDelivery, deleteDelivery, getAllDelivery, getDeliveryById, updateDelivery} from "./operations";
 
 interface DeliveryState {

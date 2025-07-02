@@ -6,7 +6,7 @@ import {SortOrder} from "../../../models/IPageable";
 interface DeliveryThunkPayload {
     id?: number;
     dto?: IDelivery;
-    page?: number;
+    number?: number;
     size?: number;
     sort?:string;
     order?:SortOrder;
@@ -85,7 +85,7 @@ export const getAllDelivery = createAsyncThunk(
     async (payload:DeliveryThunkPayload, thunkAPI) => {
         try {
             const params: { [key: string]: any } = {
-                page: payload.page,
+                page: payload.number,
                 size: payload.size,
                 sort:payload.sort,
                 order:payload.order
