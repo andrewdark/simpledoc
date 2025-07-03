@@ -1,0 +1,16 @@
+.PageBar {
+    background-color: #edf2f9;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.NumbersList{
+    display: flex;
+    justify-content: center;
+}
+
+.current button{
+    color: red;
+    font-size: 1.2rem;
+}

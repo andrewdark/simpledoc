@@ -73,7 +73,7 @@ export const SignUpForm: FC<FormProps> = (props) => {
                     <ErrorMessage className={css.error} name="confirmPassword" component="span"/>
                 </div>
 
-                <button type="submit">Submit</button>
+                <button className={css.submitBtn} type="submit">Submit</button>
             </Form>
         </Formik>
     );

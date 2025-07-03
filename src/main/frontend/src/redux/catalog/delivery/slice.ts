@@ -1,16 +1,23 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IPageable} from "../../../models/IPageable";
+import {IPage, IPageable} from "../../../models/IPageable";
 import {IDelivery} from "../../../models/catalog/IDelivery";
 import {createDelivery, deleteDelivery, getAllDelivery, getDeliveryById, updateDelivery} from "./operations";
 
 interface DeliveryState {
     items: IDelivery[];
+    page: IPage;
     isLoading: boolean;
     error: string;
 }
 
 const initialState: DeliveryState = {
     items: [],
+    page: {
+        "size": 10,
+        "number": 0,
+        "totalElements": 0,
+        "totalPages": 0
+    },
     isLoading: false,
     error: "",
 }
@@ -58,7 +65,7 @@ export const deliverySlice = createSlice({
                 state.isLoading = false;
                 state.error = "";
                 const index = state.items.findIndex(
-                    (item) =>item.id === action.payload
+                    (item) => item.id === action.payload
                 );
                 state.items.splice(index, 1);
             })
@@ -69,6 +76,7 @@ export const deliverySlice = createSlice({
                 state.isLoading = false;
                 state.error = '';
                 state.items = action.payload.content;
+                state.page = action.payload.page;
             })
             //getDeliveryById
             .addCase(getDeliveryById.pending, handlePending)
@@ -77,6 +85,12 @@ export const deliverySlice = createSlice({
                 state.isLoading = false;
                 state.error = '';
                 state.items = [];
+                state.page = {
+                    "size": 1,
+                    "number": 0,
+                    "totalElements": 0,
+                    "totalPages": 0
+                }
                 state.items.push(action.payload);
             })
     }

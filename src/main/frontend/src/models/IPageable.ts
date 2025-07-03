@@ -4,18 +4,16 @@ export interface ISorted{
     "unsorted": boolean;
 }
 
+export interface IPage {
+    "size": number,
+    "number": number,
+    "totalElements": number,
+    "totalPages": number
+}
+
 export interface IPageable<T>{
     "content": T[];
-    "pageable": string; //"INSTANCE"
-    "totalElements": number;
-    "totalPages": number;
-    "last": boolean;
-    "size": number;
-    "number": number;
-    "sort": ISorted;
-    "numberOfElements": number;
-    "first": boolean;
-    "empty": boolean;
+    "page": IPage;
 }
 
 export type SortOrder = 'ASC' | 'DESC';

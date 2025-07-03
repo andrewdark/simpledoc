@@ -85,7 +85,7 @@ export const getAllDelivery = createAsyncThunk(
     async (payload:DeliveryThunkPayload, thunkAPI) => {
         try {
             const params: { [key: string]: any } = {
-                page: payload.number,
+                number: payload.number,
                 size: payload.size,
                 sort:payload.sort,
                 order:payload.order

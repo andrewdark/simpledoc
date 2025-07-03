@@ -1,8 +1,8 @@
 .form {
     padding-top: 20px;
 }
-.fInput,
-button {
+
+.submitBtn {
     width: 80%;
     margin-left: 10%;
     margin-bottom: 25px;
@@ -13,19 +13,25 @@ button {
 }
 
 .fInput {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    outline: 0;
     border: 1px solid #bbb;
     padding: 0 0 0 10px;
     font-size: 14px;
+    -moz-outline-style: none;
 }
 .fInput:focus {
-     border: 1px solid #3498db;
+    border: 1px solid #3498db;
+    color: lime;
 }
 
 p{
     padding-bottom: 10px;
 }
 
-button {
+.submitBtn {
     background: #e74c3c;
     border: none;
     color: white;
@@ -34,10 +40,19 @@ button {
     cursor: pointer;
     transition: box-shadow .4s ease;
 }
-button:hover {
-     box-shadow: 1px 1px 5px #555;
+.submitBtn:hover {
+    box-shadow: 1px 1px 5px #555;
 }
 
-button:active {
-     box-shadow: 1px 1px 7px #222;
+.submitBtn:active {
+    box-shadow: 1px 1px 7px #222;
+}
+.fieldsGroup{
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 25px;
+}
+.error{
+    font-style: italic;
+    color: red;
 }
