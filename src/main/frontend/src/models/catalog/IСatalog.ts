@@ -1,9 +1,9 @@
 export interface ICatalog {
-    "id": number;
-    "title": string;
-    "description": string;
-    "code"?:string;
-    "uri"?: string;
+    "id": number | null;
+    "title": string  | null;
+    "description": string  | null;
+    "path":string;
+    "uri"?: string  | null;
 }
 
 

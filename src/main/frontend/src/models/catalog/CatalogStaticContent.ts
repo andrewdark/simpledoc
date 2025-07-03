@@ -5,54 +5,54 @@ export const catalogList: ICatalog[] = [
         "id": 1,
         "title": "Групи документів",
         "description": "Цей довідник потрібен для ведення журналів реєстрації документів.",
-        "code":"record-group"
+        "path":"/catalog/record-group"
     },
     {
         "id": 2,
         "title": "Підрозділи та посадові особи",
         "description": "Цей довідник потрібен для ведення підрозділів та посадовців цього підприємства.",
-        "code":"department"
+        "path":"/catalog/department"
     },
     {
         "id": 3,
         "title": "Підприємства",
         "description": "Цей довідник потрібен для ведення контрагентів-підприємств.",
-        "code":"organization"
+        "path":"/catalog/organization"
     },
     {
         "id": 4,
         "title": "Фізичні особи",
         "description": "Цей довідник потрібен для ведення контрагентів-фізичних осіб.",
-        "code":"citizen"
+        "path":"/catalog/citizen"
     },
     {
         "id": 5,
         "title": "Види доставки",
         "description": "Цей довідник потрібен для ведення видів доставки. Листування, особиста доставка, єлектронною поштою, тощо.",
-        "code":"delivery"
+        "path":"/catalog/delivery"
     },
     {
         "id": 6,
         "title": "Рубрикатор",
         "description": "Цей довідник потрібен для ведення додаткової інформації щодо питань, яких стосується зміст документу.",
-        "code":"rubric"
+        "path":"/catalog/rubric"
     },
     {
         "id": 7,
         "title": "Соціальні статуси",
         "description": "Цей довідник потрібен для ведення соціальних статусів громадян.",
-        "code":"citizen-status"
+        "path":"/catalog/citizen-status"
     },
     {
         "id": 8,
         "title": "Соціальні категорії",
         "description": "Цей довідник потрібен для ведення соціальних категорій громадян.",
-        "code":"citizen-category"
+        "path":"/catalog/citizen-category"
     },
     {
         "id": 9,
         "title": "Категорії резолюцій",
         "description": "Цей довідник потрібен для надання резолюції категорії. Найчастіше виникає при закритті резолюції, або дорученні",
-        "code":"resolution-category"
+        "path":"/catalog/resolution-category"
     },
 ]

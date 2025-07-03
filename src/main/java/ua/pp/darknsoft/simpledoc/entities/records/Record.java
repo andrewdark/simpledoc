@@ -87,15 +87,15 @@ public abstract class Record implements Serializable {
 
     /** Рубрикатор */
 //    @ManyToMany
-//    private List<Rubric> rubrics;
+//    private NavList<Rubric> rubrics;
 
     /** Резолюции наложенные на документ */
     //@OneToMany(mappedBy = "record")
-    //private List<Resolution> resolutions;
+    //private NavList<Resolution> resolutions;
 
     /** Файлы прикрепленные к документу */
     //@OneToMany(mappedBy = "Document")
-    //private List<FileLink> files;
+    //private NavList<FileLink> files;
 
 
 

@@ -1,5 +1,4 @@
 import css from './Profile.module.css';
-import UserList from "../../components/UserList/UserList";
 export const Profile = () => {
     return (
         <div className={css.HomePage}>

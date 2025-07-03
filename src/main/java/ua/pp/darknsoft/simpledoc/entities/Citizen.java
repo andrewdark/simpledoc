@@ -48,7 +48,7 @@ public class Citizen implements Serializable {
     /** Список социальных статусов гражданина */
 //    @ManyToMany
 //    @JoinTable(name = "CitizenStatusLink", joinColumns = @JoinColumn(name = "citizen_id"), inverseJoinColumns = @JoinColumn(name = "status_id"))
-//    private List<Citizenstatus> status;
+//    private NavList<Citizenstatus> status;
 
     /**
      * Список социальных категорий гражданина
