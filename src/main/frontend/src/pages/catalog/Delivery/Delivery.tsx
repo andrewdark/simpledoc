@@ -11,17 +11,17 @@ import {PageBar} from "../../../components/PageBar/PageBar";
 export const Delivery = () => {
     const items = useAppSelector(state => state.deliveryReducer.items);
     const page = useAppSelector(state => state.deliveryReducer.page);
-    const navLinks: navLinks[] = [{link: "/", title: "головна"}, {link: "/catalog", title: "Довідники"}, {link: "/catalog/delivery", title: "Види доставки"}];
+    const navLinks: navLinks[] = [{link: "/", title: "Головна"}, {link: "/catalog", title: "Довідники"}, {link: "/catalog/delivery", title: "Види доставки"}];
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getAllDelivery({size: 2, number: 0}));
+        dispatch(getAllDelivery({size: 10, number: 0}));
     }, [dispatch]);
 
     const clickPage = (currentPage:number) =>{
         if(currentPage >= 0 && currentPage < page.totalPages){
-            dispatch(getAllDelivery({size: 2, number : currentPage}));
+            dispatch(getAllDelivery({size: 10, number : currentPage}));
         }
     }
     return (

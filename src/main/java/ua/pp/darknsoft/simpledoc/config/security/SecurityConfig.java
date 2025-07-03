@@ -88,7 +88,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://192.168.9.110:8080", "http://idea.pp.ua:8080")); // безопаснее, чем allowedOrigins + "*"
+        config.setAllowedOrigins(List.of("http://localhost:3000","http://192.168.9.110:8080", "http://idea.pp.ua:8080")); // безопаснее, чем allowedOrigins + "*"
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // если нужно передавать токены/куки

@@ -1,19 +1,30 @@
 .NavBar {
-    background-color: #edf2f9;
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 16px;
+  background-color: #edf2f9;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  row-gap: 4px;
+  column-gap: 4px;
 }
 
 .NavBarItem {
-    display: flex;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.linkTo {
-    padding: 4px 8px;
+.NavBarItem strong {
+  color: #5e6e82;
 }
 
-.linkTo strong{
-    color: #5e6e82;
+@media only screen and (min-width: 768px) {
+  .NavBar{
+    row-gap: 8px;
+  }
+}
+
+@media only screen and (min-width: 1158px) {
+  .NavBar {
+    row-gap: 16px;
+  }
 }
