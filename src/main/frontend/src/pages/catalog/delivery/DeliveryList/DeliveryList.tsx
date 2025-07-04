@@ -1,15 +1,15 @@
-import {NavBar, navLinks} from "../../../components/NavBar/NavBar";
-import {useAppDispatch, useAppSelector} from "../../../hooks/redux";
+import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {useEffect, useState} from "react";
-import {createDelivery, getAllDelivery} from "../../../redux/catalog/delivery/operations";
-import {IDelivery} from "../../../models/catalog/IDelivery";
-import {DeliveryItem} from "../../../components/catalog/delivery/DeliveryItem/DeliveryItem";
-import List from "../../../components/List/List";
-import {PageBar} from "../../../components/PageBar/PageBar";
-import ModalFormContainer from "../../../hoc/ModalFormContainer/ModalFormContainer";
-import {DeliveryForm} from "../../../components/catalog/delivery/DeliveryForm/DeliveryForm";
+import {createDelivery, getAllDelivery} from "../../../../redux/catalog/delivery/operations";
+import {IDelivery} from "../../../../models/catalog/IDelivery";
+import {DeliveryItem} from "../../../../components/catalog/delivery/DeliveryItem/DeliveryItem";
+import List from "../../../../components/List/List";
+import {PageBar} from "../../../../components/PageBar/PageBar";
+import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
+import {DeliveryForm} from "../../../../components/catalog/delivery/DeliveryForm/DeliveryForm";
 
-export const Delivery = () => {
+export const DeliveryList = () => {
     const [modal, setModal] = useState<boolean>(false);
     const items = useAppSelector(state => state.deliveryReducer.items);
     const page = useAppSelector(state => state.deliveryReducer.page);

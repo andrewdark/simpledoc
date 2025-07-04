@@ -3,7 +3,7 @@ import {ICatalog} from "../../models/catalog/IСatalog";
 import {catalogList} from "../../models/catalog/CatalogStaticContent"
 import CatalogItem from "../../components/catalog/CatalogItem/CatalogItem";
 import {NavBar, navLinks} from "../../components/NavBar/NavBar";
-import css from "../catalog/Delivery/Delivery.module.css";
+import css from "../catalog/delivery/DeliveryList/DeliveryList.module.css";
 import {BiPlus} from "react-icons/bi";
 
 export const Catalogs = () => {

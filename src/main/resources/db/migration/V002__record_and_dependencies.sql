@@ -32,7 +32,7 @@ ALTER TABLE IF EXISTS public.record_group
     OWNER to postgres;
 ALTER SEQUENCE public.record_group_id_seq OWNED BY record_group.id;
 
---Delivery--
+--DeliveryList--
 DROP SEQUENCE IF EXISTS public.delivery_id_seq;
 CREATE SEQUENCE IF NOT EXISTS public.delivery_id_seq
     INCREMENT BY 10
