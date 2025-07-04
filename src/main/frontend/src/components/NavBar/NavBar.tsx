@@ -8,6 +8,7 @@ export type navLinks = { link: string; title: string };
 interface NavBarProps {
     navLinks: navLinks[];
     isAddButton: boolean;
+    setVisible : (show:boolean)=>void;
 }
 
 export const NavBar: FC<NavBarProps> = (props) => {
@@ -28,7 +29,7 @@ export const NavBar: FC<NavBarProps> = (props) => {
             ))}
             {props.isAddButton ? (
                 <div className={css.NavBarItem}>
-                    <button className={css.linkTo}>
+                    <button className={css.linkTo} onClick={()=>{props.setVisible(true)}}>
                         <BiPlus/>
                     </button>
                 </div>

@@ -1,33 +1,46 @@
-import css from "./Layout.module.css";
-import {useLocation} from "react-router-dom";
-import {Suspense} from "react";
-import {Header} from "../../components/Header/Header";
+import React, { Suspense } from 'react';
+import { useLocation, useMatch } from 'react-router-dom';
+import {Header} from '../../components/Header/Header'; // Предполагаем, что Header находится здесь
+import css from './Layout.module.css';
 import {LeftMenu} from "../../components/LeftMenu/LeftMenu";
-import {BottomMenu} from "../../components/BottomMenu/BottomMenu";
-import {catalogList} from "../../models/catalog/CatalogStaticContent";
+import {BottomMenu} from "../../components/BottomMenu/BottomMenu"; // Ваш CSS-модуль
 
-export const Layout = (props: any) => {
+interface LayoutProps {
+    children: React.ReactNode;
+}
 
+export const Layout: React.FC<LayoutProps> = (props) => {
     const location = useLocation();
-    const headerArray:string[] = ["/", "/user-manager", "/profile", "/catalog", "/report", "/registration", "/searching", "/help", "/sign-up", "/sign-in",];
-    const menuArray:string[] = ["/", "/user-manager", "/profile", "/catalog", "/report", "/registration", "/searching", "/help"];
-    catalogList.map(el=>headerArray.push(el.path));
-    catalogList.map(el=>menuArray.push(el.path));
 
-    const hideHeader = !headerArray.includes(location.pathname);
-    const hideMenu = !menuArray.includes(location.pathname);
+    // Определите маршруты, для которых Header НЕ должен отображаться
+    // Используем useMatch для динамических маршрутов
+    const isProductPage = useMatch('/product/:productId');
+    const isAnotherDynamicPage = useMatch('/category/:categoryId'); // Пример другого динамического маршрута
+
+    // Список маршрутов, на которых Header должен быть скрыт
+    const routesToHideHeader = ["/sign-up", "/sign-in"];
+
+    // Проверяем, скрывать ли Header:
+    // 1. Текущий путь точно совпадает с одним из путей в routesToHideHeader
+    // 2. Текущий путь совпадает с динамическим маршрутом /product/:productId
+    // 3. Текущий путь совпадает с другим динамическим маршрутом /category/:categoryId
+    const hideHeader =
+        routesToHideHeader.includes(location.pathname) ||
+        !!isProductPage || // !! преобразует объект (или null) в true/false
+        !!isAnotherDynamicPage;
+
     return (
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}> {/* Добавьте fallback для Suspense */}
             <div className={css.wrapper}>
                 {!hideHeader && <Header/>}
                 <div className={css.container}>
-                    {!hideMenu && <LeftMenu/>}
+                    {!hideHeader && <LeftMenu/>}
                     <div className={css.main}>
                         {props.children}
                     </div>
 
                 </div>
-                {!hideMenu && <BottomMenu/>}
+                {!hideHeader && <BottomMenu/>}
                 <footer className={css.footer}>
                     <p>&copy; ФОП Продан К.М., 2025.</p>
                 </footer>
