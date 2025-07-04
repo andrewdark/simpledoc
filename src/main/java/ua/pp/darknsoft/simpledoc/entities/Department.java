@@ -43,12 +43,12 @@ public class Department implements Serializable {
     /**
      * Признак должностного лица
      */
-    private boolean official;
+    private Boolean official;
 
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */
-    private boolean deleted;
+    private Boolean deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")

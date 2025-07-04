@@ -66,7 +66,11 @@ public class CorrespondentServiceImpl implements CorrespondentService{
     }
 
     @Override
-    public Boolean isExist(CorrespondentDTO correspondentDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return correspondentRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

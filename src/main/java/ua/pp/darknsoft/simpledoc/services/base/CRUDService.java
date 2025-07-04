@@ -24,6 +24,6 @@ public interface CRUDService<DTO, ID> {
 
     Page<DTO> findAll(Pageable pageable) throws AppException;
 
-    Boolean isExist(DTO dto) throws AppException;
+    Boolean isExistById(ID id) throws AppException;
 
 }

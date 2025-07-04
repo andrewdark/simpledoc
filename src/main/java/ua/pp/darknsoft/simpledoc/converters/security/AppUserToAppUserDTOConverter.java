@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class AppUserToAppUserDTO implements Converter<AppUser, AppUserDTO> {
+public class AppUserToAppUserDTOConverter implements Converter<AppUser, AppUserDTO> {
     @Override
     @NonNull
     public AppUserDTO convert(AppUser source) {

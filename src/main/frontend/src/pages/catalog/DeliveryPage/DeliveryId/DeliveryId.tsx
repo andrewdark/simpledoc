@@ -6,18 +6,20 @@ interface DeliveryParams {
     [key: string]: string | undefined; // Индексная сигнатура: любой другой строковый ключ имеет тип string | undefined
 }
 
-export const DeliveryDetail: React.FC = () => {
+export const DeliveryId: React.FC = () => {
     // Получаем параметры из URL
     const { deliveryId } = useParams<DeliveryParams>();
     // Получаем объект location, который содержит переданное состояние
     const location = useLocation();
 
     // Доступ к состоянию, переданному через navigate({ state: ... })
-    const state = location.state as { fromHome?: boolean; time?: string } | undefined;
+    const state = location.state as { param1?: string; param2?: string } | undefined;
 
     return (
         <div>
-            <h1>Страница продукта: {deliveryId}</h1>
+            <h1>Delivery page ID: {deliveryId}</h1>
+            <p>{state?state.param1:""}</p>
+            <p>{state?state.param2:""}</p>
         </div>
     );
 };

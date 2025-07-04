@@ -22,7 +22,7 @@ import static ua.pp.darknsoft.simpledoc.constants.ControllerConstants.RECORDGROU
 public class RecordGroupController {
     private final RecordGroupService recordGroupService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<Page<RecordGroupDTO>> getRootItems(
             @RequestParam(defaultValue = "0") int page,            // номер сторінки
             @RequestParam(defaultValue = "10") int size,           // розмір сторінки

@@ -90,9 +90,12 @@ public class RecordServiceImpl implements RecordService{
         }
     }
 
-    @Override
-    public Boolean isExist(RecordDTO recordDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return recordRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

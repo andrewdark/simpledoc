@@ -48,7 +48,6 @@ public class RecordGroupServiceImpl implements RecordGroupService {
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
     @Override
@@ -58,11 +57,11 @@ public class RecordGroupServiceImpl implements RecordGroupService {
             RecordGroup parent = recordGroupRepository.getReferenceById(parentId);
             RecordGroup children = toEntityConverter.convert(childrenDTO);
             children.setParent(parent);
+            //parent.getChildren().add(children);
             return toDTOConverter.convert(recordGroupRepository.save(children));
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
     @Override
@@ -87,7 +86,6 @@ public class RecordGroupServiceImpl implements RecordGroupService {
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
     @Override
@@ -123,7 +121,6 @@ public class RecordGroupServiceImpl implements RecordGroupService {
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
 
@@ -139,14 +136,13 @@ public class RecordGroupServiceImpl implements RecordGroupService {
     }
 
     @Override
-    public Optional<RecordGroupDTO> getByIdWithChildren(Long aLong) {
+    public Optional<RecordGroupDTO> getByIdWithChildren(Long id) {
         try {
-            Optional<RecordGroup> recordGroupOptional = recordGroupRepository.findByIdWithChildren(aLong);
-            return recordGroupOptional.map(toDTOConverter::convert);
+            Optional<RecordGroup> entityOptional = recordGroupRepository.findByIdWithChildren(id);
+            return entityOptional.map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
     @Override
@@ -166,17 +162,14 @@ public class RecordGroupServiceImpl implements RecordGroupService {
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
     @Override
-    public Boolean isExist(RecordGroupDTO entity) {
+    public Boolean isExistById(Long id) {
         try {
-            if (Objects.isNull(entity) || Objects.isNull(entity.getId())) return false;
-            return recordGroupRepository.existsById(entity.getId());
+            return recordGroupRepository.existsById(id);
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 }

@@ -66,7 +66,11 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
     }
 
     @Override
-    public Boolean isExist(ResolutionCategoryDTO resolutionCategoryDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return resolutionCategoryRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

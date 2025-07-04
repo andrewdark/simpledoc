@@ -66,7 +66,11 @@ public class RubricServiceImpl implements RubricService {
     }
 
     @Override
-    public Boolean isExist(RubricDTO rubricDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return rubricRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

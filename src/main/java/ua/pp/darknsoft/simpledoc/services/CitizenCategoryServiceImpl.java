@@ -66,7 +66,11 @@ public class CitizenCategoryServiceImpl implements CitizenCategoryService{
     }
 
     @Override
-    public Boolean isExist(CitizenCategoryDTO citizenCategoryDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return citizenCategoryRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

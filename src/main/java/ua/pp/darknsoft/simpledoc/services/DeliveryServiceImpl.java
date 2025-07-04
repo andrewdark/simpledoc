@@ -109,7 +109,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Boolean isExist(DeliveryDTO deliveryDTO) throws AppException {
-        return deliveryRepository.existsById(deliveryDTO.getId());
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return deliveryRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

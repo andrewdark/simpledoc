@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {FC} from 'react';
+import css from './RubricItem.module.css';
 
 interface IRubricProps {
     
 }
-const RubricItem = () => {
-    return (
-        <div>
 
+const RubricItem: FC<IRubricProps> = (props) => {
+    return (
+        <div className={css.rubricItem}>
+            RubricItem
         </div>
     );
 };

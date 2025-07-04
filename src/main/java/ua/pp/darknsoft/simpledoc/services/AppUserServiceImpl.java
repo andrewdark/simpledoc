@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.pp.darknsoft.simpledoc.converters.security.AppUserToAppUserDTO;
+import ua.pp.darknsoft.simpledoc.converters.security.AppUserToAppUserDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.AppUserDTO;
 import ua.pp.darknsoft.simpledoc.dto.RegistrationRequestDTO;
 import ua.pp.darknsoft.simpledoc.entities.security.AppUser;
@@ -19,9 +19,9 @@ public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository appUserRepository;
     private final JwtUtils jwtUtils;
-    private final AppUserToAppUserDTO appUserDTOConverter;
+    private final AppUserToAppUserDTOConverter appUserDTOConverter;
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository, JwtUtils jwtUtils, AppUserToAppUserDTO appUserDTOConverter) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository, JwtUtils jwtUtils, AppUserToAppUserDTOConverter appUserDTOConverter) {
         this.appUserRepository = appUserRepository;
         this.jwtUtils = jwtUtils;
         this.appUserDTOConverter = appUserDTOConverter;

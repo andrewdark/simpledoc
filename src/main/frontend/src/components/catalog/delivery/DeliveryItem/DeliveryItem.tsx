@@ -20,7 +20,7 @@ export const DeliveryItem: FC<DeliveryItemProps> = ({delivery}) => {
             <div>{delivery.name}</div>
             <div>{delivery.createdAt?.getDate()}</div>
             <div><BsFeather/></div>
-            <div onClick={()=>navigate(`/catalog/delivery/${delivery.id}`)}><BsFileText/></div>
+            <div onClick={()=>navigate(`/catalog/delivery/${delivery.id}`, {state:{param1:"hello", param2:"worm"}})}><BsFileText/></div>
             <div onClick={() => {
                 dispatch(deleteDelivery({id: delivery.id}))
             }}><BsTrash/></div>

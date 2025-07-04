@@ -14,6 +14,8 @@ export interface IRecordGroup {
     indexNum: string;
     templateNum: string;
     deleted: boolean;
+    parent?: IRecordGroup;
+    children?: IRecordGroup[];
     createdAt: Date;
     updatedAt: Date;
 }

@@ -6,7 +6,7 @@ import ua.pp.darknsoft.simpledoc.dto.AppUserDTO;
 import ua.pp.darknsoft.simpledoc.entities.security.AppUser;
 
 @Component
-public class AppUserDTOToAppUser implements Converter<AppUserDTO, AppUser> {
+public class AppUserDTOToAppUserConverter implements Converter<AppUserDTO, AppUser> {
 
     @Override
     public AppUser convert(AppUserDTO source) {

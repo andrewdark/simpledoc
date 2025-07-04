@@ -1,6 +1,5 @@
 package ua.pp.darknsoft.simpledoc.services;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -8,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.pp.darknsoft.simpledoc.converters.security.AppUserToAppUserDTO;
+import ua.pp.darknsoft.simpledoc.converters.security.AppUserToAppUserDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.AppUserDTO;
 import ua.pp.darknsoft.simpledoc.dto.AuthenticationRequestDTO;
 import ua.pp.darknsoft.simpledoc.dto.AuthenticationResponseDTO;
@@ -30,8 +29,8 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    private final AppUserToAppUserDTO toAppUserDTO;
-    public AuthServiceImpl(AppUserService appUserService, AppRefreshTokenService appRefreshTokenService, JwtUtils jwtUtils, AuthenticationManager authenticationManager, PasswordEncoder bCryptPasswordEncoder, AppUserToAppUserDTO toAppUserDTO) {
+    private final AppUserToAppUserDTOConverter toAppUserDTO;
+    public AuthServiceImpl(AppUserService appUserService, AppRefreshTokenService appRefreshTokenService, JwtUtils jwtUtils, AuthenticationManager authenticationManager, PasswordEncoder bCryptPasswordEncoder, AppUserToAppUserDTOConverter toAppUserDTO) {
         this.appUserService = appUserService;
         this.appRefreshTokenService = appRefreshTokenService;
         this.jwtUtils = jwtUtils;

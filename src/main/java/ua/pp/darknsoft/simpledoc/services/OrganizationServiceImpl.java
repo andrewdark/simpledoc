@@ -66,7 +66,11 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public Boolean isExist(OrganizationDTO organizationDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return organizationRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

@@ -9,7 +9,7 @@ import {PageBar} from "../../../../components/PageBar/PageBar";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
 import {DeliveryForm} from "../../../../components/catalog/delivery/DeliveryForm/DeliveryForm";
 
-export const DeliveryList = () => {
+export const Delivery = () => {
     const [modal, setModal] = useState<boolean>(false);
     const items = useAppSelector(state => state.deliveryReducer.items);
     const page = useAppSelector(state => state.deliveryReducer.page);

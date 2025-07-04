@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CitizenStatusServiceImpl implements CitizenStatusService{
+public class CitizenStatusServiceImpl implements CitizenStatusService {
 
     private final CitizenStatusRepository citizenStatusRepository;
 
@@ -66,7 +66,11 @@ public class CitizenStatusServiceImpl implements CitizenStatusService{
     }
 
     @Override
-    public Boolean isExist(CitizenStatusDTO citizenStatusDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return citizenStatusRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

@@ -63,7 +63,11 @@ public class ResolutionServiceImpl implements ResolutionService {
     }
 
     @Override
-    public Boolean isExist(ResolutionDTO resolutionDTO) throws AppException {
-        return null;
+    public Boolean isExistById(Long id) throws AppException {
+        try {
+            return resolutionRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }
