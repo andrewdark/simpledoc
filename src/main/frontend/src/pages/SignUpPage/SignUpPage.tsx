@@ -5,7 +5,7 @@ import {useAppDispatch} from "../../hooks/redux";
 import {register} from "../../redux/auth/operations";
 import {ISignUpRequest} from "../../models/auth/ISignUpRequest";
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
     const dispatch = useAppDispatch();
 
     const loginHandler = (credentials: ISignUpRequest) => {
@@ -24,3 +24,5 @@ export const SignUpPage = () => {
 
     );
 };
+
+export default SignUpPage;

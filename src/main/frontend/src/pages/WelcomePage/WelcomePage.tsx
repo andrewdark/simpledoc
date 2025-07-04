@@ -1,8 +1,9 @@
 import css from "./WelcomePage.module.css";
-export const WelcomePage = () => {
+
+const WelcomePage = () => {
 
     return (
-        <div className={css.WelcomePage}>
+        <div className={css.welcomePage}>
             <div className={"container"}>
                 <h1>HELLO WORM!</h1>
                 <p>This is a Welcome Page!!</p>
@@ -12,3 +13,5 @@ export const WelcomePage = () => {
 
     );
 };
+
+export default WelcomePage;

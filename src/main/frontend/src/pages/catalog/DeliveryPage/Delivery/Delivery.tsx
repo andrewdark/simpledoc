@@ -1,3 +1,4 @@
+import css from './Delivery.module.css';
 import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {useEffect, useState} from "react";
@@ -39,7 +40,7 @@ export const Delivery = () => {
         setModal(show);
     }
     return (
-        <div>
+        <div className={css.delivery}>
             <ModalFormContainer visible={modal} setVisible={manageModal}>
                 <DeliveryForm deliveryFormHandler={deliveryFormHandler}/>
             </ModalFormContainer>

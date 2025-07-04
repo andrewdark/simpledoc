@@ -1,4 +1,5 @@
 import React from "react";
+import css from './DeliveryId.module.css';
 import {useLocation, useParams} from "react-router-dom";
 
 interface DeliveryParams {
@@ -16,7 +17,7 @@ export const DeliveryId: React.FC = () => {
     const state = location.state as { param1?: string; param2?: string } | undefined;
 
     return (
-        <div>
+        <div className={css.deliveryId}>
             <h1>Delivery page ID: {deliveryId}</h1>
             <p>{state?state.param1:""}</p>
             <p>{state?state.param2:""}</p>
