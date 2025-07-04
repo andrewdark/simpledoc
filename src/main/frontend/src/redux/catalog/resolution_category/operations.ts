@@ -1,3 +1,11 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import {$api} from "../../../http";
 import {IResolutionCategory} from "../../../models/catalog/IResolutionCategory";
+import {SortOrder} from "../../../models/IPageable";
+
+interface ResolutionCategoryThunkPayload {
+    id?: number;
+    dto?: IResolutionCategory;
+    number?: number;
+    size?: number;
+    sort?:string;
+    order?:SortOrder;
+}

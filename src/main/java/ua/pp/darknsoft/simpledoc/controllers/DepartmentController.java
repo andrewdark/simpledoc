@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
+import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
 import ua.pp.darknsoft.simpledoc.services.DepartmentService;
 
 import java.util.Optional;
@@ -46,10 +47,22 @@ public class DepartmentController {
         return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping("/{id}/children")
+    public ResponseEntity<DepartmentDTO> getByIdWithChildren(@PathVariable Long id) {
+        Optional<DepartmentDTO> dto = departmentService.getByIdWithChildren(id);
+        return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @PostMapping
-    public ResponseEntity<DepartmentDTO> create(@RequestBody DepartmentDTO request) {
-        DepartmentDTO dto = departmentService.add(request);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<DepartmentDTO> addRoot(@RequestBody DepartmentDTO dto) {
+        dto.setParent(null);
+        DepartmentDTO departmentDTO = departmentService.add(dto);
+        return ResponseEntity.ok(departmentDTO);
+    }
+    @PostMapping("/{id}/children")
+    public ResponseEntity<DepartmentDTO> addChildren(@PathVariable Long id, @RequestBody DepartmentDTO dto) {
+        DepartmentDTO departmentDTO = departmentService.addChildren(id, dto);
+        return ResponseEntity.ok(departmentDTO);
     }
 
     @PutMapping("/{id}")

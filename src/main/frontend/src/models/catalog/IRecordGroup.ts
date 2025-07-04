@@ -16,6 +16,6 @@ export interface IRecordGroup {
     deleted: boolean;
     parent?: IRecordGroup;
     children?: IRecordGroup[];
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt?: string;
+    updatedAt?: string;
 }

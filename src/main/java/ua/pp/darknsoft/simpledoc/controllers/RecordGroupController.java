@@ -55,6 +55,7 @@ public class RecordGroupController {
 
     @PostMapping
     public ResponseEntity<RecordGroupDTO> addRoot(@RequestBody RecordGroupDTO dto) {
+        dto.setParent(null);
         RecordGroupDTO recordGroupDTO = recordGroupService.add(dto);
         return ResponseEntity.ok(recordGroupDTO);
     }

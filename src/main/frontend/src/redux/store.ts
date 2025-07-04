@@ -14,6 +14,7 @@ import {
     REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import {departmentReducer} from "./catalog/department/slice";
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
     key: 'accessTokenPersist',
@@ -24,6 +25,7 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
     userReducer,
     deliveryReducer,
+    departmentReducer,
     authReducer: persistReducer(authPersistConfig, authReducer),
 });
 const setupStore = () => {
