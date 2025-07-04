@@ -1,20 +1,25 @@
-import React, {FC} from "react";
+import React, {FC} from 'react';
+import {IRecordGroup, RecordGroupType} from "../../../../models/catalog/IRecordGroup";
 import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
-import {IDelivery} from "../../../../models/catalog/IDelivery";
 
-const initialValues: IDelivery = {
+const initialValues: IRecordGroup = {
     name: "",
-    deleted: false
+    node: true,
+    recordGroupType: RecordGroupType.NODE,
+    indexNum: "",
+    templateNum: "",
+    deleted: false,
 };
 
-interface DeliveryFormProps {
-    deliveryFormHandler: (delivery: IDelivery) => void;
+interface RecordGroupFormProps {
+    formHandler: (recordGroup: IRecordGroup) => void;
 }
 
-export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
+const RecordGroupForm: FC<RecordGroupFormProps> = (props) => {
+
     const handleSubmit = (values: any, actions: any) => {
-        props.deliveryFormHandler(values);
+        props.formHandler(values);
         actions.resetForm();
     };
 
@@ -30,3 +35,5 @@ export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
         </Formik>
     );
 };
+
+export default RecordGroupForm;

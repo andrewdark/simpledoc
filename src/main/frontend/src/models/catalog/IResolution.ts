@@ -1,3 +1,3 @@
 export interface IResolution {
-    "id": number;
+    "id"?: number;
 }

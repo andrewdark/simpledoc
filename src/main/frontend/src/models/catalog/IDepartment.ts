@@ -1,3 +1,3 @@
 export interface IDepartment {
-    "id": number;
+    "id"?: number;
 }

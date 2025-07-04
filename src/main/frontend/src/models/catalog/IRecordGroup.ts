@@ -7,15 +7,15 @@ export const RecordGroupType = {
 } as const;
 
 export interface IRecordGroup {
-    id: number;
+    id?: number;
     name: string;
     node: boolean;
-    recordGroupType: typeof RecordGroupType;
+    recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
     indexNum: string;
     templateNum: string;
     deleted: boolean;
     parent?: IRecordGroup;
     children?: IRecordGroup[];
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

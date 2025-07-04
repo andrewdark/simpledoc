@@ -1,3 +1,3 @@
 export interface ICitizenStatus {
-    "id": number;
+    "id"?: number;
 }

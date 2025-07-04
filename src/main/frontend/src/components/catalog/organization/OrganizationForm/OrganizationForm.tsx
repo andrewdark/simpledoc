@@ -1,20 +1,20 @@
-import React, {FC} from "react";
+import React, {FC} from 'react';
+import {IOrganization} from "../../../../models/catalog/IOrganization";
 import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
-import {IDelivery} from "../../../../models/catalog/IDelivery";
 
-const initialValues: IDelivery = {
-    name: "",
-    deleted: false
+const initialValues: IOrganization = {
+
 };
 
-interface DeliveryFormProps {
-    deliveryFormHandler: (delivery: IDelivery) => void;
+interface OrganizationFormProps {
+    formHandler: (organization: IOrganization) => void;
 }
 
-export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
+const OrganizationForm: FC<OrganizationFormProps> = (props) => {
+
     const handleSubmit = (values: any, actions: any) => {
-        props.deliveryFormHandler(values);
+        props.formHandler(values);
         actions.resetForm();
     };
 
@@ -30,3 +30,5 @@ export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
         </Formik>
     );
 };
+
+export default OrganizationForm;

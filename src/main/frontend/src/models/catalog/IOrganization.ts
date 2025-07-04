@@ -1,3 +1,3 @@
 export interface IOrganization {
-    "id": number;
+    "id"?: number;
 }

@@ -1,3 +1,3 @@
 export interface ICitizenCategory {
-    "id": number;
+    "id"?: number;
 }

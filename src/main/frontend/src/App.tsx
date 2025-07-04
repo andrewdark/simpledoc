@@ -11,13 +11,7 @@ import {useAppDispatch} from "./hooks/redux";
 import {refreshUser} from "./redux/auth/operations";
 import {myInter} from "./http";
 import {store} from "./redux/store";
-import CatalogPage from "./pages/CatalogPage/CatalogPage";
-import ReportPage from "./pages/ReportPage/ReportPage";
-import SearchEnginePage from "./pages/SearchEnginePage/SearchEnginePage";
-import HelpPage from "./pages/HelpPage/HelpPage";
 import {AccessRoute} from "./hoc/AccessRoute/AccessRoute";
-import UserManagerPage from "./pages/UserManagerPage/UserManagerPage";
-import {Role} from "./models/IUser";
 import {routes} from "./router";
 
 function App() {
@@ -37,9 +31,11 @@ function App() {
                     <RestrictedRoute redirectTo="/" component={<SignUpPage/>}/>}/>
 
                 {/*ROUT LIST*/}
-                {routes.map(route=> <Route path={route.path} element={
-                    <AccessRoute allowedRoles={route.allowedRoles} redirectToAuthentication={route.redirectToAuthentication}
-                                 redirectToAuthorization={route.redirectToAuthorization} component={< route.component />}/>}/>)}
+                {routes.map(route => <Route path={route.path} element={
+                    <AccessRoute allowedRoles={route.allowedRoles}
+                                 redirectToAuthentication={route.redirectToAuthentication}
+                                 redirectToAuthorization={route.redirectToAuthorization}
+                                 component={< route.component/>}/>}/>)}
                 {/*ROUT LIST*/}
 
                 <Route path={`/access-deny`} element={<ExceptionPage message="403 - Forbidden"/>}/>

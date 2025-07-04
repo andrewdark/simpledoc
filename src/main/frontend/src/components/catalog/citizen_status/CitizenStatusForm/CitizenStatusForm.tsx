@@ -1,20 +1,20 @@
-import React, {FC} from "react";
+import React, {FC} from 'react';
+import {ICitizenStatus} from "../../../../models/catalog/ICitizenStatus";
 import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
-import {IDelivery} from "../../../../models/catalog/IDelivery";
 
-const initialValues: IDelivery = {
-    name: "",
-    deleted: false
+const initialValues: ICitizenStatus = {
+
 };
 
-interface DeliveryFormProps {
-    deliveryFormHandler: (delivery: IDelivery) => void;
+interface CitizenStatusFormProps {
+    formHandler: (citizenStatus: ICitizenStatus) => void;
 }
 
-export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
+const CitizenStatusForm: FC<CitizenStatusFormProps> = (props) => {
+
     const handleSubmit = (values: any, actions: any) => {
-        props.deliveryFormHandler(values);
+        props.formHandler(values);
         actions.resetForm();
     };
 
@@ -30,3 +30,5 @@ export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
         </Formik>
     );
 };
+
+export default CitizenStatusForm;

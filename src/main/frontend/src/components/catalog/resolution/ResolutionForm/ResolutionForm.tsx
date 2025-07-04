@@ -1,20 +1,20 @@
-import React, {FC} from "react";
+import React, {FC} from 'react';
+import {IResolution} from "../../../../models/catalog/IResolution";
 import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
-import {IDelivery} from "../../../../models/catalog/IDelivery";
 
-const initialValues: IDelivery = {
-    name: "",
-    deleted: false
+const initialValues: IResolution = {
+
 };
 
-interface DeliveryFormProps {
-    deliveryFormHandler: (delivery: IDelivery) => void;
+interface ResolutionFormProps {
+    formHandler: (resolution: IResolution) => void;
 }
 
-export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
+const ResolutionForm: FC<ResolutionFormProps> = (props) => {
+
     const handleSubmit = (values: any, actions: any) => {
-        props.deliveryFormHandler(values);
+        props.formHandler(values);
         actions.resetForm();
     };
 
@@ -30,3 +30,5 @@ export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
         </Formik>
     );
 };
+
+export default ResolutionForm;
