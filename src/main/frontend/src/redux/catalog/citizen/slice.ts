@@ -1,16 +1,17 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {ICitizen} from "../../../models/catalog/ICitizen";
+import {createCitizen, deleteCitizen, getAllCitizen, getCitizenById, updateCitizen} from "./operations";
 
 interface CitizenState {
-    citizens: ICitizen[];
+    items: ICitizen[];
     page: IPage;
     isLoading: boolean;
     error: string;
 }
 
 const initialState: CitizenState = {
-    citizens: [],
+    items: [],
     page: {
         "size": 10,
         "number": 0,
@@ -20,3 +21,80 @@ const initialState: CitizenState = {
     isLoading: false,
     error: "",
 }
+
+const handlePending = (state: CitizenState) => {
+    state.isLoading = true;
+};
+const handleRejected = (state: CitizenState, action: any) => {
+    state.isLoading = false;
+    state.error = action.payload;
+};
+
+export const citizenSlice = createSlice({
+    name: "citizen",
+    initialState,
+    reducers: {},
+    extraReducers: (builder: ActionReducerMapBuilder<CitizenState>) => {
+
+        builder
+            //createCitizen
+            .addCase(createCitizen.pending, handlePending)
+            .addCase(createCitizen.rejected, handleRejected)
+            .addCase(createCitizen.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = "";
+                state.items.push(action.payload);
+            })
+            //updateCitizen
+            .addCase(updateCitizen.pending, handlePending)
+            .addCase(updateCitizen.rejected, handleRejected)
+            .addCase(updateCitizen.fulfilled, (state, action) => {
+                state.isLoading = false;
+                for (const item of state.items) {
+                    if (item.id === action.payload.id) {
+                        item.id = action.payload.id;
+
+                        break;
+                    }
+                }
+            })
+            //deleteCitizen
+            .addCase(deleteCitizen.pending, handlePending)
+            .addCase(deleteCitizen.rejected, handleRejected)
+            .addCase(deleteCitizen.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = "";
+                const index = state.items.findIndex(
+                    (item) => item.id === action.payload
+                );
+                state.items.splice(index, 1);
+            })
+            //getAllCitizen
+            .addCase(getAllCitizen.pending, handlePending)
+            .addCase(getAllCitizen.rejected, handleRejected)
+            .addCase(getAllCitizen.fulfilled, (state: CitizenState, action: PayloadAction<IPageable<ICitizen>>) => {
+                state.isLoading = false;
+                state.error = '';
+                state.items = action.payload.content;
+                state.page = action.payload.page;
+            })
+            //getCitizenById
+            .addCase(getCitizenById.pending, handlePending)
+            .addCase(getCitizenById.rejected, handleRejected)
+            .addCase(getCitizenById.fulfilled, (state: CitizenState, action: PayloadAction<ICitizen>) => {
+                state.isLoading = false;
+                state.error = '';
+                state.items = [];
+                state.page = {
+                    "size": 1,
+                    "number": 0,
+                    "totalElements": 0,
+                    "totalPages": 0
+                }
+                state.items.push(action.payload);
+            })
+    }
+});
+
+
+export const citizenReducer = citizenSlice.reducer;

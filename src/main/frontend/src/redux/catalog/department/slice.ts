@@ -1,7 +1,7 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {IDepartment} from "../../../models/catalog/IDepartment";
-import {createDepartment, deleteDepartment, getAllDepartment, getDepartmentById, updateDepartment} from "../department/operations";
+import {createDepartment, deleteDepartment, getAllDepartment, getDepartmentById, updateDepartment} from "./operations";
 
 interface DepartmentState {
     items: IDepartment[];

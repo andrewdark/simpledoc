@@ -15,6 +15,13 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {departmentReducer} from "./catalog/department/slice";
+import {citizenStatusReducer} from "./catalog/citizen_status/slice";
+import {resolutionCategoryReducer} from "./catalog/resolution_category/slice";
+import {citizenCategoryReducer} from "./catalog/citizen_category/slice";
+import {rubricReducer} from "./catalog/rubric/slice";
+import {citizenReducer} from "./catalog/citizen/slice";
+import {recordGroupReducer} from "./catalog/record_group/slice";
+import {organizationReducer} from "./catalog/organization/slice";
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
     key: 'accessTokenPersist',
@@ -24,8 +31,15 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
     userReducer,
-    deliveryReducer,
+    recordGroupReducer,
     departmentReducer,
+    organizationReducer,
+    citizenReducer,
+    deliveryReducer,
+    rubricReducer,
+    citizenStatusReducer,
+    citizenCategoryReducer,
+    resolutionCategoryReducer,
     authReducer: persistReducer(authPersistConfig, authReducer),
 });
 const setupStore = () => {

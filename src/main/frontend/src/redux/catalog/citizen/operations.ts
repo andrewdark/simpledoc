@@ -1,7 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {$api} from "../../../http";
 import {ICitizen} from "../../../models/catalog/ICitizen";
-import {IDepartment} from "../../../models/catalog/IDepartment";
 import {SortOrder} from "../../../models/IPageable";
 
 interface CitizenThunkPayload {

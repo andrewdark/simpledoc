@@ -1,14 +1,19 @@
 import {Role} from "../models/IUser";
 import {Delivery} from "../pages/catalog/DeliveryPage/Delivery/Delivery";
 import {DeliveryId} from "../pages/catalog/DeliveryPage/DeliveryId/DeliveryId";
+
 import Department from "../pages/catalog/DepartmentPage/Department/Department";
 import DepartmentId from "../pages/catalog/DepartmentPage/DepartmentId/DepartmentId";
+
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 import CatalogPage from "../pages/CatalogPage/CatalogPage";
+
 import ReportPage from "../pages/ReportPage/ReportPage";
 import SearchEnginePage from "../pages/SearchEnginePage/SearchEnginePage";
+
 import HelpPage from "../pages/HelpPage/HelpPage";
 import UserManagerPage from "../pages/UserManagerPage/UserManagerPage";
+
 
 
 export const routes = [
