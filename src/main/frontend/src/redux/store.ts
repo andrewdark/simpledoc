@@ -22,6 +22,7 @@ import {rubricReducer} from "./catalog/rubric/slice";
 import {citizenReducer} from "./catalog/citizen/slice";
 import {recordGroupReducer} from "./catalog/record_group/slice";
 import {organizationReducer} from "./catalog/organization/slice";
+import {modalReducer} from "./modal/slice";
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
     key: 'accessTokenPersist',
@@ -30,6 +31,7 @@ const authPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+    modalReducer,
     userReducer,
     recordGroupReducer,
     departmentReducer,

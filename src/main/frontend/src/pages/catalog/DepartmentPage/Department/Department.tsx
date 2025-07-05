@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import css from "./Department.module.css";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
 import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
@@ -8,11 +8,10 @@ import {IDepartment} from "../../../../models/catalog/IDepartment";
 import DepartmentForm from "../../../../components/catalog/department/DepartmentForm/DepartmentForm";
 import DepartmentItem from "../../../../components/catalog/department/DepartmentItem/DepartmentItem";
 import {PageBar} from "../../../../components/PageBar/PageBar";
-import {getAllDelivery} from "../../../../redux/catalog/delivery/operations";
 import {createDepartment, getAllDepartment} from "../../../../redux/catalog/department/operations";
+import {setModal} from "../../../../redux/modal/slice";
 
 const Department = () => {
-    const [modal, setModal] = useState<boolean>(false);
     const items = useAppSelector(state => state.departmentReducer.items);
     const page = useAppSelector(state => state.departmentReducer.page);
     const dispatch = useAppDispatch();
@@ -26,7 +25,7 @@ const Department = () => {
 
     const formHandler = (department: IDepartment) => {
         dispatch(createDepartment({dto: department}));
-        setModal(false);
+        dispatch(setModal(false));
     }
     const clickPage = (currentPage: number) => {
         if (currentPage >= 0 && currentPage < page.totalPages) {
@@ -35,10 +34,10 @@ const Department = () => {
     }
     return (
         <div className={css.department}>
-            <ModalFormContainer visible={modal} setVisible={setModal}>
+            <ModalFormContainer>
                 <DepartmentForm formHandler={formHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true} setVisible={setModal}/>
+            <NavBar navLinks={navLinks} isAddButton={true}/>
             <List items={items} renderItems={(item: IDepartment) => <DepartmentItem department={item}/>}></List>
             <PageBar page={page} clickPage={clickPage}/>
         </div>

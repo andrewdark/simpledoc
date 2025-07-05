@@ -10,8 +10,7 @@ const CatalogPage = () => {
     const navLinks: navLinks[] = [{link: "/", title: "Головна"}, {link: "/catalog", title: "Довідники"}];
     return (
         <div className={css.catalogPage}>
-            <NavBar navLinks={navLinks} isAddButton={false} setVisible={() => {
-            }}/>
+            <NavBar navLinks={navLinks} isAddButton={false}/>
             <List items={catalogList} renderItems={(catalog: ICatalog) => <CatalogItem catalog={catalog}/>}/>
         </div>
     );

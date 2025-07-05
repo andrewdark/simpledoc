@@ -1,7 +1,7 @@
 import css from './Delivery.module.css';
 import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {createDelivery, getAllDelivery} from "../../../../redux/catalog/delivery/operations";
 import {IDelivery} from "../../../../models/catalog/IDelivery";
 import {DeliveryItem} from "../../../../components/catalog/delivery/DeliveryItem/DeliveryItem";
@@ -9,9 +9,9 @@ import List from "../../../../components/List/List";
 import {PageBar} from "../../../../components/PageBar/PageBar";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
 import {DeliveryForm} from "../../../../components/catalog/delivery/DeliveryForm/DeliveryForm";
+import {setModal} from "../../../../redux/modal/slice";
 
 const Delivery = () => {
-    const [modal, setModal] = useState<boolean>(false);
     const items = useAppSelector(state => state.deliveryReducer.items);
     const page = useAppSelector(state => state.deliveryReducer.page);
     const navLinks: navLinks[] = [{link: "/", title: "Головна"}, {
@@ -31,20 +31,17 @@ const Delivery = () => {
         }
     }
 
-    const deliveryFormHandler = (delivery:IDelivery) => {
-        dispatch(createDelivery({dto:delivery}));
-        manageModal(false);
+    const deliveryFormHandler = (delivery: IDelivery) => {
+        dispatch(createDelivery({dto: delivery}));
+        dispatch(setModal(false));
     }
 
-    const manageModal = (show:boolean)=>{
-        setModal(show);
-    }
     return (
         <div className={css.delivery}>
-            <ModalFormContainer visible={modal} setVisible={manageModal}>
+            <ModalFormContainer>
                 <DeliveryForm deliveryFormHandler={deliveryFormHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true} setVisible={manageModal} />
+            <NavBar navLinks={navLinks} isAddButton={true}/>
             <List items={items} renderItems={(item: IDelivery) => <DeliveryItem delivery={item}/>}></List>
             <PageBar page={page} clickPage={clickPage}/>
         </div>

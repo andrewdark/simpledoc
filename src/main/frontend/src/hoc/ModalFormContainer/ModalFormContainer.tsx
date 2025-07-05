@@ -1,20 +1,27 @@
 import React, {FC} from 'react';
 import css from './ModalFormContainer.module.css';
-interface ModalFormContainerProps{
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {setModal} from "../../redux/modal/slice";
+
+interface ModalFormContainerProps {
     children: React.ReactNode;
-    visible:boolean;
-    setVisible :(modal:boolean)=>void
 }
 
-const ModalFormContainer:FC<ModalFormContainerProps> = ({children, visible, setVisible}) => {
+const ModalFormContainer: FC<ModalFormContainerProps> = ({children}) => {
+    const dispatch = useAppDispatch();
+    const isVisible: boolean = useAppSelector(state => state.modalReducer.visible);
     const rootCssClasses = [css.myModal];
-    if(visible){
+    if (isVisible) {
         rootCssClasses.push(css.active);
     }
 
     return (
-        <div className={rootCssClasses.join(' ')} onClick={()=>{setVisible(false)}}>
-            <div className={css.myModalContent} onClick={e=>{e.stopPropagation()}}>
+        <div className={rootCssClasses.join(' ')} onClick={() => {
+            dispatch(setModal(false));
+        }}>
+            <div className={css.myModalContent} onClick={e => {
+                e.stopPropagation();
+            }}>
                 {children}
             </div>
         </div>
