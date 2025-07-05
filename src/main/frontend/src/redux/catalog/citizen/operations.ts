@@ -82,7 +82,7 @@ export const getCitizenById = createAsyncThunk(
  */
 export const getAllCitizen = createAsyncThunk(
     "citizen/getAllCitizen",
-    async (_, thunkAPI) => {
+    async (payload:CitizenThunkPayload, thunkAPI) => {
         try {
             const res = await $api.get(`/citizen`);
             return res.data;

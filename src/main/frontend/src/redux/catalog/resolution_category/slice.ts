@@ -75,8 +75,8 @@ export const resolutionCategorySlice = createSlice({
             .addCase(getAllResolutionCategory.fulfilled, (state: ResolutionCategoryState, action: PayloadAction<IPageable<IResolutionCategory>>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = action.payload.content;
-                state.page = action.payload.page;
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
             })
             //getResolutionCategoryById
             .addCase(getResolutionCategoryById.pending, handlePending)

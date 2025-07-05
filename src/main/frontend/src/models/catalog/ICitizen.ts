@@ -1,3 +1,3 @@
 export interface ICitizen {
-    "id"?: number;
+    id?: number;
 }

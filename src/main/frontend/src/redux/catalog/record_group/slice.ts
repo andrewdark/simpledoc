@@ -80,8 +80,8 @@ export const recordGroupSlice = createSlice({
             .addCase(getAllRecordGroup.fulfilled, (state: RecordGroupState, action: PayloadAction<IPageable<IRecordGroup>>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = action.payload.content;
-                state.page = action.payload.page;
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
             })
             //getRecordGroupById
             .addCase(getRecordGroupById.pending, handlePending)

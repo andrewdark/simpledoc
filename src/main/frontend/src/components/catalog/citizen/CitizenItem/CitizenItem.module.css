@@ -1,0 +1,9 @@
+.citizenItem {
+
+}
+
+.itemNavigation {
+    width: 64px;
+    display: flex;
+    justify-content: space-between;
+}

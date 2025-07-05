@@ -75,8 +75,8 @@ export const rubricSlice = createSlice({
             .addCase(getAllRubric.fulfilled, (state: RubricState, action: PayloadAction<IPageable<IRubric>>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = action.payload.content;
-                state.page = action.payload.page;
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
             })
             //getRubricById
             .addCase(getRubricById.pending, handlePending)

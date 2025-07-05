@@ -75,8 +75,8 @@ export const citizenStatusSlice = createSlice({
             .addCase(getAllCitizenStatus.fulfilled, (state: CitizenStatusState, action: PayloadAction<IPageable<ICitizenStatus>>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = action.payload.content;
-                state.page = action.payload.page;
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
             })
             //getCitizenStatusById
             .addCase(getCitizenStatusById.pending, handlePending)
