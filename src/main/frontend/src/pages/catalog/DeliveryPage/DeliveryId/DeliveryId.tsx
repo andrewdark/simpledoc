@@ -7,7 +7,7 @@ interface DeliveryParams {
     [key: string]: string | undefined; // Индексная сигнатура: любой другой строковый ключ имеет тип string | undefined
 }
 
-export const DeliveryId: React.FC = () => {
+const DeliveryId: React.FC = () => {
     // Получаем параметры из URL
     const { id } = useParams<DeliveryParams>();
 
@@ -25,3 +25,5 @@ export const DeliveryId: React.FC = () => {
         </div>
     );
 };
+
+export default DeliveryId;
