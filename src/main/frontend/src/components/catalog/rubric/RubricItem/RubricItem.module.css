@@ -1,3 +1,15 @@
-.rubricItem{
+.rubricItem {
+    display: flex;
+    padding: 4px 8px;
+    justify-content: space-between;
+    background-color: #fff;
+    border-color: #dee2e6;
+    border-style: solid;
+    border-radius: 8px;
+}
 
+.itemNavigation {
+    width: 64px;
+    display: flex;
+    justify-content: space-between;
 }

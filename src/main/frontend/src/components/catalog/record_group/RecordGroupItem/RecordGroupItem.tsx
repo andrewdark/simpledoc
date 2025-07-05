@@ -1,19 +1,24 @@
-import React, {FC} from "react";
-import {IDelivery} from "../../../../models/catalog/IDelivery";
-import css from "./DeliveryItem.module.css";
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
+import {FC} from "react";
+import {IRecordGroup} from "../../../../models/catalog/IRecordGroup";
+import css from './RecordGroupItem.module.css';
 
-interface DeliveryItemProps {
-    item: IDelivery,
+interface RecordGroupItemProps {
+    item: IRecordGroup,
     readItemHandler: (id: number) => void;
     updateItemHandler: (id: number) => void;
     deleteItemHandler: (id: number) => void;
 }
 
-export const DeliveryItem: FC<DeliveryItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
+export const RecordGroupItem: FC<RecordGroupItemProps> = ({
+                                                              item,
+                                                              readItemHandler,
+                                                              updateItemHandler,
+                                                              deleteItemHandler
+                                                          }) => {
 
     return (
-        <div key={item.id} className={css.deliveryItem}>
+        <div key={item.id} className={css.RecordGroupItem}>
             <div>{item.id}</div>
             <div>{item.name}</div>
             <div>{item.createdAt}</div>

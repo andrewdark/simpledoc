@@ -1,20 +1,21 @@
-import React, {FC} from 'react';
-import {ICitizen} from "../../../../models/catalog/ICitizen";
-import css from "./CitizenItem.module.css";
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
+import {FC} from "react";
+import {IResolutionCategory} from "../../../../models/catalog/IResolutionCategory";
+import css from './ResolutionCategoryItem.module.css';
 
-interface CitizenItemProps {
-    item: ICitizen;
+interface ResolutionCategoryItemProps {
+    item: IResolutionCategory,
     readItemHandler: (id: number) => void;
     updateItemHandler: (id: number) => void;
     deleteItemHandler: (id: number) => void;
-
 }
 
-export const CitizenItem: FC<CitizenItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
+export const ResolutionCategoryItem: FC<ResolutionCategoryItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
+
     return (
-        <div key={item.id} className={css.citizenItem}>
+        <div key={item.id} className={css.ResolutionCategoryItem}>
             <div>{item.id}</div>
+            
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)
@@ -24,7 +25,6 @@ export const CitizenItem: FC<CitizenItemProps> = ({item, readItemHandler, update
                 }}><BsFeather/></div>
                 <div onClick={() => deleteItemHandler(item.id ? item.id : 0)}><BsTrash/></div>
             </div>
-
         </div>
     );
 };

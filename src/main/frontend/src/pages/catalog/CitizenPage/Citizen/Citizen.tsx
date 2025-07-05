@@ -53,7 +53,7 @@ const Citizen = () => {
             </ModalFormContainer>
             <NavBar navLinks={navLinks} isAddButton={true}/>
             <List items={items}
-                  renderItems={(item: ICitizen) => <CitizenItem citizen={item} readItemHandler={readItemHandler}
+                  renderItems={(item: ICitizen) => <CitizenItem item={item} readItemHandler={readItemHandler}
                                                                 updateItemHandler={updateItemHandler}
                                                                 deleteItemHandler={deleteItemHandler}/>}></List>
             <PageBar page={page} clickPage={pageSelectionHandler}/>

@@ -1,8 +1,40 @@
-.departmentItem{
+.departmentItem {
     display: flex;
-    justify-content: space-around;
+    padding: 4px 8px;
+    justify-content: space-between;
     background-color: #fff;
     border-color: #dee2e6;
     border-style: solid;
     border-radius: 8px;
+}
+
+.itemNavigation {
+    width: 64px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.createdAt{
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    .createdAt{
+        display: block;
+        white-space: nowrap; /* Запрещает перенос текста на новую строку */
+        overflow: hidden; /* Скрывает текст, который выходит за пределы контейнера */
+        text-overflow: ellipsis; /* Добавляет многоточие в конце обрезанного текста */
+        width: 11ch; /* Задает ширину контейнера, достаточную для 10 символов */
+
+    }
+}
+@media only screen and (min-width: 1440px) {
+    .createdAt{
+        display: block;
+        white-space: nowrap; /* Запрещает перенос текста на новую строку */
+        overflow: hidden; /* Скрывает текст, который выходит за пределы контейнера */
+        text-overflow: ellipsis; /* Добавляет многоточие в конце обрезанного текста */
+        width: 19ch; /* Задает ширину контейнера, достаточную для 10 символов */
+
+    }
 }

@@ -1,5 +1,4 @@
-.citizenItem {
-    display: flex;
+.resolutionCategoryItem{    display: flex;
     padding: 4px 8px;
     justify-content: space-between;
     background-color: #fff;
@@ -8,7 +7,7 @@
     border-radius: 8px;
 }
 
-.itemNavigation {
+.itemNavigation{
     width: 64px;
     display: flex;
     justify-content: space-between;

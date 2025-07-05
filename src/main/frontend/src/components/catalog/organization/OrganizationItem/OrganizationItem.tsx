@@ -1,20 +1,21 @@
-import React, {FC} from 'react';
-import {ICitizen} from "../../../../models/catalog/ICitizen";
-import css from "./CitizenItem.module.css";
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
+import {IOrganization} from "../../../../models/catalog/IOrganization";
+import {FC} from "react";
+import css from './OrganizationItem.module.css';
 
-interface CitizenItemProps {
-    item: ICitizen;
+interface OrganizationItemProps {
+    item: IOrganization,
     readItemHandler: (id: number) => void;
     updateItemHandler: (id: number) => void;
     deleteItemHandler: (id: number) => void;
-
 }
 
-export const CitizenItem: FC<CitizenItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
+export const OrganizationItem: FC<OrganizationItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
+
     return (
-        <div key={item.id} className={css.citizenItem}>
+        <div key={item.id} className={css.OrganizationItem}>
             <div>{item.id}</div>
+
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)
@@ -24,7 +25,6 @@ export const CitizenItem: FC<CitizenItemProps> = ({item, readItemHandler, update
                 }}><BsFeather/></div>
                 <div onClick={() => deleteItemHandler(item.id ? item.id : 0)}><BsTrash/></div>
             </div>
-
         </div>
     );
 };
