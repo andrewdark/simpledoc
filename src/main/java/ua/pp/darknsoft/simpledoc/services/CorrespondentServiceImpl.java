@@ -68,13 +68,21 @@ public class CorrespondentServiceImpl implements CorrespondentService {
     }
 
     @Override
-    public Optional<CorrespondentDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<CorrespondentDTO> getById(Long id) throws AppException {
+        try {
+            return correspondentRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<CorrespondentDTO> findAll(Pageable pageable) throws AppException {
-        return null;
+        try {
+            return correspondentRepository.findAll(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

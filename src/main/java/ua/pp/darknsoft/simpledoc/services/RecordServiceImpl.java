@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class RecordServiceImpl implements RecordService{
+public class RecordServiceImpl implements RecordService {
 
     private final RecordRepository recordRepository;
     private final RecordGroupService recordGroupService;
@@ -33,7 +33,7 @@ public class RecordServiceImpl implements RecordService{
     public RecordDTO add(RecordDTO recordDTO) throws AppException {
         try {
             Record newEntity = toEntityConverter.convert(recordDTO);
-            if(Objects.isNull(newEntity)) return null;
+            if (Objects.isNull(newEntity)) return null;
             newEntity.setId(null);
 
             RecordGroup recordGroup = recordGroupService.getReference(newEntity.getRecordGroup().getId());
@@ -77,8 +77,12 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
-    public Optional<RecordDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<RecordDTO> getById(Long id) throws AppException {
+        try {
+            return recordRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

@@ -69,13 +69,21 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
     }
 
     @Override
-    public Optional<ResolutionCategoryDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<ResolutionCategoryDTO> getById(Long id) throws AppException {
+        try {
+            return resolutionCategoryRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<ResolutionCategoryDTO> findAll(Pageable pageable) throws AppException {
-        return null;
+        try {
+            return resolutionCategoryRepository.findAll(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

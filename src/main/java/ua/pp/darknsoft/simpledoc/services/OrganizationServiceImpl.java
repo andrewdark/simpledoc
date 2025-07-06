@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationDTOToOrganizationConverter;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationToOrganizationDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
-import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.OrganizationRepository;
@@ -19,7 +18,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class OrganizationServiceImpl implements OrganizationService{
+public class OrganizationServiceImpl implements OrganizationService {
 
     private final OrganizationRepository organizationRepository;
     private final OrganizationToOrganizationDTOConverter toDTOConverter;
@@ -69,13 +68,21 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public Optional<OrganizationDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<OrganizationDTO> getById(Long id) throws AppException {
+        try {
+            return organizationRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<OrganizationDTO> findAll(Pageable pageable) throws AppException {
-        return null;
+        try {
+            return organizationRepository.findAll(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

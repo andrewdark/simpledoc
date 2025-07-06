@@ -9,7 +9,6 @@ import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryDTOToCitizenC
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryToCitizenCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenCategoryDTO;
 import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
-import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenCategoryRepository;
 
@@ -69,13 +68,21 @@ public class CitizenCategoryServiceImpl implements CitizenCategoryService {
     }
 
     @Override
-    public Optional<CitizenCategoryDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<CitizenCategoryDTO> getById(Long id) throws AppException {
+        try {
+            return citizenCategoryRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<CitizenCategoryDTO> findAll(Pageable pageable) throws AppException {
-        return null;
+        try {
+            return citizenCategoryRepository.findAll(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

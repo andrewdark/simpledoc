@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricDTOToRubricConverter;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricToRubricDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RubricDTO;
-import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Rubric;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RubricRepository;
@@ -69,13 +68,21 @@ public class RubricServiceImpl implements RubricService {
     }
 
     @Override
-    public Optional<RubricDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<RubricDTO> getById(Long id) throws AppException {
+        try {
+            return rubricRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<RubricDTO> findAll(Pageable pageable) throws AppException {
-        return null;
+        try {
+            return rubricRepository.findAll(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

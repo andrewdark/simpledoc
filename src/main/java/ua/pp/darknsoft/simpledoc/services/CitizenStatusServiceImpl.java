@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusDTOToCitizenStatusConverter;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusToCitizenStatusDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenStatusDTO;
-import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
 import ua.pp.darknsoft.simpledoc.entities.CitizenStatus;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenStatusRepository;
@@ -24,6 +23,7 @@ public class CitizenStatusServiceImpl implements CitizenStatusService {
     private final CitizenStatusRepository citizenStatusRepository;
     private final CitizenStatusToCitizenStatusDTOConverter toDTOConverter;
     private final CitizenStatusDTOToCitizenStatusConverter toEntityConverter;
+
     @Override
     @Transactional
     public CitizenStatusDTO add(CitizenStatusDTO citizenStatusDTO) throws AppException {
@@ -68,13 +68,21 @@ public class CitizenStatusServiceImpl implements CitizenStatusService {
     }
 
     @Override
-    public Optional<CitizenStatusDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<CitizenStatusDTO> getById(Long id) throws AppException {
+        try {
+            return citizenStatusRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<CitizenStatusDTO> findAll(Pageable pageable) throws AppException {
-        return null;
+        try {
+            return citizenStatusRepository.findAll(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

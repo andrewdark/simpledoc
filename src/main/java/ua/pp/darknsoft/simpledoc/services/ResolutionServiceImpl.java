@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionDTOToResolutionConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionToResolutionDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
-import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Resolution;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionRepository;
@@ -62,14 +61,18 @@ public class ResolutionServiceImpl implements ResolutionService {
     }
 
     @Override
-    public Optional<ResolutionDTO> getById(Long aLong) throws AppException {
-        return Optional.empty();
+    public Optional<ResolutionDTO> getById(Long id) throws AppException {
+        try {
+            return resolutionRepository.findById(id).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
     public Page<ResolutionDTO> findAll(Pageable pageable) throws AppException {
         try {
-            return null; //resolutionRepository.findAll(pageable).map(toDTOConverter::convert);
+            return resolutionRepository.findAll(pageable).map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }
