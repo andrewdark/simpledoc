@@ -28,11 +28,15 @@ public class Organization implements Serializable {
     )
     private Long id;
 
-    /** Название организации */
+    /**
+     * Название организации
+     */
     @Column(name = "name")
     private String name;
 
-    /** Код ЕДРПОУ или ОКПО */
+    /**
+     * Код ЕДРПОУ или ОКПО
+     */
     @Column(name = "code")
     private String code;
 
@@ -40,7 +44,7 @@ public class Organization implements Serializable {
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */
     @Column(name = "deleted")
-    private boolean deleted;
+    private Boolean deleted;
 
     @Version
     private Long version;

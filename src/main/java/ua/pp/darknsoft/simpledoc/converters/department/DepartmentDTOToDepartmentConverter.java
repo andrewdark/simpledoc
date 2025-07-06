@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.converters.security.AppUserDTOToAppUserConverter;
-import ua.pp.darknsoft.simpledoc.converters.security.AppUserToAppUserDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Department;
 

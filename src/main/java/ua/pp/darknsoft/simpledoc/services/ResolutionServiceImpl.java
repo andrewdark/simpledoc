@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionDTOToResolutionConverter;
+import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionToResolutionDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionRepository;
@@ -17,6 +19,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ResolutionServiceImpl implements ResolutionService {
     private final ResolutionRepository resolutionRepository;
+    private final ResolutionToResolutionDTOConverter toDTOConverter;
+    private final ResolutionDTOToResolutionConverter toEntityConverter;
 
     @Override
     public ResolutionDTO add(ResolutionDTO resolutionDTO) throws AppException {

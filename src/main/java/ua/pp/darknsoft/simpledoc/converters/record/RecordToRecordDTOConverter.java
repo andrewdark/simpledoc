@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupToRecordGroupDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
-import ua.pp.darknsoft.simpledoc.entities.records.*;
+import ua.pp.darknsoft.simpledoc.entities.records.CitizensRecord;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
 
 @Component

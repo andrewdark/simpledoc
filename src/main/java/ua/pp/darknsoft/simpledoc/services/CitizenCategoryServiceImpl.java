@@ -5,7 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryDTOToCitizenCategoryConverter;
+import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryToCitizenCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenCategoryDTO;
+import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
+import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenCategoryRepository;
 
@@ -15,14 +19,23 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CitizenCategoryServiceImpl implements CitizenCategoryService{
+public class CitizenCategoryServiceImpl implements CitizenCategoryService {
 
     private final CitizenCategoryRepository citizenCategoryRepository;
+    private final CitizenCategoryToCitizenCategoryDTOConverter toDTOConverter;
+    private final CitizenCategoryDTOToCitizenCategoryConverter toEntityConverter;
 
     @Override
     @Transactional
     public CitizenCategoryDTO add(CitizenCategoryDTO citizenCategoryDTO) throws AppException {
-        return null;
+        try {
+            citizenCategoryDTO.setId(null);
+
+            CitizenCategory CitizenCategory = toEntityConverter.convert(citizenCategoryDTO);
+            return toDTOConverter.convert(citizenCategoryRepository.save(CitizenCategory));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

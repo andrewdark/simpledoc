@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryDTOToResolutionCategoryConverter;
+import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryToResolutionCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionCategoryDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionCategoryRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
 
     private final ResolutionCategoryRepository resolutionCategoryRepository;
+    private final ResolutionCategoryToResolutionCategoryDTOConverter toDTOConverter;
+    private final ResolutionCategoryDTOToResolutionCategoryConverter toEntityConverter;
 
     @Override
     @Transactional

@@ -9,10 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.department.DepartmentDTOToDepartmentConverter;
 import ua.pp.darknsoft.simpledoc.converters.department.DepartmentToDepartmentDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
-import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
 import ua.pp.darknsoft.simpledoc.entities.Department;
-import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
-import ua.pp.darknsoft.simpledoc.entities.security.AppUser;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.DepartmentRepository;
 

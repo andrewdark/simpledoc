@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.rubric.RubricDTOToRubricConverter;
+import ua.pp.darknsoft.simpledoc.converters.rubric.RubricToRubricDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RubricDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RubricRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class RubricServiceImpl implements RubricService {
 
     private final RubricRepository rubricRepository;
+    private final RubricToRubricDTOConverter toDTOConverter;
+    private final RubricDTOToRubricConverter toEntityConverter;
 
     @Override
     @Transactional

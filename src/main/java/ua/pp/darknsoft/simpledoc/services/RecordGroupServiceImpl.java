@@ -14,7 +14,6 @@ import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RecordGroupRepository;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

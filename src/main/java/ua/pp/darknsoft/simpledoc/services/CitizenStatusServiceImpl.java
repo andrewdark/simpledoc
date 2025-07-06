@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusDTOToCitizenStatusConverter;
+import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusToCitizenStatusDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenStatusDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenStatusRepository;
@@ -18,7 +20,8 @@ import java.util.Optional;
 public class CitizenStatusServiceImpl implements CitizenStatusService {
 
     private final CitizenStatusRepository citizenStatusRepository;
-
+    private final CitizenStatusToCitizenStatusDTOConverter toDTOConverter;
+    private final CitizenStatusDTOToCitizenStatusConverter toEntityConverter;
     @Override
     @Transactional
     public CitizenStatusDTO add(CitizenStatusDTO citizenStatusDTO) throws AppException {

@@ -39,11 +39,11 @@ public class Rubric implements Serializable {
 
     /** Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы */
     @Column(name = "deleted")
-    private boolean deleted;
+    private Boolean deleted;
 
     /** Признак елемента выбора. Лист */
     @Column(name = "node")
-    private boolean node;
+    private Boolean node;
 
     /** Ссылка на родительскую папку */
     @ManyToOne(fetch = FetchType.LAZY)

@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentDTOToCorrespondentConverter;
+import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentToCorrespondentDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class CorrespondentServiceImpl implements CorrespondentService{
 
     private final CorrespondentRepository correspondentRepository;
+    private final CorrespondentToCorrespondentDTOConverter toDTOConverter;
+    private final CorrespondentDTOToCorrespondentConverter toEntityConverter;
 
     @Override
     @Transactional

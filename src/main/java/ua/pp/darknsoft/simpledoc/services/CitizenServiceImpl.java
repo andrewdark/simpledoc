@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenDTOToCitizenConverter;
+import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenToCitizenDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenRepository;
@@ -15,9 +17,11 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CitizenServiceImpl implements CitizenService{
+public class CitizenServiceImpl implements CitizenService {
 
     private final CitizenRepository citizenRepository;
+    private final CitizenToCitizenDTOConverter toDTOConverter;
+    private final CitizenDTOToCitizenConverter toEntityConverter;
 
     @Override
     @Transactional

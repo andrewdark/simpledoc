@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationDTOToOrganizationConverter;
+import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationToOrganizationDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.OrganizationRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class OrganizationServiceImpl implements OrganizationService{
 
     private final OrganizationRepository organizationRepository;
+    private final OrganizationToOrganizationDTOConverter toDTOConverter;
+    private final OrganizationDTOToOrganizationConverter toEntityConverter;
 
     @Override
     @Transactional

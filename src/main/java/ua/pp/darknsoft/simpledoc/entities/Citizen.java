@@ -43,7 +43,7 @@ public class Citizen implements Serializable {
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */
     @Column(name = "deleted")
-    private boolean deleted;
+    private Boolean deleted;
 
     /** Список социальных статусов гражданина */
 //    @ManyToMany
