@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionDTOToResolutionConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionToResolutionDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
+import ua.pp.darknsoft.simpledoc.entities.Resolution;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionRepository;
 
@@ -24,7 +26,14 @@ public class ResolutionServiceImpl implements ResolutionService {
 
     @Override
     public ResolutionDTO add(ResolutionDTO resolutionDTO) throws AppException {
-        return null;
+        try {
+            resolutionDTO.setId(null);
+
+            Resolution resolution = toEntityConverter.convert(resolutionDTO);
+            return toDTOConverter.convert(resolutionRepository.save(resolution));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

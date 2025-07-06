@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricDTOToRubricConverter;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricToRubricDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RubricDTO;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
+import ua.pp.darknsoft.simpledoc.entities.Rubric;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RubricRepository;
 
@@ -26,7 +28,14 @@ public class RubricServiceImpl implements RubricService {
     @Override
     @Transactional
     public RubricDTO add(RubricDTO rubricDTO) throws AppException {
-        return null;
+        try {
+            rubricDTO.setId(null);
+
+            Rubric rubric = toEntityConverter.convert(rubricDTO);
+            return toDTOConverter.convert(rubricRepository.save(rubric));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

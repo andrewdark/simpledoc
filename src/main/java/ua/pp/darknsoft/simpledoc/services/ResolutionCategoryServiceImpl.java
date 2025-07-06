@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryDTOToResolutionCategoryConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryToResolutionCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionCategoryDTO;
+import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
+import ua.pp.darknsoft.simpledoc.entities.ResolutionCategory;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionCategoryRepository;
 
@@ -26,7 +28,14 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
     @Override
     @Transactional
     public ResolutionCategoryDTO add(ResolutionCategoryDTO resolutionCategoryDTO) throws AppException {
-        return null;
+        try {
+            resolutionCategoryDTO.setId(null);
+
+            ResolutionCategory resolutionCategory = toEntityConverter.convert(resolutionCategoryDTO);
+            return toDTOConverter.convert(resolutionCategoryRepository.save(resolutionCategory));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

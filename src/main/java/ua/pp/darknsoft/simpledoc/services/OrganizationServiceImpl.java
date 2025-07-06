@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationDTOToOrganizationConverter;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationToOrganizationDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
+import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.OrganizationRepository;
 
@@ -26,7 +28,14 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     @Transactional
     public OrganizationDTO add(OrganizationDTO organizationDTO) throws AppException {
-        return null;
+        try {
+            organizationDTO.setId(null);
+
+            Organization correspondent = toEntityConverter.convert(organizationDTO);
+            return toDTOConverter.convert(organizationRepository.save(correspondent));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

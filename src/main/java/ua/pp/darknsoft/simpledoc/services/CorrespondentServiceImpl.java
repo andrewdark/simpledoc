@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentDTOToCorrespondentConverter;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentToCorrespondentDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CorrespondentServiceImpl implements CorrespondentService{
+public class CorrespondentServiceImpl implements CorrespondentService {
 
     private final CorrespondentRepository correspondentRepository;
     private final CorrespondentToCorrespondentDTOConverter toDTOConverter;
@@ -26,7 +27,14 @@ public class CorrespondentServiceImpl implements CorrespondentService{
     @Override
     @Transactional
     public CorrespondentDTO add(CorrespondentDTO correspondentDTO) throws AppException {
-        return null;
+        try {
+            correspondentDTO.setId(null);
+
+            Correspondent correspondent = toEntityConverter.convert(correspondentDTO);
+            return toDTOConverter.convert(correspondentRepository.save(correspondent));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

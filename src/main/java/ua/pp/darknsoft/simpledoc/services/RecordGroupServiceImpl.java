@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupDTOToRecordGroupConverter;
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupToRecordGroupDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
+import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RecordGroupRepository;
@@ -27,16 +28,16 @@ public class RecordGroupServiceImpl implements RecordGroupService {
 
     @Override
     @Transactional
-    public RecordGroupDTO add(RecordGroupDTO dto) {
+    public RecordGroupDTO add(RecordGroupDTO recordGroupDTO) {
+
         try {
-            RecordGroup newEntity = toEntityConverter.convert(dto);
-            newEntity.setId(null);
-            RecordGroup savedEntity = recordGroupRepository.save(newEntity);
-            return toDTOConverter.convert(savedEntity);
+            recordGroupDTO.setId(null);
+
+            RecordGroup recordGroup = toEntityConverter.convert(recordGroupDTO);
+            return toDTOConverter.convert(recordGroupRepository.save(recordGroup));
         } catch (Exception ex) {
             throw new AppException(ex);
         }
-
     }
 
     @Override

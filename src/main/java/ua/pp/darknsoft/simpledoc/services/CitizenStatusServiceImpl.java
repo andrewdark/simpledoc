@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusDTOToCitizenStatusConverter;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusToCitizenStatusDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenStatusDTO;
+import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
+import ua.pp.darknsoft.simpledoc.entities.CitizenStatus;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenStatusRepository;
 
@@ -25,7 +27,14 @@ public class CitizenStatusServiceImpl implements CitizenStatusService {
     @Override
     @Transactional
     public CitizenStatusDTO add(CitizenStatusDTO citizenStatusDTO) throws AppException {
-        return null;
+        try {
+            citizenStatusDTO.setId(null);
+
+            CitizenStatus citizenStatus = toEntityConverter.convert(citizenStatusDTO);
+            return toDTOConverter.convert(citizenStatusRepository.save(citizenStatus));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
