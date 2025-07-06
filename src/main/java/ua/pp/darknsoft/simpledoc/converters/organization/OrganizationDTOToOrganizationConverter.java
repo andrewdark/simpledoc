@@ -11,6 +11,7 @@ public class OrganizationDTOToOrganizationConverter implements Converter<Organiz
     public Organization convert(OrganizationDTO source) {
         return Organization.builder()
                 .id(source.getId())
+                .deleted(source.getDeleted())
                 .build();
     }
 }

@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS public.department;
 CREATE TABLE IF NOT EXISTS public.department
 (
     id bigint DEFAULT nextval('public.department_id_seq'),
-    deleted boolean NOT NULL,
+    deleted boolean default false NOT NULL,
     official boolean NOT NULL,
     parent_id bigint,
     name character varying(255),

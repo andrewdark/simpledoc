@@ -84,6 +84,11 @@ public class Correspondent implements Serializable {
     @Column(name = "correspondent_type")
     private CorrespondentType correspondentType;
 
+    /**
+     * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
+     */
+    @Column(name = "deleted")
+    private Boolean deleted;
     @Version
     private Long version;
     @CreationTimestamp

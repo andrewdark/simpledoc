@@ -9,6 +9,9 @@ import ua.pp.darknsoft.simpledoc.entities.ResolutionCategory;
 public class ResolutionCategoryToResolutionCategoryDTOConverter implements Converter<ResolutionCategory, ResolutionCategoryDTO> {
     @Override
     public ResolutionCategoryDTO convert(ResolutionCategory source) {
-        return null;
+        return ResolutionCategoryDTO.builder()
+                .id(source.getId())
+                .deleted(source.getDeleted())
+                .build();
     }
 }

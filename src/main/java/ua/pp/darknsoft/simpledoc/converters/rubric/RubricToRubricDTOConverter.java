@@ -11,6 +11,7 @@ public class RubricToRubricDTOConverter implements Converter<Rubric, RubricDTO> 
     public RubricDTO convert(Rubric source) {
         return RubricDTO.builder()
                 .id(source.getId())
+                .deleted(source.getDeleted())
                 .build();
     }
 }

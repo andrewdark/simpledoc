@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS record_group
     template_num      character varying(255),
     index_num         character varying(255),
     record_group_type record_group_type      NOT NULL,
-    deleted           boolean,
+    deleted           boolean                         default false NOT NULL,
     node              boolean,
     parent_id         bigint,
     version           bigint,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS public.delivery
 (
     id         BIGINT NOT NULL DEFAULT nextval('public.delivery_id_seq'),
     name       character varying(255),
-    deleted    boolean,
+    deleted    boolean         default false NOT NULL,
     version    bigint,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS public.rubric
     name       character varying(255),
     node       boolean,
     parent_id  bigint,
-    deleted    boolean,
+    deleted    boolean         default false NOT NULL,
     version    bigint,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS organization
     id         BIGINT                 NOT NULL DEFAULT nextval('organization_id_seq'),
     name       character varying(255) NOT NULL,
     code       character varying(10)  NOT NULL,
-    deleted    boolean,
+    deleted    boolean                         default false NOT NULL,
     version    bigint,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
@@ -209,13 +209,14 @@ CREATE TABLE IF NOT EXISTS citizen
     id         BIGINT                 NOT NULL DEFAULT nextval('citizen_id_seq'),
     full_name  character varying(255) NOT NULL,
     address    character varying(255) NOT NULL,
-    deleted    boolean,
+    deleted    boolean                         default false NOT NULL,
     version    bigint,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
     CONSTRAINT citizen_pkey PRIMARY KEY (id)
 );
-ALTER TABLE IF EXISTS public.citizen OWNER to postgres;
+ALTER TABLE IF EXISTS public.citizen
+    OWNER to postgres;
 ALTER SEQUENCE public.citizen_id_seq OWNED BY citizen.id;
 --correspondent--
 
@@ -241,6 +242,7 @@ CREATE TABLE IF NOT EXISTS correspondent
     organization_id    bigint,
     citizen_id         bigint,
     correspondent_type correspondent_type,
+    deleted            boolean         default false NOT NULL,
     version            bigint,
     created_at         timestamp(6) without time zone,
     updated_at         timestamp(6) without time zone,
@@ -249,7 +251,8 @@ CREATE TABLE IF NOT EXISTS correspondent
     FOREIGN KEY (organization_id) REFERENCES organization (id),
     FOREIGN KEY (citizen_id) REFERENCES citizen (id)
 );
-ALTER TABLE IF EXISTS public.correspondent OWNER to postgres;
+ALTER TABLE IF EXISTS public.correspondent
+    OWNER to postgres;
 ALTER SEQUENCE public.correspondent_id_seq OWNED BY correspondent.id;
 
 --citizen_status--
@@ -264,15 +267,16 @@ DROP TABLE IF EXISTS public.citizen_status;
 
 CREATE TABLE IF NOT EXISTS public.citizen_status
 (
-    id BIGINT NOT NULL DEFAULT nextval('public.citizen_status_id_seq'),
-
-    version bigint,
+    id         BIGINT NOT NULL DEFAULT nextval('public.citizen_status_id_seq'),
+    deleted    boolean         default false NOT NULL,
+    version    bigint,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
 
     PRIMARY KEY (id)
 );
-ALTER TABLE IF EXISTS public.citizen_status OWNER to postgres;
+ALTER TABLE IF EXISTS public.citizen_status
+    OWNER to postgres;
 ALTER SEQUENCE public.citizen_status_id_seq OWNED BY public.citizen_status.id;
 
 --citizen_category--
@@ -287,15 +291,16 @@ DROP TABLE IF EXISTS public.citizen_category;
 
 CREATE TABLE IF NOT EXISTS public.citizen_category
 (
-    id BIGINT NOT NULL DEFAULT nextval('public.citizen_category_id_seq'),
-
-    version bigint,
+    id         BIGINT NOT NULL DEFAULT nextval('public.citizen_category_id_seq'),
+    deleted    boolean         default false NOT NULL,
+    version    bigint,
     created_at timestamp(6) without time zone,
     updated_at timestamp(6) without time zone,
 
     PRIMARY KEY (id)
 );
-ALTER TABLE IF EXISTS public.citizen_category OWNER to postgres;
+ALTER TABLE IF EXISTS public.citizen_category
+    OWNER to postgres;
 ALTER SEQUENCE public.citizen_category_id_seq OWNED BY public.citizen_category.id;
 
 COMMIT;

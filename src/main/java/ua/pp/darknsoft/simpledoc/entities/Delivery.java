@@ -36,6 +36,7 @@ public class Delivery implements Serializable {
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */
+    @Column(name = "deleted")
     private Boolean deleted;
 
     @Version

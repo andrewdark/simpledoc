@@ -29,6 +29,11 @@ public class CitizenCategory implements Serializable {
 
     //TODO: ADD OTHER FIELDS
 
+    /**
+     * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
+     */
+    @Column(name = "deleted")
+    private Boolean deleted;
     @Version
     private Long version;
     @CreationTimestamp

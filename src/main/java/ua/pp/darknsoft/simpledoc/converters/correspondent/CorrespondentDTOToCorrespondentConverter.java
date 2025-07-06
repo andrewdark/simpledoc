@@ -11,6 +11,7 @@ public class CorrespondentDTOToCorrespondentConverter implements Converter<Corre
     public Correspondent convert(CorrespondentDTO source) {
         return Correspondent.builder()
                 .id(source.getId())
+                .deleted(source.getDeleted())
                 .build();
     }
 }

@@ -11,6 +11,7 @@ public class ResolutionDTOToResolutionConverter implements Converter<ResolutionD
     public Resolution convert(ResolutionDTO source) {
         return Resolution.builder()
                 .id(source.getId())
+                .deleted(source.getDeleted())
                 .build();
     }
 }

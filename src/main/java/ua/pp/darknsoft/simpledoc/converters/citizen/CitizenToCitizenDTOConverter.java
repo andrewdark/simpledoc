@@ -12,6 +12,7 @@ public class CitizenToCitizenDTOConverter implements Converter<Citizen, CitizenD
 
         return CitizenDTO.builder()
                 .id(source.getId())
+                .deleted(source.getDeleted())
                 .build();
     }
 }

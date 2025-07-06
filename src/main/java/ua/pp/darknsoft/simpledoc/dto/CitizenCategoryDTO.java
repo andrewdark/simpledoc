@@ -9,4 +9,5 @@ import lombok.*;
 @Builder
 public class CitizenCategoryDTO {
     private Long id;
+    private Boolean deleted;
 }

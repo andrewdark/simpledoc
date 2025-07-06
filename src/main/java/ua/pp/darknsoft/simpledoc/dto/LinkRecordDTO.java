@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public class LinkRecordDTO {
     private Long id;
+    private Boolean deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

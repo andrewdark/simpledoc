@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ResolutionDTO {
     private Long id;
+    private Boolean deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

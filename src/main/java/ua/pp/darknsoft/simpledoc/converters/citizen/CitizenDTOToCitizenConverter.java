@@ -11,6 +11,7 @@ public class CitizenDTOToCitizenConverter  implements Converter<CitizenDTO, Citi
     public Citizen convert(CitizenDTO source) {
         return Citizen.builder()
                 .id(source.getId())
+                .deleted(source.getDeleted())
                 .build();
     }
 }
