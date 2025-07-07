@@ -20,10 +20,10 @@ public class Organization implements Serializable {
      * Идентификатор записи
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rubric_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_sequence")
     @SequenceGenerator(
-            name = "rubric_sequence",
-            sequenceName = "rubric_id_seq",
+            name = "organization_sequence",
+            sequenceName = "organization_id_seq",
             allocationSize = 10
     )
     private Long id;

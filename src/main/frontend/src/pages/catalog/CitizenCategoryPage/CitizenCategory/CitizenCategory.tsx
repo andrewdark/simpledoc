@@ -46,7 +46,7 @@ const CitizenCategory = () => {
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/citizenCategory/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`/catalog/citizen-category/${id}`, {state: {param1: "hello", param2: "worm"}})
     };
     const updateItemHandler = async (id: number) => {
         if (id) {

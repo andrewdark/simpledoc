@@ -18,7 +18,7 @@ export const CitizenCategoryItem: FC<CitizenCategoryItemProps> = ({
                                                                   }) => {
 
     return (
-        <div key={item.id} className={css.CitizenCategoryItem}>
+        <div key={item.id} className={css.citizenCategoryItem}>
             <div>{item.id}</div>
             <div>{item.name}</div>
             <div className={css.itemNavigation}>

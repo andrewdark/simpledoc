@@ -13,14 +13,14 @@ interface RecordGroupThunkPayload {
 }
 
 /*
- * POST @ /recordGroup
+ * POST @ /record-group
  * body: { }
  */
 export const createRecordGroup = createAsyncThunk(
     'recordGroup/create',
     async (payload: RecordGroupThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.post<IRecordGroup>('/recordGroup', payload.dto);
+            const res = await $api.post<IRecordGroup>('/record-group', payload.dto);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
@@ -29,14 +29,14 @@ export const createRecordGroup = createAsyncThunk(
 );
 
 /*
- * PUT @ /recordGroup/:id
+ * PUT @ /record-group/:id
  * body: { }
  */
 export const updateRecordGroup = createAsyncThunk(
     'recordGroup/update',
     async (payload: RecordGroupThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.put<IRecordGroup>(`/recordGroup/${payload.id}`,  payload.dto);
+            const res = await $api.put<IRecordGroup>(`/record-group/${payload.id}`,  payload.dto);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
@@ -45,14 +45,14 @@ export const updateRecordGroup = createAsyncThunk(
 );
 
 /*
- * DELETE @ /recordGroup/:id
+ * DELETE @ /record-group/:id
  * body: { }
  */
 export const deleteRecordGroup = createAsyncThunk(
     "recordGroup/delete",
     async (payload: RecordGroupThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.delete(`/recordGroup/${payload.id}`);
+            const res = await $api.delete(`/record-group/${payload.id}`);
             return payload.id;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -61,14 +61,14 @@ export const deleteRecordGroup = createAsyncThunk(
 );
 
 /*
- * GET @ /recordGroup/:id
+ * GET @ /record-group/:id
  * body: { }
  */
 export const getRecordGroupById = createAsyncThunk(
     "recordGroup/getRecordGroupById",
     async (payload: RecordGroupThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.get(`/recordGroup/${payload.id}`);
+            const res = await $api.get(`/record-group/${payload.id}`);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -77,7 +77,7 @@ export const getRecordGroupById = createAsyncThunk(
 );
 
 /*
- * GET @ /recordGroup?page=0&size=10&sort=id&order=ASC
+ * GET @ /record-group?page=0&size=10&sort=id&order=ASC
  * body: { }
  */
 export const getAllRecordGroup = createAsyncThunk(
@@ -90,7 +90,7 @@ export const getAllRecordGroup = createAsyncThunk(
                 sort:payload.sort,
                 order:payload.order
             };
-            const res = await $api.get(`/recordGroup`, {
+            const res = await $api.get(`/record-group`, {
                 params: params,
             });
             return res.data;

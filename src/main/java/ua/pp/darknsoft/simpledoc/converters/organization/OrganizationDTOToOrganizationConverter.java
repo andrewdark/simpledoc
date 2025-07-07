@@ -5,13 +5,19 @@ import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
 import ua.pp.darknsoft.simpledoc.entities.Organization;
 
+import java.time.LocalDateTime;
+
 @Component
 public class OrganizationDTOToOrganizationConverter implements Converter<OrganizationDTO, Organization> {
     @Override
     public Organization convert(OrganizationDTO source) {
         return Organization.builder()
                 .id(source.getId())
+                .name(source.getName())
+                .code(source.getCode())
                 .deleted(source.getDeleted())
+                .createdAt(source.getCreatedAt())
+                .updatedAt(source.getUpdatedAt())
                 .build();
     }
 }

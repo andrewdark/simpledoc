@@ -13,7 +13,7 @@ interface ResolutionCategoryItemProps {
 export const ResolutionCategoryItem: FC<ResolutionCategoryItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
 
     return (
-        <div key={item.id} className={css.ResolutionCategoryItem}>
+        <div key={item.id} className={css.resolutionCategoryItem}>
             <div>{item.id}</div>
             
             <div className={css.itemNavigation}>

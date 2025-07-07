@@ -25,7 +25,7 @@ const RecordGroup = () => {
     const navigate = useNavigate();
     const navLinks: navLinks[] = [{link: "/", title: "Головна"},
         {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/record_group", title: "Групи документів"}];
+        {link: "/catalog/record-group", title: "Групи документів"}];
 
     useEffect(() => {
         dispatch(getAllRecordGroup({size: 10, number: 0}));
@@ -42,7 +42,7 @@ const RecordGroup = () => {
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/recordGroup/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`/catalog/record-group/${id}`, {state: {param1: "hello", param2: "worm"}})
     };
     const updateItemHandler = async (id: number) => {
         if (id) {

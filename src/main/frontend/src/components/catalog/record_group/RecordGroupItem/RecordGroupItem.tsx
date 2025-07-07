@@ -18,7 +18,7 @@ export const RecordGroupItem: FC<RecordGroupItemProps> = ({
                                                           }) => {
 
     return (
-        <div key={item.id} className={css.RecordGroupItem}>
+        <div key={item.id} className={css.recordGroupItem}>
             <div>{item.id}</div>
             <div>{item.name}</div>
             <div>{item.createdAt}</div>

@@ -13,7 +13,7 @@ interface OrganizationItemProps {
 export const OrganizationItem: FC<OrganizationItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
 
     return (
-        <div key={item.id} className={css.OrganizationItem}>
+        <div key={item.id} className={css.organizationItem}>
             <div>{item.id}</div>
 
             <div className={css.itemNavigation}>

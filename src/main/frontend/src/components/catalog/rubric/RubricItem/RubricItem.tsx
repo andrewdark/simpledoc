@@ -13,7 +13,7 @@ interface RubricItemProps {
 export const RubricItem: FC<RubricItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
 
     return (
-        <div key={item.id} className={css.RubricItem}>
+        <div key={item.id} className={css.rubricItem}>
             <div>{item.id}</div>
             <div className={css.itemNavigation}>
                 <div onClick={() => {

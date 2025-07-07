@@ -13,14 +13,14 @@ interface ResolutionCategoryThunkPayload {
 }
 
 /*
- * POST @ /resolutionCategory
+ * POST @ /resolution-category
  * body: { }
  */
 export const createResolutionCategory = createAsyncThunk(
     'resolutionCategory/create',
     async (payload: ResolutionCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.post<IResolutionCategory>('/resolutionCategory', payload.dto);
+            const res = await $api.post<IResolutionCategory>('/resolution-category', payload.dto);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
@@ -29,14 +29,14 @@ export const createResolutionCategory = createAsyncThunk(
 );
 
 /*
- * PUT @ /resolutionCategory/:id
+ * PUT @ /resolution-category/:id
  * body: { }
  */
 export const updateResolutionCategory = createAsyncThunk(
     'resolutionCategory/update',
     async (payload: ResolutionCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.put<IResolutionCategory>(`/resolutionCategory/${payload.id}`,  payload.dto);
+            const res = await $api.put<IResolutionCategory>(`/resolution-category/${payload.id}`,  payload.dto);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
@@ -45,14 +45,14 @@ export const updateResolutionCategory = createAsyncThunk(
 );
 
 /*
- * DELETE @ /resolutionCategory/:id
+ * DELETE @ /resolution-category/:id
  * body: { }
  */
 export const deleteResolutionCategory = createAsyncThunk(
     "resolutionCategory/delete",
     async (payload: ResolutionCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.delete(`/resolutionCategory/${payload.id}`);
+            const res = await $api.delete(`/resolution-category/${payload.id}`);
             return payload.id;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -61,14 +61,14 @@ export const deleteResolutionCategory = createAsyncThunk(
 );
 
 /*
- * GET @ /resolutionCategory/:id
+ * GET @ /resolution-category/:id
  * body: { }
  */
 export const getResolutionCategoryById = createAsyncThunk(
     "resolutionCategory/getResolutionCategoryById",
     async (payload: ResolutionCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.get(`/resolutionCategory/${payload.id}`);
+            const res = await $api.get(`/resolution-category/${payload.id}`);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -77,7 +77,7 @@ export const getResolutionCategoryById = createAsyncThunk(
 );
 
 /*
- * GET @ /resolutionCategory?page=0&size=10&sort=id&order=ASC
+ * GET @ /resolution-category?page=0&size=10&sort=id&order=ASC
  * body: { }
  */
 export const getAllResolutionCategory = createAsyncThunk(
@@ -90,7 +90,7 @@ export const getAllResolutionCategory = createAsyncThunk(
                 sort:payload.sort,
                 order:payload.order
             };
-            const res = await $api.get(`/resolutionCategory`, {
+            const res = await $api.get(`/resolution-category`, {
                 params: params,
             });
             return res.data;

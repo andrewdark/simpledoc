@@ -42,7 +42,7 @@ const CitizenStatus = () => {
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/citizenStatus/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`/catalog/citizen-status/${id}`, {state: {param1: "hello", param2: "worm"}})
     };
     const updateItemHandler = async (id: number) => {
         if (id) {

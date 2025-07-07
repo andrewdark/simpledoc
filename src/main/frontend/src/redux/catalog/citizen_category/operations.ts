@@ -13,14 +13,14 @@ interface CitizenCategoryThunkPayload {
 }
 
 /*
- * POST @ /citizenCategory
+ * POST @ /citizen-category
  * body: { }
  */
 export const createCitizenCategory = createAsyncThunk(
     'citizenCategory/create',
     async (payload: CitizenCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.post<ICitizenCategory>('/citizenCategory', payload.dto);
+            const res = await $api.post<ICitizenCategory>('/citizen-category', payload.dto);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
@@ -29,14 +29,14 @@ export const createCitizenCategory = createAsyncThunk(
 );
 
 /*
- * PUT @ /citizenCategory/:id
+ * PUT @ /citizen-category/:id
  * body: { }
  */
 export const updateCitizenCategory = createAsyncThunk(
     'citizenCategory/update',
     async (payload: CitizenCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.put<ICitizenCategory>(`/citizenCategory/${payload.id}`,  payload.dto);
+            const res = await $api.put<ICitizenCategory>(`/citizen-category/${payload.id}`,  payload.dto);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);
@@ -45,14 +45,14 @@ export const updateCitizenCategory = createAsyncThunk(
 );
 
 /*
- * DELETE @ /citizenCategory/:id
+ * DELETE @ /citizen-category/:id
  * body: { }
  */
 export const deleteCitizenCategory = createAsyncThunk(
     "citizenCategory/delete",
     async (payload: CitizenCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.delete(`/citizenCategory/${payload.id}`);
+            const res = await $api.delete(`/citizen-category/${payload.id}`);
             return payload.id;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -61,14 +61,14 @@ export const deleteCitizenCategory = createAsyncThunk(
 );
 
 /*
- * GET @ /citizenCategory/:id
+ * GET @ /citizen-category/:id
  * body: { }
  */
 export const getCitizenCategoryById = createAsyncThunk(
     "citizenCategory/getCitizenCategoryById",
     async (payload: CitizenCategoryThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.get(`/citizenCategory/${payload.id}`);
+            const res = await $api.get(`/citizen-category/${payload.id}`);
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
@@ -77,7 +77,7 @@ export const getCitizenCategoryById = createAsyncThunk(
 );
 
 /*
- * GET @ /citizenCategory?page=0&size=10&sort=id&order=ASC
+ * GET @ /citizen-category?page=0&size=10&sort=id&order=ASC
  * body: { }
  */
 export const getAllCitizenCategory = createAsyncThunk(
@@ -90,7 +90,7 @@ export const getAllCitizenCategory = createAsyncThunk(
                 sort:payload.sort,
                 order:payload.order
             };
-            const res = await $api.get(`/citizenCategory`, {
+            const res = await $api.get(`/citizen-category`, {
                 params: params,
             });
             return res.data;

@@ -29,7 +29,7 @@ const ResolutionCategory = () => {
     const navigate = useNavigate();
     const navLinks: navLinks[] = [{link: "/", title: "Головна"},
         {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/resolution_category", title: "Категорії резолюцій"}];
+        {link: "/catalog/resolution-category", title: "Категорії резолюцій"}];
 
     useEffect(() => {
         dispatch(getAllResolutionCategory({size: 10, number: 0}));
@@ -46,7 +46,7 @@ const ResolutionCategory = () => {
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/resolutionCategory/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`/catalog/resolution-category/${id}`, {state: {param1: "hello", param2: "worm"}})
     };
     const updateItemHandler = async (id: number) => {
         if (id) {

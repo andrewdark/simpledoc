@@ -13,7 +13,7 @@ interface CitizenStatusItemProps {
 export const CitizenStatusItem: FC<CitizenStatusItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
 
     return (
-        <div key={item.id} className={css.CitizenStatusItem}>
+        <div key={item.id} className={css.citizenStatusItem}>
             <div>{item.id}</div>
 
             <div className={css.itemNavigation}>
