@@ -11,5 +11,6 @@ public class ControllerConstants {
     public static final String CITIZEN_CATEGORY="/api/citizen-category";
     public static final String RESOLUTION_CATEGORY="/api/resolution-category";
     public static final String RESOLUTION="/api/resolution";
+    public static final String REPLY="/api/reply";
     public static final String RECORD = "/api/record";
 }
