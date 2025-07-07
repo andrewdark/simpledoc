@@ -165,7 +165,7 @@ export const routes = [
         redirectToAuthorization: '/access-deny'
     },
     {
-        path: "/catalog/delivery/:id",
+        path: "/catalog/citizen-status/:id",
         component: CitizenStatusId,
         allowedRoles: [Role.ADMIN, Role.OPERATOR],
         redirectToAuthentication: '/sign-in',

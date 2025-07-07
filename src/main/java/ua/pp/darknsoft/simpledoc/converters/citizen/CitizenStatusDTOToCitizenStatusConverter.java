@@ -11,7 +11,10 @@ public class CitizenStatusDTOToCitizenStatusConverter implements Converter<Citiz
     public CitizenStatus convert(CitizenStatusDTO source) {
         return CitizenStatus.builder()
                 .id(source.getId())
+                .name(source.getName())
                 .deleted(source.getDeleted())
+                .createdAt(source.getCreatedAt())
+                .updatedAt(source.getUpdatedAt())
                 .build();
     }
 }

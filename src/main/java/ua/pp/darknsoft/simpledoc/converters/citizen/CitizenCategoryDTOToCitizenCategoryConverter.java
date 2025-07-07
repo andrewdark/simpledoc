@@ -11,7 +11,10 @@ public class CitizenCategoryDTOToCitizenCategoryConverter  implements Converter<
     public CitizenCategory convert(CitizenCategoryDTO source) {
         return CitizenCategory.builder()
                 .id(source.getId())
+                .name(source.getName())
                 .deleted(source.getDeleted())
+                .createdAt(source.getCreatedAt())
+                .updatedAt(source.getUpdatedAt())
                 .build();
     }
 }

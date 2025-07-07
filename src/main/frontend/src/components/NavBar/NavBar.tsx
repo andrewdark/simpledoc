@@ -8,15 +8,16 @@ import {setModal} from "../../redux/modal/slice";
 export type navLinks = { link: string; title: string };
 
 interface NavBarProps {
-    navLinks: navLinks[];
+    navLinks: navLinks[] | null;
     isAddButton: boolean;
 }
 
 export const NavBar: FC<NavBarProps> = (props) => {
     const dispatch = useAppDispatch();
+    const links: navLinks[] = props.navLinks??[{ link: "/", title: "Головна" }];
     return (
         <div className={css.NavBar}>
-            {props.navLinks.map((el, index) => (
+            {links.map((el, index) => (
                 <>
                     <div key={index} className={css.NavBarItem}>
                         <NavLink to={el.link}>
