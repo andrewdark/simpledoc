@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryDTOToCitizenC
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryToCitizenCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenCategoryDTO;
 import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
+import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenCategoryRepository;
 
@@ -63,8 +65,16 @@ public class CitizenCategoryServiceImpl implements CitizenCategoryService {
 
     @Override
     @Transactional
-    public void softDeleteById(Long citizenCategoryDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        try {
+            CitizenCategory entity = citizenCategoryRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+            entity.setDeleted(true);
+            citizenCategoryRepository.save(entity);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

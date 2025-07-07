@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationDTOToOrganizationConverter;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationToOrganizationDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.OrganizationRepository;
@@ -63,8 +65,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public void softDeleteById(Long organizationDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        try {
+            Organization entity = organizationRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+            entity.setDeleted(true);
+            organizationRepository.save(entity);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

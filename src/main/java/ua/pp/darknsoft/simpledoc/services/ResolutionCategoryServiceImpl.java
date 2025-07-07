@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryToResol
 import ua.pp.darknsoft.simpledoc.dto.ResolutionCategoryDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.ResolutionCategory;
+import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionCategoryRepository;
 
@@ -64,8 +66,12 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
 
     @Override
     @Transactional
-    public void softDeleteById(Long resolutionCategoryDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        ResolutionCategory entity = resolutionCategoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+        entity.setDeleted(true);
+        resolutionCategoryRepository.save(entity);
     }
 
     @Override

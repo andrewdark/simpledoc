@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentDTOToCorrespondentConverter;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentToCorrespondentDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
@@ -63,8 +65,16 @@ public class CorrespondentServiceImpl implements CorrespondentService {
 
     @Override
     @Transactional
-    public void softDeleteById(Long correspondentDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        try {
+            Correspondent entity = correspondentRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+            entity.setDeleted(true);
+            correspondentRepository.save(entity);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

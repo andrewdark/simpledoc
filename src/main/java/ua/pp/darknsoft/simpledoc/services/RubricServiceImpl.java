@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricDTOToRubricConverter;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricToRubricDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RubricDTO;
+import ua.pp.darknsoft.simpledoc.entities.Resolution;
 import ua.pp.darknsoft.simpledoc.entities.Rubric;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RubricRepository;
@@ -63,8 +65,16 @@ public class RubricServiceImpl implements RubricService {
 
     @Override
     @Transactional
-    public void softDeleteById(Long rubricDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        try {
+            Rubric entity = rubricRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+            entity.setDeleted(true);
+            rubricRepository.save(entity);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

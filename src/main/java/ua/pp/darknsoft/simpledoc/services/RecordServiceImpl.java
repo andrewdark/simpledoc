@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordDTOToRecordConverter;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordToRecordDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
@@ -72,8 +74,16 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     @Transactional
-    public void softDeleteById(Long recordDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        try {
+            Record entity = recordRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+            //entity.setDeleted(true);
+            //citizenRepository.save(entity);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

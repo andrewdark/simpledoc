@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionDTOToResolutionConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionToResolutionDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
+import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.entities.Resolution;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionRepository;
@@ -56,8 +58,16 @@ public class ResolutionServiceImpl implements ResolutionService {
     }
 
     @Override
-    public void softDeleteById(Long resolutionDTO) throws AppException {
+    public void softDeleteById(Long id) throws AppException {
+        try {
+            Resolution entity = resolutionRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
 
+            entity.setDeleted(true);
+            resolutionRepository.save(entity);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
