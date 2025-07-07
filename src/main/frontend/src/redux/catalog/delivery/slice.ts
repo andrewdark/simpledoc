@@ -5,6 +5,7 @@ import {createDelivery, deleteDelivery, getAllDelivery, getDeliveryById, updateD
 
 interface DeliveryState {
     items: IDelivery[];
+    item: IDelivery | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +13,7 @@ interface DeliveryState {
 
 const initialState: DeliveryState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -50,13 +52,14 @@ export const deliverySlice = createSlice({
             .addCase(updateDelivery.rejected, handleRejected)
             .addCase(updateDelivery.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteDelivery
             .addCase(deleteDelivery.pending, handlePending)
@@ -84,14 +87,7 @@ export const deliverySlice = createSlice({
             .addCase(getDeliveryById.fulfilled, (state: DeliveryState, action: PayloadAction<IDelivery>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

@@ -1,10 +1,17 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {IResolutionCategory} from "../../../models/catalog/IResolutionCategory";
-import {createResolutionCategory, deleteResolutionCategory, getAllResolutionCategory, getResolutionCategoryById, updateResolutionCategory} from "./operations";
+import {
+    createResolutionCategory,
+    deleteResolutionCategory,
+    getAllResolutionCategory,
+    getResolutionCategoryById,
+    updateResolutionCategory
+} from "./operations";
 
 interface ResolutionCategoryState {
     items: IResolutionCategory[];
+    item: IResolutionCategory | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +19,7 @@ interface ResolutionCategoryState {
 
 const initialState: ResolutionCategoryState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -50,13 +58,14 @@ export const resolutionCategorySlice = createSlice({
             .addCase(updateResolutionCategory.rejected, handleRejected)
             .addCase(updateResolutionCategory.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteResolutionCategory
             .addCase(deleteResolutionCategory.pending, handlePending)
@@ -84,14 +93,7 @@ export const resolutionCategorySlice = createSlice({
             .addCase(getResolutionCategoryById.fulfilled, (state: ResolutionCategoryState, action: PayloadAction<IResolutionCategory>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

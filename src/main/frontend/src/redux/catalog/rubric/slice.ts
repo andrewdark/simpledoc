@@ -5,6 +5,7 @@ import {createRubric, deleteRubric, getAllRubric, getRubricById, updateRubric} f
 
 interface RubricState {
     items: IRubric[];
+    item: IRubric | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +13,7 @@ interface RubricState {
 
 const initialState: RubricState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -50,13 +52,14 @@ export const rubricSlice = createSlice({
             .addCase(updateRubric.rejected, handleRejected)
             .addCase(updateRubric.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteRubric
             .addCase(deleteRubric.pending, handlePending)
@@ -84,14 +87,7 @@ export const rubricSlice = createSlice({
             .addCase(getRubricById.fulfilled, (state: RubricState, action: PayloadAction<IRubric>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

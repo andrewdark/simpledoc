@@ -1,7 +1,7 @@
-import {IResolution} from "../../../models/IResolution";
-import {SortOrder} from "../../../models/IPageable";
+import {IResolution} from "../../models/IResolution";
+import {SortOrder} from "../../models/IPageable";
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {$api} from "../../../http";
+import {$api} from "../../http";
 
 interface ResolutionThunkPayload {
     id?: number;

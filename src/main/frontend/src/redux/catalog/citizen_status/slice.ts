@@ -1,10 +1,17 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {ICitizenStatus} from "../../../models/catalog/ICitizenStatus";
-import {createCitizenStatus, deleteCitizenStatus, getAllCitizenStatus, getCitizenStatusById, updateCitizenStatus} from "./operations";
+import {
+    createCitizenStatus,
+    deleteCitizenStatus,
+    getAllCitizenStatus,
+    getCitizenStatusById,
+    updateCitizenStatus
+} from "./operations";
 
 interface CitizenStatusState {
     items: ICitizenStatus[];
+    item: ICitizenStatus | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +19,7 @@ interface CitizenStatusState {
 
 const initialState: CitizenStatusState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -50,13 +58,14 @@ export const citizenStatusSlice = createSlice({
             .addCase(updateCitizenStatus.rejected, handleRejected)
             .addCase(updateCitizenStatus.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteCitizenStatus
             .addCase(deleteCitizenStatus.pending, handlePending)
@@ -84,14 +93,7 @@ export const citizenStatusSlice = createSlice({
             .addCase(getCitizenStatusById.fulfilled, (state: CitizenStatusState, action: PayloadAction<ICitizenStatus>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

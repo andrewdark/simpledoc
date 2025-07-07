@@ -1,10 +1,11 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IPage, IPageable} from "../../../models/IPageable";
-import {IResolution} from "../../../models/IResolution";
+import {IPage, IPageable} from "../../models/IPageable";
+import {IResolution} from "../../models/IResolution";
 import {createResolution, deleteResolution, getAllResolution, getResolutionById, updateResolution} from "./operations";
 
 interface ResolutionState {
     items: IResolution[];
+    item: IResolution | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +13,7 @@ interface ResolutionState {
 
 const initialState: ResolutionState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -49,13 +51,14 @@ export const resolutionSlice = createSlice({
             .addCase(updateResolution.rejected, handleRejected)
             .addCase(updateResolution.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteResolution
             .addCase(deleteResolution.pending, handlePending)
@@ -83,14 +86,7 @@ export const resolutionSlice = createSlice({
             .addCase(getResolutionById.fulfilled, (state: ResolutionState, action: PayloadAction<IResolution>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

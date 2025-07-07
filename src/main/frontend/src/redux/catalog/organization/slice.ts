@@ -1,10 +1,17 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {IOrganization} from "../../../models/catalog/IOrganization";
-import {createOrganization, deleteOrganization, getAllOrganization, getOrganizationById, updateOrganization} from "./operations";
+import {
+    createOrganization,
+    deleteOrganization,
+    getAllOrganization,
+    getOrganizationById,
+    updateOrganization
+} from "./operations";
 
 interface OrganizationState {
     items: IOrganization[];
+    item: IOrganization | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +19,7 @@ interface OrganizationState {
 
 const initialState: OrganizationState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -50,13 +58,14 @@ export const organizationSlice = createSlice({
             .addCase(updateOrganization.rejected, handleRejected)
             .addCase(updateOrganization.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteOrganization
             .addCase(deleteOrganization.pending, handlePending)
@@ -84,14 +93,7 @@ export const organizationSlice = createSlice({
             .addCase(getOrganizationById.fulfilled, (state: OrganizationState, action: PayloadAction<IOrganization>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

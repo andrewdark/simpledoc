@@ -11,6 +11,7 @@ import {
 
 interface RecordGroupState {
     items: IRecordGroup[];
+    item: IRecordGroup | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -18,6 +19,7 @@ interface RecordGroupState {
 
 const initialState: RecordGroupState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -55,13 +57,14 @@ export const recordGroupSlice = createSlice({
             .addCase(updateRecordGroup.rejected, handleRejected)
             .addCase(updateRecordGroup.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items];
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    newItems[index] = action.payload;
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteRecordGroup
             .addCase(deleteRecordGroup.pending, handlePending)
@@ -89,14 +92,7 @@ export const recordGroupSlice = createSlice({
             .addCase(getRecordGroupById.fulfilled, (state: RecordGroupState, action: PayloadAction<IRecordGroup>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });
