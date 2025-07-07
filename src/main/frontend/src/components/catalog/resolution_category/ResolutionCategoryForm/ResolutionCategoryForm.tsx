@@ -12,7 +12,7 @@ interface ResolutionCategoryFormProps {
     formHandler: (resolutionCategory: IResolutionCategory) => void;
 }
 
-const ResolutionCategoryForm: FC<ResolutionCategoryFormProps> = (props) => {
+export const ResolutionCategoryForm: FC<ResolutionCategoryFormProps> = (props) => {
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
@@ -31,5 +31,3 @@ const ResolutionCategoryForm: FC<ResolutionCategoryFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default ResolutionCategoryForm;

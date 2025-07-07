@@ -16,7 +16,7 @@ interface RecordGroupFormProps {
     formHandler: (recordGroup: IRecordGroup) => void;
 }
 
-const RecordGroupForm: FC<RecordGroupFormProps> = (props) => {
+export const RecordGroupForm: FC<RecordGroupFormProps> = (props) => {
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
@@ -35,5 +35,3 @@ const RecordGroupForm: FC<RecordGroupFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default RecordGroupForm;

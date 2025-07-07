@@ -43,7 +43,7 @@ const ConditionalShadeField = () => {
     );
 };
 
-const DepartmentForm: FC<DepartmentFormProps> = (props) => {
+export const DepartmentForm: FC<DepartmentFormProps> = (props) => {
     const itemForUpdate = useAppSelector(state => state.departmentReducer.item);
     console.log("itemForUpdate: ", itemForUpdate);
     const handleSubmit = (values: IDepartment, actions: any) => {
@@ -92,5 +92,3 @@ const DepartmentForm: FC<DepartmentFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default DepartmentForm;

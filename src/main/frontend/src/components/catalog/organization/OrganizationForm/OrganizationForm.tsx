@@ -13,7 +13,7 @@ interface OrganizationFormProps {
     formHandler: (organization: IOrganization) => void;
 }
 
-const OrganizationForm: FC<OrganizationFormProps> = (props) => {
+export const OrganizationForm: FC<OrganizationFormProps> = (props) => {
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
@@ -34,5 +34,3 @@ const OrganizationForm: FC<OrganizationFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default OrganizationForm;

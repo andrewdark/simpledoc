@@ -5,7 +5,7 @@ import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {IDepartment} from "../../../../models/catalog/IDepartment";
-import DepartmentForm from "../../../../components/catalog/department/DepartmentForm/DepartmentForm";
+import {DepartmentForm} from "../../../../components/catalog/department/DepartmentForm/DepartmentForm";
 import {DepartmentItem} from "../../../../components/catalog/department/DepartmentItem/DepartmentItem";
 import {PageBar} from "../../../../components/PageBar/PageBar";
 import {
@@ -24,7 +24,7 @@ const Department = () => {
     const navigate = useNavigate();
     const navLinks: navLinks[] = [{link: "/", title: "Головна"},
         {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/department", title: "Підрозділи(штат)"}];
+        {link: "/catalog/department", title: "Підрозділи, посадові особи"}];
 
     useEffect(() => {
         dispatch(getAllDepartment({size: 10, number: 0}));

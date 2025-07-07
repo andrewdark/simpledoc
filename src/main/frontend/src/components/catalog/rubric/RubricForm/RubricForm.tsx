@@ -14,7 +14,7 @@ interface RubricFormProps {
     formHandler: (rubric: IRubric) => void;
 }
 
-const RubricForm: FC<RubricFormProps> = (props) => {
+export const RubricForm: FC<RubricFormProps> = (props) => {
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
@@ -33,5 +33,3 @@ const RubricForm: FC<RubricFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default RubricForm;

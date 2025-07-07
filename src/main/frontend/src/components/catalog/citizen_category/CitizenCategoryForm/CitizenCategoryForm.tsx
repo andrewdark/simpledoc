@@ -11,7 +11,7 @@ interface CitizenCategoryFormProps {
     formHandler: (citizenCategory: ICitizenCategory) => void;
 }
 
-const CitizenCategoryForm: FC<CitizenCategoryFormProps> = (props) => {
+export const CitizenCategoryForm: FC<CitizenCategoryFormProps> = (props) => {
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
@@ -30,5 +30,3 @@ const CitizenCategoryForm: FC<CitizenCategoryFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default CitizenCategoryForm;

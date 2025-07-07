@@ -13,7 +13,7 @@ interface CitizenFormProps {
     formHandler: (citizen: ICitizen) => void;
 }
 
-const CitizenForm: FC<CitizenFormProps> = (props) => {
+export const CitizenForm: FC<CitizenFormProps> = (props) => {
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
@@ -32,5 +32,3 @@ const CitizenForm: FC<CitizenFormProps> = (props) => {
         </Formik>
     );
 };
-
-export default CitizenForm;

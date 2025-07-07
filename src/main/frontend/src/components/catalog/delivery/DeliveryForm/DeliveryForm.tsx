@@ -9,12 +9,12 @@ const initialValues: IDelivery = {
 };
 
 interface DeliveryFormProps {
-    deliveryFormHandler: (delivery: IDelivery) => void;
+    formHandler: (delivery: IDelivery) => void;
 }
 
 export const DeliveryForm: FC<DeliveryFormProps> = (props) => {
     const handleSubmit = (values: any, actions: any) => {
-        props.deliveryFormHandler(values);
+        props.formHandler(values);
         actions.resetForm();
     };
 
