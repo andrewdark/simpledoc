@@ -27,7 +27,8 @@ public class CitizenCategory implements Serializable {
     )
     private Long id;
 
-    //TODO: ADD OTHER FIELDS
+    /** Наименование социальной категории гражданина */
+    private String name;
 
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы

@@ -2,6 +2,8 @@ package ua.pp.darknsoft.simpledoc.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,5 +11,8 @@ import lombok.*;
 @Builder
 public class CitizenStatusDTO {
     private Long id;
+    private String name;
     private Boolean deleted;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

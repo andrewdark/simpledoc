@@ -27,7 +27,8 @@ public class CitizenStatus implements Serializable {
     )
     private Long id;
 
-    //TODO: ADD OTHER FIELDS
+    /** Наименование социального статуса гражданина */
+    private String name;
 
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы

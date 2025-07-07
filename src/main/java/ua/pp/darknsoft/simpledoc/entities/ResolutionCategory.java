@@ -7,7 +7,20 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
+/**
+ * @author Prk
+ * Справочник. Обозначение состояния исполнения резолюции.
+ * Часто используется при закрытии резолюции.
+ * Есть часто используемые варианты.
+ * <ul>
+ * <li>Контроль продлен</li>
+ * <li>Рассмотренно положительно</li>
+ * <li>Рассмотренно отрицательно</li>
+ * <li>Даны разъяснения</li>
+ * <li>Возвращено автору</li>
+ * <li>Переслано по назначению</li>
+ * </ul>
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,9 +39,11 @@ public class ResolutionCategory implements Serializable {
             allocationSize = 10
     )
     private Long id;
-
-    //TODO: ADD OTHER FIELDS
-
+    /**
+     * Текстовое обозначение категории резолюции.
+     */
+    @Column(name = "name")
+    private String name;
     /**
      * Признак удаленой записи. Нужен чтобы не удалять полностью документ из базы
      */

@@ -28,8 +28,7 @@ CREATE TABLE IF NOT EXISTS record_group
     CONSTRAINT record_group_fk_parent_id FOREIGN KEY (parent_id) REFERENCES record_group (id)
 );
 
-ALTER TABLE IF EXISTS public.record_group
-    OWNER to postgres;
+ALTER TABLE IF EXISTS public.record_group OWNER to postgres;
 ALTER SEQUENCE public.record_group_id_seq OWNED BY record_group.id;
 
 --delivery--
@@ -268,6 +267,7 @@ DROP TABLE IF EXISTS public.citizen_status;
 CREATE TABLE IF NOT EXISTS public.citizen_status
 (
     id         BIGINT NOT NULL DEFAULT nextval('public.citizen_status_id_seq'),
+    name       character varying(255),
     deleted    boolean         default false NOT NULL,
     version    bigint,
     created_at timestamp(6) without time zone,
@@ -292,6 +292,7 @@ DROP TABLE IF EXISTS public.citizen_category;
 CREATE TABLE IF NOT EXISTS public.citizen_category
 (
     id         BIGINT NOT NULL DEFAULT nextval('public.citizen_category_id_seq'),
+    name       character varying(255),
     deleted    boolean         default false NOT NULL,
     version    bigint,
     created_at timestamp(6) without time zone,
