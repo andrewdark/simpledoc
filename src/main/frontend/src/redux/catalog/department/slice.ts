@@ -5,6 +5,7 @@ import {createDepartment, deleteDepartment, getAllDepartment, getDepartmentById,
 
 interface DepartmentState {
     items: IDepartment[];
+    item: IDepartment | null;
     page: IPage;
     isLoading: boolean;
     error: string;
@@ -12,6 +13,7 @@ interface DepartmentState {
 
 const initialState: DepartmentState = {
     items: [],
+    item: null,
     page: {
         "size": 10,
         "number": 0,
@@ -50,13 +52,15 @@ export const departmentSlice = createSlice({
             .addCase(updateDepartment.rejected, handleRejected)
             .addCase(updateDepartment.fulfilled, (state, action) => {
                 state.isLoading = false;
-                for (const item of state.items) {
-                    if (item.id === action.payload.id) {
-                        item.id = action.payload.id;
 
-                        break;
-                    }
+                const newItems = [...state.items]; // Создаем копию массива, чтобы не мутировать исходное состояние напрямую (особенно важно для Redux/Immer)
+                const index = newItems.findIndex(item => item.id === action.payload.id);
+                if (index !== -1) {
+                    // Если объект найден
+                    newItems[index] = action.payload; // Заменяем объект по найденному индексу
                 }
+                state.items = newItems;
+                state.item = null;
             })
             //deleteDepartment
             .addCase(deleteDepartment.pending, handlePending)
@@ -84,14 +88,7 @@ export const departmentSlice = createSlice({
             .addCase(getDepartmentById.fulfilled, (state: DepartmentState, action: PayloadAction<IDepartment>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = [];
-                state.page = {
-                    "size": 1,
-                    "number": 0,
-                    "totalElements": 0,
-                    "totalPages": 0
-                }
-                state.items.push(action.payload);
+                state.item = action.payload;
             })
     }
 });

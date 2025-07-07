@@ -61,7 +61,7 @@ public class CitizenCategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        citizenCategoryService.deleteById(id);
+        citizenCategoryService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

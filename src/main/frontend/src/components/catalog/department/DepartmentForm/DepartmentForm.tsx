@@ -2,14 +2,20 @@ import React, {FC} from 'react';
 import {IDepartment} from "../../../../models/catalog/IDepartment";
 import {Field, Form, Formik, ErrorMessage, useFormikContext} from "formik";
 import css from "../../../../default_styles/Form.module.css";
+import * as Yup from "yup";
+import {useAppSelector} from "../../../../hooks/redux";
 
-const initialValues: IDepartment = {
-    name: "",
-    position: "",
-    official: false,
-    deleted: false,
-    parent: null
-};
+const validationSchema = Yup.object().shape({
+    id: Yup.number().nullable(),
+    name: Yup.string().min(2, "Too Short!").max(100, "Too Long!").required("Required"),
+    official: Yup.boolean(),
+    position: Yup.string().when('official', {
+        is: true, // Це може бути `true` або функція `(val: boolean) => val === true`
+        // Але якщо перша форма не працює, то друга точно спрацює
+        then: (schema) => schema.min(2, "Too Short!").max(100, "Too Long!").required('Required'),
+        otherwise: (schema) => schema, // Просто повертаємо початкову схему без додаткових правил
+    }),
+});
 
 interface DepartmentFormProps {
     formHandler: (department: IDepartment) => void;
@@ -31,32 +37,43 @@ const ConditionalShadeField = () => {
     return (
         <div className={css.fieldsGroup}>
             <label htmlFor="position">Посада:</label>
-            <Field className={css.fInput} type="text" name="position" placeholder="Position"/>
+            <Field className={css.fInput} type="text" id="position" name="position" placeholder="Position"/>
+            <ErrorMessage className={css.error} name="position" component="span"/>
         </div>
     );
 };
 
 const DepartmentForm: FC<DepartmentFormProps> = (props) => {
-
-    const handleSubmit = (values: any, actions: any) => {
+    const itemForUpdate = useAppSelector(state => state.departmentReducer.item);
+    console.log("itemForUpdate: ", itemForUpdate);
+    const handleSubmit = (values: IDepartment, actions: any) => {
         props.formHandler(values);
         actions.resetForm();
     };
-
+    const initialValues: IDepartment = {
+        id: itemForUpdate ? itemForUpdate.id : null,
+        name: itemForUpdate ? itemForUpdate.name : "",
+        position: itemForUpdate ? itemForUpdate.position : "",
+        official: itemForUpdate ? itemForUpdate.official : false,
+        deleted: itemForUpdate ? itemForUpdate.deleted : false,
+        parent: itemForUpdate ? itemForUpdate.parent : null
+    };
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema} enableReinitialize={true}>
             <Form className={css.form}>
+                {itemForUpdate && <Field type="hidden" name="id" />}
                 <div className={css.fieldsGroup}>
                     <label htmlFor="name">Ім'я підрозділу:</label>
-                    <Field className={css.fInput} type="text" name="name" placeholder="Name"/>
+                    <Field className={css.fInput} id="name" type="text" name="name" placeholder="Name" />
+                    <ErrorMessage className={css.error} name="name" component="span"/>
                 </div>
                 <div className={css.fieldsGroup}>
                     <div style={{display: 'flex', alignItems: 'center', marginBottom: '5px'}}>
                         {/* Field для чекбокса */}
-                        <Field type="checkbox" id="official" name="official" style={{marginRight: '8px'}}/>
+                        <Field type="checkbox" id="official" name="official" style={{marginRight: '8px'}} />
                         <label htmlFor="official" style={{marginBottom: '0'}}>Посадова особа</label>
+                        <ErrorMessage className={css.error} name="official" component="span"/>
                     </div>
-                    <ErrorMessage name="official" component="div" className="error"/>
                 </div>
                 {/*<div className={css.fieldsGroup}>*/}
 

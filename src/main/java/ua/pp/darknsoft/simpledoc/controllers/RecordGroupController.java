@@ -75,7 +75,7 @@ public class RecordGroupController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        recordGroupService.deleteById(id);
+        recordGroupService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

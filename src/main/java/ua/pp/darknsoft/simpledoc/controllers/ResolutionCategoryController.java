@@ -62,7 +62,7 @@ public class ResolutionCategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        resolutionCategoryService.deleteById(id);
+        resolutionCategoryService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

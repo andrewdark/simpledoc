@@ -62,7 +62,7 @@ public class RubricController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        rubricService.deleteById(id);
+        rubricService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

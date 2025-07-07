@@ -1,7 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {boolean} from "yup";
-import {IRubric} from "../../models/catalog/IRubric";
-import {IPage} from "../../models/IPageable";
 
 interface ModalState {
     visible:boolean;
@@ -15,7 +12,6 @@ export const modalSlice = createSlice({
     initialState,
     reducers: {
         setModal(state, action) {
-            console.log("action: ",action);
             state.visible = action.payload;
         },
     }

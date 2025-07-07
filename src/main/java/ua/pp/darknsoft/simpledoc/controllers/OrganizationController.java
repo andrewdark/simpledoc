@@ -62,7 +62,7 @@ public class OrganizationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        organizationService.deleteById(id);
+        organizationService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

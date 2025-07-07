@@ -69,7 +69,7 @@ public class RecordController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        recordService.deleteById(id);
+        recordService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

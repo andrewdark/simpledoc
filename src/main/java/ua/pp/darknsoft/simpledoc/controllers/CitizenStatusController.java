@@ -62,7 +62,7 @@ public class CitizenStatusController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        citizenStatusService.deleteById(id);
+        citizenStatusService.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -8,12 +8,14 @@ import {IDepartment} from "../../../../models/catalog/IDepartment";
 import DepartmentForm from "../../../../components/catalog/department/DepartmentForm/DepartmentForm";
 import {DepartmentItem} from "../../../../components/catalog/department/DepartmentItem/DepartmentItem";
 import {PageBar} from "../../../../components/PageBar/PageBar";
-import {getAllDepartment} from "../../../../redux/catalog/department/operations";
-import {setModal} from "../../../../redux/modal/slice";
-import {IDelivery} from "../../../../models/catalog/IDelivery";
-import {createDelivery, deleteDelivery} from "../../../../redux/catalog/delivery/operations";
-import {getAllCitizen} from "../../../../redux/catalog/citizen/operations";
+import {
+    createDepartment,
+    deleteDepartment,
+    getAllDepartment, getDepartmentById,
+    updateDepartment
+} from "../../../../redux/catalog/department/operations";
 import {useNavigate} from "react-router-dom";
+import {setModal} from "../../../../redux/modal/slice";
 
 const Department = () => {
     const items = useAppSelector(state => state.departmentReducer.items);
@@ -29,30 +31,39 @@ const Department = () => {
     }, [dispatch]);
 
     //---=== CRUD OPERATION HANDLERS ===---//
-    const createItemHandler = (dto: IDelivery) => {
-        dispatch(createDelivery({dto: dto}));
+    const saveItemHandler = (dto: IDepartment) => {
+        if (dto && dto.id) {
+            dispatch(updateDepartment({id: dto.id, dto: dto}));
+        } else {
+            dispatch(createDepartment({dto: dto}));
+        }
+
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/delivery/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`/catalog/department/${id}`, {state: {param1: "hello", param2: "worm"}})
     };
-    const updateItemHandler = (id: number) => {
-        dispatch(setModal(false));
+    const updateItemHandler = async (id: number) => {
+        if (id) {
+            await dispatch(getDepartmentById({id: id}))
+            dispatch(setModal(true));
+        }
+
     };
     const deleteItemHandler = (id: number) => {
-        dispatch(deleteDelivery({id: id}));
+        dispatch(deleteDepartment({id: id}));
     };
 
     const pageSelectionHandler = (currentPage: number) => {
         if (currentPage >= 0 && currentPage < page.totalPages) {
-            dispatch(getAllCitizen({size: 10, number: currentPage}));
+            dispatch(getAllDepartment({size: 10, number: currentPage}));
         }
     };
 
     return (
         <div className={css.department}>
             <ModalFormContainer>
-                <DepartmentForm formHandler={createItemHandler}/>
+               <DepartmentForm formHandler={saveItemHandler}/>
             </ModalFormContainer>
             <NavBar navLinks={navLinks} isAddButton={true}/>
             <List items={items}
