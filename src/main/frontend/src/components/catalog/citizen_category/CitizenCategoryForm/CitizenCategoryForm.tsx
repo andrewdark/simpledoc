@@ -3,7 +3,9 @@ import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
 import {ICitizenCategory} from "../../../../models/catalog/ICitizenCategory";
 
-const initialValues: ICitizenCategory = {};
+const initialValues: ICitizenCategory = {
+    name: ""
+};
 
 interface CitizenCategoryFormProps {
     formHandler: (citizenCategory: ICitizenCategory) => void;

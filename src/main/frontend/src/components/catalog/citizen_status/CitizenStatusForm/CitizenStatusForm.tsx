@@ -4,7 +4,7 @@ import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
 
 const initialValues: ICitizenStatus = {
-
+    name: "",
 };
 
 interface CitizenStatusFormProps {

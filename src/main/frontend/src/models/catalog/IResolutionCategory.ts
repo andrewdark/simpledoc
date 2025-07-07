@@ -1,3 +1,7 @@
 export interface IResolutionCategory {
-    "id"?: number;
+    id?: number;
+    name: string;
+    deleted: boolean;
+    createdAt?: string;
+    updatedAt?: string;
 }

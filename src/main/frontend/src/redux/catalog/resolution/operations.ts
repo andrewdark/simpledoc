@@ -1,4 +1,4 @@
-import {IResolution} from "../../../models/catalog/IResolution";
+import {IResolution} from "../../../models/IResolution";
 import {SortOrder} from "../../../models/IPageable";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {$api} from "../../../http";

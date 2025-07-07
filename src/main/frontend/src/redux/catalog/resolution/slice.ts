@@ -1,6 +1,6 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
-import {IResolution} from "../../../models/catalog/IResolution";
+import {IResolution} from "../../../models/IResolution";
 import {createResolution, deleteResolution, getAllResolution, getResolutionById, updateResolution} from "./operations";
 
 interface ResolutionState {

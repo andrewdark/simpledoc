@@ -4,7 +4,8 @@ import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
 
 const initialValues: IResolutionCategory = {
-
+    name: "",
+    deleted: false,
 };
 
 interface ResolutionCategoryFormProps {

@@ -5,6 +5,9 @@ import {IRubric} from "../../../../models/catalog/IRubric";
 import {ICitizen} from "../../../../models/catalog/ICitizen";
 
 const initialValues: IRubric = {
+    name: "",
+    node: false,
+    deleted: false
 };
 
 interface RubricFormProps {

@@ -1,9 +1,9 @@
 export const RecordGroupType = {
-    "NODE": "NODE",
-    "INCOMING": "INCOMING",
-    "OUTGOING": "OUTGOING",
-    "CITIZEN": "CITIZEN",
-    "INNER": "INNER"
+    NODE: "NODE",
+    INCOMING: "INCOMING",
+    OUTGOING: "OUTGOING",
+    CITIZEN: "CITIZEN",
+    INNER: "INNER"
 } as const;
 
 export interface IRecordGroup {
@@ -14,7 +14,7 @@ export interface IRecordGroup {
     indexNum: string;
     templateNum: string;
     deleted: boolean;
-    parent?: IRecordGroup;
+    parent?: IRecordGroup | null;
     children?: IRecordGroup[];
     createdAt?: string;
     updatedAt?: string;

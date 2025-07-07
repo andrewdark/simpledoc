@@ -4,7 +4,9 @@ import css from "../../../../default_styles/Form.module.css";
 import {ICitizen} from "../../../../models/catalog/ICitizen";
 
 const initialValues: ICitizen = {
-
+    fullName: "",
+    address: "",
+    deleted: false,
 };
 
 interface CitizenFormProps {

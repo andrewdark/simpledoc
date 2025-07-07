@@ -4,7 +4,9 @@ import {Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
 
 const initialValues: IOrganization = {
-
+    name: "",
+    code:"",
+    deleted: false
 };
 
 interface OrganizationFormProps {
@@ -24,7 +26,9 @@ const OrganizationForm: FC<OrganizationFormProps> = (props) => {
                 <div className={css.fieldsGroup}>
                     <Field className={css.fInput} type="text" name="name" placeholder="Name"/>
                 </div>
-
+                <div className={css.fieldsGroup}>
+                    <Field className={css.fInput} type="text" name="code" placeholder="Code"/>
+                </div>
                 <button className={css.submitBtn} type="submit">Submit</button>
             </Form>
         </Formik>
