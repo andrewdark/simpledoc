@@ -1,5 +1,5 @@
 export interface ICitizenCategory {
-    "id"?: number;
+    "id"?: number | null;
     name: string;
     createdAt?: string;
     updatedAt?: string;

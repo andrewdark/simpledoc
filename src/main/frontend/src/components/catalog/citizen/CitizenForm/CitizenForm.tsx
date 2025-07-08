@@ -7,8 +7,8 @@ import {useAppSelector} from "../../../../hooks/redux";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
-    fullName: Yup.string().min(2, "Занадто коротке!").max(250, "Занадто довге!").required("Ім\'я обов\'язкове"),
-    address: Yup.string().min(2, "Занадто коротке!").max(250, "Занадто довге!").required("Адреса обов\'язкова"),
+    fullName: Yup.string().min(2, "Занадто коротке!").max(250, "Занадто довге!").required("Обов\'язкове поле"),
+    address: Yup.string().min(2, "Занадто коротке!").max(250, "Занадто довге!").required("Обов\'язкове поле"),
 });
 
 
@@ -27,7 +27,6 @@ export const CitizenForm: FC<CitizenFormProps> = (props) => {
         id: itemForUpdate ? itemForUpdate.id : null,
         fullName: itemForUpdate ? itemForUpdate.fullName :"",
         address: itemForUpdate ? itemForUpdate.address :"",
-        deleted: itemForUpdate ? itemForUpdate.deleted : false,
     };
 
     return (

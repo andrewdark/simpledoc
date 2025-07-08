@@ -1,7 +1,7 @@
 export interface IDelivery {
-    id?: number;
+    id?: number | null;
     name: string;
-    deleted: boolean;
+    deleted?: boolean;
     createdAt?: string;
     updatedAt?: string;
 }

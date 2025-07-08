@@ -5,7 +5,7 @@ export interface ICitizen {
     id?: number | null;
     fullName: string;
     address: string;
-    deleted: boolean;
+    deleted?: boolean;
     status?: ICitizenStatus | null;
     category?: ICitizenCategory | null;
     createdAt?: string;

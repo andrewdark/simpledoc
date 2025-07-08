@@ -1,6 +1,14 @@
-import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
+import {
+    BsDownload,
+    BsFeather,
+    BsFileText,
+    BsFillInboxFill,
+    BsFillPeopleFill,
+    BsFolderFill,
+    BsTrash, BsUpload
+} from "react-icons/bs";
 import {FC} from "react";
-import {IRecordGroup} from "../../../../models/catalog/IRecordGroup";
+import {IRecordGroup, RecordGroupType} from "../../../../models/catalog/IRecordGroup";
 import css from './RecordGroupItem.module.css';
 
 interface RecordGroupItemProps {
@@ -16,12 +24,29 @@ export const RecordGroupItem: FC<RecordGroupItemProps> = ({
                                                               updateItemHandler,
                                                               deleteItemHandler
                                                           }) => {
+    const renderSwitch = (type : typeof RecordGroupType[keyof typeof RecordGroupType]) => {
+        switch(type) {
+            case RecordGroupType.NODE:
+                return <BsFolderFill size="24px"/>;
+            case RecordGroupType.INCOMING:
+                return <BsDownload size="24px"/>;
+            case RecordGroupType.CITIZEN:
+                return <BsFillPeopleFill size="24px"/>;
+            case RecordGroupType.OUTGOING:
+                return <BsUpload size="24px"/>;
+            case RecordGroupType.INNER:
+                return <BsFillInboxFill size="24px"/>;
+            default:
+                return <BsFolderFill size="24px"/>;
+        }
+    }
 
     return (
         <div key={item.id} className={css.recordGroupItem}>
             <div>{item.id}</div>
+            <div>{renderSwitch(item.recordGroupType)}</div>
             <div>{item.name}</div>
-            <div>{item.createdAt}</div>
+
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)

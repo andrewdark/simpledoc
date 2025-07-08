@@ -7,13 +7,13 @@ export const RecordGroupType = {
 } as const;
 
 export interface IRecordGroup {
-    id?: number;
+    id?: number | null;
     name: string;
     node: boolean;
     recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
     indexNum: string;
     templateNum: string;
-    deleted: boolean;
+    deleted?: boolean;
     parent?: IRecordGroup | null;
     children?: IRecordGroup[];
     createdAt?: string;

@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import {IResolutionCategory} from "../../../../models/catalog/IResolutionCategory";
-import {Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik} from "formik";
 import css from "../../../../default_styles/Form.module.css";
 import * as Yup from "yup";
 import {useAppSelector} from "../../../../hooks/redux";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
-
+    name: Yup.string().min(2, "Занадто коротка!").max(250, "Занадто довга!").required("Обов\'язкове поле"),
 });
 
 interface ResolutionCategoryFormProps {
@@ -22,18 +22,22 @@ export const ResolutionCategoryForm: FC<ResolutionCategoryFormProps> = (props) =
     };
 
     const initialValues: IResolutionCategory = {
-        name: "",
-        deleted: false,
+        id: itemForUpdate ? itemForUpdate.id : null,
+        name: itemForUpdate ? itemForUpdate.name : ""
     };
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema} enableReinitialize={true}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}
+                enableReinitialize={true}>
             <Form className={css.form}>
+                {itemForUpdate && <Field type="hidden" name="id"/>}
                 <div className={css.fieldsGroup}>
+                    <label htmlFor="name">Назва статуса:</label>
                     <Field className={css.fInput} type="text" name="name" placeholder="Name"/>
+                    <ErrorMessage className={css.error} name="name" component="span"/>
                 </div>
 
-                <button className={css.submitBtn} type="submit">Submit</button>
+                <button className={css.submitBtn} type="submit">Зберегти</button>
             </Form>
         </Formik>
     );

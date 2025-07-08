@@ -1,8 +1,8 @@
 export interface IOrganization {
-    "id"?: number;
+    "id"?: number | null;
     name: string;
     code: string;
-    deleted: boolean;
+    deleted?: boolean;
     createdAt?: string;
     updatedAt?: string;
 }

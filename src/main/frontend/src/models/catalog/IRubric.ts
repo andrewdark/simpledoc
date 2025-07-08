@@ -1,11 +1,11 @@
 export interface IRubric {
-    "id"?: number;
+    "id"?: number | null;
     code?:string;
     name:string;
     node: boolean;
     parent?:IRubric | null;
     children?:IRubric[];
-    deleted: boolean;
+    deleted?: boolean;
     createdAt?: string;
     updatedAt?: string;
 }
