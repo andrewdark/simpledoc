@@ -30,8 +30,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     public DepartmentDTO add(DepartmentDTO dto) throws AppException {
         try {
+            dto.setId(null);
+            dto.setDeleted(false);
+
             Department newEntity = toEntityConverter.convert(dto);
-            newEntity.setId(null);
             Department savedEntity = departmentRepository.save(newEntity);
             return toDTOConverter.convert(savedEntity);
         } catch (Exception ex) {

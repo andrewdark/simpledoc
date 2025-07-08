@@ -32,6 +32,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         try {
             deliveryDTO.setId(null);
             deliveryDTO.setDeleted(false);
+
             Delivery delivery = toEntityConverter.convert(deliveryDTO);
             return toDTOConverter.convert(deliveryRepository.save(delivery));
         } catch (Exception ex) {

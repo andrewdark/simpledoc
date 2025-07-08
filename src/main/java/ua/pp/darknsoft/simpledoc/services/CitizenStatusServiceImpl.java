@@ -32,6 +32,7 @@ public class CitizenStatusServiceImpl implements CitizenStatusService {
         try {
             citizenStatusDTO.setId(null);
             citizenStatusDTO.setDeleted(false);
+
             CitizenStatus citizenStatus = toEntityConverter.convert(citizenStatusDTO);
             return toDTOConverter.convert(citizenStatusRepository.save(citizenStatus));
         } catch (Exception ex) {

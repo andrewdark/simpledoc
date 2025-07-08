@@ -18,7 +18,8 @@ export const NavBar: FC<NavBarProps> = (props) => {
     const links: navLinks[] = props.navLinks??[{ link: "/", title: "Головна" }];
 
     const onClickHandler = () => {
-        setModal(true);
+        console.log("Clicked!!!")
+        dispatch(setModal(true));
     };
 
     return (

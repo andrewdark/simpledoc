@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
+public class ResolutionCategoryServiceImpl implements ResolutionCategoryService {
 
     private final ResolutionCategoryRepository resolutionCategoryRepository;
     private final ResolutionCategoryToResolutionCategoryDTOConverter toDTOConverter;
@@ -32,6 +32,7 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService{
     public ResolutionCategoryDTO add(ResolutionCategoryDTO resolutionCategoryDTO) throws AppException {
         try {
             resolutionCategoryDTO.setId(null);
+            resolutionCategoryDTO.setDeleted(false);
 
             ResolutionCategory resolutionCategory = toEntityConverter.convert(resolutionCategoryDTO);
             return toDTOConverter.convert(resolutionCategoryRepository.save(resolutionCategory));

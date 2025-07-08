@@ -31,6 +31,7 @@ public class CorrespondentServiceImpl implements CorrespondentService {
     public CorrespondentDTO add(CorrespondentDTO correspondentDTO) throws AppException {
         try {
             correspondentDTO.setId(null);
+            correspondentDTO.setDeleted(false);
 
             Correspondent correspondent = toEntityConverter.convert(correspondentDTO);
             return toDTOConverter.convert(correspondentRepository.save(correspondent));

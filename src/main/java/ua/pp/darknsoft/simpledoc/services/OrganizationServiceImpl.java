@@ -31,6 +31,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationDTO add(OrganizationDTO organizationDTO) throws AppException {
         try {
             organizationDTO.setId(null);
+            organizationDTO.setDeleted(false);
 
             Organization organization = toEntityConverter.convert(organizationDTO);
             return toDTOConverter.convert(organizationRepository.save(organization));

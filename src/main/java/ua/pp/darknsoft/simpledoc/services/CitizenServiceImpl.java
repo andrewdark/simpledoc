@@ -31,6 +31,7 @@ public class CitizenServiceImpl implements CitizenService {
     public CitizenDTO add(CitizenDTO citizenDTO) throws AppException {
         try {
             citizenDTO.setId(null);
+            citizenDTO.setDeleted(false);
 
             Citizen citizen = toEntityConverter.convert(citizenDTO);
             return toDTOConverter.convert(citizenRepository.save(citizen));

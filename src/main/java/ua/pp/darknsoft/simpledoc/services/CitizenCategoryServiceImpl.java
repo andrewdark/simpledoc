@@ -31,7 +31,7 @@ public class CitizenCategoryServiceImpl implements CitizenCategoryService {
     public CitizenCategoryDTO add(CitizenCategoryDTO citizenCategoryDTO) throws AppException {
         try {
             citizenCategoryDTO.setId(null);
-
+            citizenCategoryDTO.setDeleted(false);
             CitizenCategory citizenCategory = toEntityConverter.convert(citizenCategoryDTO);
             return toDTOConverter.convert(citizenCategoryRepository.save(citizenCategory));
         } catch (Exception ex) {

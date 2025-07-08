@@ -31,6 +31,7 @@ public class RubricServiceImpl implements RubricService {
     public RubricDTO add(RubricDTO rubricDTO) throws AppException {
         try {
             rubricDTO.setId(null);
+            rubricDTO.setDeleted(false);
 
             Rubric rubric = toEntityConverter.convert(rubricDTO);
             return toDTOConverter.convert(rubricRepository.save(rubric));

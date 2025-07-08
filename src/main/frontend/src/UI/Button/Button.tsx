@@ -10,7 +10,7 @@ interface ButtonProps {
 
 export const Button: FC<ButtonProps> = (props) => {
     return (
-        <div className={css.button}  onClick={() => props.onClickHandler}>
+        <div className={css.button}  onClick={() => props.onClickHandler()}>
             {props.children}
         </div>
     );

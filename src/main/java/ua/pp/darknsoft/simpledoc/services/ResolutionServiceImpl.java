@@ -29,6 +29,7 @@ public class ResolutionServiceImpl implements ResolutionService {
     public ResolutionDTO add(ResolutionDTO resolutionDTO) throws AppException {
         try {
             resolutionDTO.setId(null);
+            resolutionDTO.setDeleted(false);
 
             Resolution resolution = toEntityConverter.convert(resolutionDTO);
             return toDTOConverter.convert(resolutionRepository.save(resolution));

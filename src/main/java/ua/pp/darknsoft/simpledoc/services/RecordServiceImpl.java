@@ -34,9 +34,11 @@ public class RecordServiceImpl implements RecordService {
     @Transactional
     public RecordDTO add(RecordDTO recordDTO) throws AppException {
         try {
+            recordDTO.setId(null);
+            //recordDTO.setDeleted(false);
+
             Record newEntity = toEntityConverter.convert(recordDTO);
             if (Objects.isNull(newEntity)) return null;
-            newEntity.setId(null);
 
             RecordGroup recordGroup = recordGroupService.getReference(newEntity.getRecordGroup().getId());
             newEntity.setRecordGroup(recordGroup);
