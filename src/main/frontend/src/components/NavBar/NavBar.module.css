@@ -1,30 +1,31 @@
-.NavBar {
+.navBar {
   background-color: #edf2f9;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
   margin-bottom: 16px;
   row-gap: 4px;
   column-gap: 4px;
 }
 
-.NavBarItem {
+.navBarItem {
   display: flex;
   justify-content: flex-start;
 }
 
-.NavBarItem strong {
+.navBarItem strong {
   color: #5e6e82;
 }
 
 @media only screen and (min-width: 768px) {
-  .NavBar{
+  .navBar{
     row-gap: 8px;
   }
 }
 
 @media only screen and (min-width: 1158px) {
-  .NavBar {
+  .navBar {
     row-gap: 16px;
   }
 }
