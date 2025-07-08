@@ -2,7 +2,7 @@ import {ICitizenStatus} from "./ICitizenStatus";
 import {ICitizenCategory} from "./ICitizenCategory";
 
 export interface ICitizen {
-    id?: number;
+    id?: number | null;
     fullName: string;
     address: string;
     deleted: boolean;

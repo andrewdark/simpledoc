@@ -45,7 +45,6 @@ const ConditionalShadeField = () => {
 
 export const DepartmentForm: FC<DepartmentFormProps> = (props) => {
     const itemForUpdate = useAppSelector(state => state.departmentReducer.item);
-    console.log("itemForUpdate: ", itemForUpdate);
     const handleSubmit = (values: IDepartment, actions: any) => {
         props.formHandler(values);
         actions.resetForm();

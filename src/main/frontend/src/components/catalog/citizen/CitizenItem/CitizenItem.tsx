@@ -15,6 +15,8 @@ export const CitizenItem: FC<CitizenItemProps> = ({item, readItemHandler, update
     return (
         <div key={item.id} className={css.citizenItem}>
             <div>{item.id}</div>
+            <div>{item.fullName}</div>
+            <div>{item.address}</div>
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)
