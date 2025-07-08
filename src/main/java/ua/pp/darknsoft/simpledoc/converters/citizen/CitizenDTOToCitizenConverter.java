@@ -17,7 +17,7 @@ public class CitizenDTOToCitizenConverter implements Converter<CitizenDTO, Citiz
         Citizen target = Citizen.builder()
                 .id(source.getId())
                 .fullName(source.getFullName())
-                .address(source.getFullName())
+                .address(source.getAddress())
                 .deleted(source.getDeleted())
                 .createdAt(source.getCreatedAt())
                 .updatedAt(source.getUpdatedAt())

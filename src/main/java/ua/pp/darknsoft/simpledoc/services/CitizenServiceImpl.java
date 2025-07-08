@@ -11,6 +11,7 @@ import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenToCitizenDTOConverter
 import ua.pp.darknsoft.simpledoc.dto.CitizenDTO;
 import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Delivery;
+import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenRepository;
 
@@ -48,8 +49,18 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     @Transactional
-    public CitizenDTO update(Long aLong, CitizenDTO newDTO) throws AppException {
-        return null;
+    public CitizenDTO update(Long id, CitizenDTO newDTO) throws AppException {
+        try {
+            Citizen entity = citizenRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setFullName(newDTO.getFullName());
+            entity.setAddress(newDTO.getAddress());
+
+            return toDTOConverter.convert(citizenRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

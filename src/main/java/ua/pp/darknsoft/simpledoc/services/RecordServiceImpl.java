@@ -58,8 +58,22 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     @Transactional
-    public RecordDTO update(Long aLong, RecordDTO newDTO) throws AppException {
-        return null;
+    public RecordDTO update(Long id, RecordDTO newDTO) throws AppException {
+        try {
+            Record entity = recordRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setOrderNum(newDTO.getOrderNum());
+            entity.setRegNum(newDTO.getRegNum());
+            entity.setRegDate(newDTO.getRegDate());
+            entity.setConsist(newDTO.getConsist());
+            entity.setContent(newDTO.getContent());
+            entity.setNote(newDTO.getNote());
+
+            return toDTOConverter.convert(recordRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

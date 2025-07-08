@@ -9,11 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionDTOToResolutionConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionToResolutionDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.entities.Resolution;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionRepository;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,8 +46,22 @@ public class ResolutionServiceImpl implements ResolutionService {
     }
 
     @Override
-    public ResolutionDTO update(Long aLong, ResolutionDTO newDTO) throws AppException {
-        return null;
+    public ResolutionDTO update(Long id, ResolutionDTO newDTO) throws AppException {
+        try {
+            Resolution entity = resolutionRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setContent(newDTO.getContent());
+            entity.setResDate(newDTO.getResDate());
+            entity.setPlanDate(newDTO.getPlanDate());
+            entity.setFactDate(newDTO.getFactDate());
+            entity.setResume(newDTO.getResume());
+            entity.setSummary(newDTO.getSummary());
+
+            return toDTOConverter.convert(resolutionRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

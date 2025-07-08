@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryDTOToCitizenCategoryConverter;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryToCitizenCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenCategoryDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
 import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
@@ -47,8 +48,17 @@ public class CitizenCategoryServiceImpl implements CitizenCategoryService {
 
     @Override
     @Transactional
-    public CitizenCategoryDTO update(Long aLong, CitizenCategoryDTO newDTO) throws AppException {
-        return null;
+    public CitizenCategoryDTO update(Long id, CitizenCategoryDTO newDTO) throws AppException {
+        try {
+            CitizenCategory entity = citizenCategoryRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setName(newDTO.getName());
+
+            return toDTOConverter.convert(citizenCategoryRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

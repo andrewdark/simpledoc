@@ -48,8 +48,17 @@ public class CitizenStatusServiceImpl implements CitizenStatusService {
 
     @Override
     @Transactional
-    public CitizenStatusDTO update(Long aLong, CitizenStatusDTO newDTO) throws AppException {
-        return null;
+    public CitizenStatusDTO update(Long id, CitizenStatusDTO newDTO) throws AppException {
+        try {
+            CitizenStatus entity = citizenStatusRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setName(newDTO.getName());
+
+            return toDTOConverter.convert(citizenStatusRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

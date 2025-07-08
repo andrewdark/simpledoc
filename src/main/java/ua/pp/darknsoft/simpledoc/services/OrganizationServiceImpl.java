@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationDTOToOrganizationConverter;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationToOrganizationDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
@@ -48,8 +49,18 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     @Transactional
-    public OrganizationDTO update(Long aLong, OrganizationDTO newDTO) throws AppException {
-        return null;
+    public OrganizationDTO update(Long id, OrganizationDTO newDTO) throws AppException {
+        try {
+            Organization entity = organizationRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setName(newDTO.getName());
+            entity.setCode(newDTO.getCode());
+
+            return toDTOConverter.convert(organizationRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

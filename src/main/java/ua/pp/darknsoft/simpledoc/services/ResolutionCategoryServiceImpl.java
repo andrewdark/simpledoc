@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryDTOToResolutionCategoryConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryToResolutionCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionCategoryDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.ResolutionCategory;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
@@ -49,8 +50,17 @@ public class ResolutionCategoryServiceImpl implements ResolutionCategoryService 
 
     @Override
     @Transactional
-    public ResolutionCategoryDTO update(Long aLong, ResolutionCategoryDTO newDTO) throws AppException {
-        return null;
+    public ResolutionCategoryDTO update(Long id, ResolutionCategoryDTO newDTO) throws AppException {
+        try {
+            ResolutionCategory entity = resolutionCategoryRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setName(newDTO.getName());
+
+            return toDTOConverter.convert(resolutionCategoryRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

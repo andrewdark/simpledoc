@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.simpledoc.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ReplyDTOToReplyConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ReplyToReplyDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ReplyDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Reply;
+import ua.pp.darknsoft.simpledoc.entities.enums.ReplyType;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ReplyRepository;
 
@@ -45,8 +48,19 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     @Transactional
-    public ReplyDTO update(Long aLong, ReplyDTO newDTO) throws AppException {
-        return null;
+    public ReplyDTO update(Long id, ReplyDTO newDTO) throws AppException {
+        try {
+            Reply entity = replyRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setReplyDate(newDTO.getReplyDate());
+            entity.setReplyType(newDTO.getReplyType());
+            entity.setContent(newDTO.getContent());
+
+            return toDTOConverter.convert(replyRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

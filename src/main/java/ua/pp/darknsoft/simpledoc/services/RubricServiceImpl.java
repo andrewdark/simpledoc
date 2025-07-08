@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricDTOToRubricConverter;
 import ua.pp.darknsoft.simpledoc.converters.rubric.RubricToRubricDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RubricDTO;
+import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Resolution;
 import ua.pp.darknsoft.simpledoc.entities.Rubric;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
@@ -48,8 +49,19 @@ public class RubricServiceImpl implements RubricService {
 
     @Override
     @Transactional
-    public RubricDTO update(Long aLong, RubricDTO newDTO) throws AppException {
-        return null;
+    public RubricDTO update(Long id, RubricDTO newDTO) throws AppException {
+        try {
+            Rubric entity = rubricRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setName(newDTO.getName());
+            entity.setCode(newDTO.getCode());
+            entity.setNode(newDTO.getNode());
+
+            return toDTOConverter.convert(rubricRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override

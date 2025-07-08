@@ -11,9 +11,11 @@ import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentToCorresp
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
+import ua.pp.darknsoft.simpledoc.entities.enums.CorrespondentType;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -48,8 +50,21 @@ public class CorrespondentServiceImpl implements CorrespondentService {
 
     @Override
     @Transactional
-    public CorrespondentDTO update(Long aLong, CorrespondentDTO newDTO) throws AppException {
-        return null;
+    public CorrespondentDTO update(Long id, CorrespondentDTO newDTO) throws AppException {
+        try {
+            Correspondent entity = correspondentRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
+
+            entity.setOutNum(newDTO.getOutNum());
+            entity.setOutDate(newDTO.getOutDate());
+            entity.setNote(newDTO.getNote());
+            entity.setSignatory(newDTO.getSignatory());
+            entity.setCorrespondentType(newDTO.getCorrespondentType());
+
+            return toDTOConverter.convert(correspondentRepository.save(entity));
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 
     @Override
