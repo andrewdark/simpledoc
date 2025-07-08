@@ -16,7 +16,7 @@ const CitizenCategoryId = () => {
     return (
         <div className={css.citizenCategoryId}>
             <NavBar navLinks={ state?state.navLinks: [{ link: "/", title: "Головна" }]} isAddButton={false}/>
-            <h1>Delivery page ID: {id}</h1>
+            <h1>CitizenCategory page ID: {id}</h1>
         </div>
     );
 };

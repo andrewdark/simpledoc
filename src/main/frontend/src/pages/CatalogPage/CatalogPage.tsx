@@ -1,6 +1,6 @@
 import List from "../../components/List/List"
 import {ICatalog} from "../../models/catalog/IСatalog";
-import {catalogList} from "../../models/catalog/CatalogStaticContent"
+import {catalogList} from "../../models/static_content/CatalogStaticContent"
 import CatalogItem from "../../components/catalog/CatalogItem/CatalogItem";
 import css from './CatalogPage.module.css';
 

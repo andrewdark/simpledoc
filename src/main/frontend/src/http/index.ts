@@ -2,7 +2,7 @@ import axios from "axios";
 import {AppStore} from "../redux/store";
 import {refreshToken} from "../redux/auth/operations";
 
-export const BASE_URL = "http://localhost:8080/api"; // /api -> by default
+export const BASE_URL = "/api"; // /api -> by default
 
 export const $api = axios.create({
   withCredentials: true, //for cookies

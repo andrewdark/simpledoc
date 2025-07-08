@@ -13,6 +13,7 @@ const DepartmentId = () => {
 
     return (
         <div className={css.departmentId}>
+            <NavBar isAddButton={false}/>
             <h1>Department page ID: {id}</h1>
         </div>
     )

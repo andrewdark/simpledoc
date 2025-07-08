@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './CitizenId.module.css';
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
-import CitizenCategoryId from "../../CitizenCategoryPage/CitizenCategoryId/CitizenCategoryId";
+import {useParams} from "react-router-dom";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 
 interface CitizenParams {
     id: string;
@@ -9,9 +9,12 @@ interface CitizenParams {
 }
 
 const CitizenId = () => {
+    const { id } = useParams<CitizenParams>();
+
     return (
         <div className={css.citizenId}>
-
+            <NavBar navLinks={null} isAddButton={false} />
+            <h1>Citizen page ID: {id}</h1>
         </div>
     );
 };

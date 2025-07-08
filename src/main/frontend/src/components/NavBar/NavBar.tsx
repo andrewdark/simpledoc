@@ -9,7 +9,7 @@ import {Button} from "../../UI/Button/Button";
 export type navLinks = { link: string; title: string };
 
 interface NavBarProps {
-    navLinks: navLinks[] | null;
+    navLinks?: navLinks[] | null;
     isAddButton: boolean;
 }
 
@@ -18,7 +18,6 @@ export const NavBar: FC<NavBarProps> = (props) => {
     const links: navLinks[] = props.navLinks??[{ link: "/", title: "Головна" }];
 
     const onClickHandler = () => {
-        console.log("Clicked!!!")
         dispatch(setModal(true));
     };
 

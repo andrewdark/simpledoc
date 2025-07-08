@@ -14,13 +14,12 @@ const DeliveryId: React.FC = () => {
     // Получаем объект location, который содержит переданное состояние
     const location = useLocation();
     // Доступ к состоянию, переданному через navigate({ state: ... })
-    const state = location.state as {navLinks: navLinks} | undefined;
+    //const state = location.state as {navLinks: navLinks} | undefined;
 
     return (
         <div className={css.deliveryId}>
+            <NavBar isAddButton={false}/>
             <h1>Delivery page ID: {id}</h1>
-            <p>{state?state.navLinks.title:""}</p>
-            <p>{state?state.navLinks.link:""}</p>
         </div>
     );
 };

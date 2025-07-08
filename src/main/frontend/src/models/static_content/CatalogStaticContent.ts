@@ -1,4 +1,4 @@
-import {ICatalog} from "./IСatalog";
+import {ICatalog} from "../catalog/IСatalog";
 
 export const catalogList: ICatalog[] = [
     {

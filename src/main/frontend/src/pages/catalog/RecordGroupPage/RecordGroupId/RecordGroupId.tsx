@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
 import css from './RecordGroupId.module.css';
+import {useParams} from "react-router-dom";
 
 interface RecordGroupParams {
     id: string;
@@ -8,9 +9,12 @@ interface RecordGroupParams {
 }
 
 const RecordGroupId = () => {
+    const { id } = useParams<RecordGroupParams>();
+
     return (
         <div className={css.recordGroupId}>
-            
+            <NavBar isAddButton={false}/>
+            <h1>RecordGroup page ID: {id}</h1>
         </div>
     );
 };
