@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 @Builder
 public class ReplyDTO {
     private Long id;
-    private Resolution resolution;
     private LocalDate replyDate;
     private ReplyType replyType;
-    private Department executor;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private Resolution resolution;
+    private Department executor;
 }

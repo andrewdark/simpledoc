@@ -21,15 +21,16 @@ import java.time.LocalDateTime;
 @Builder
 public class CorrespondentDTO {
     private Long id;
-    private Record record;
     private String outNum;
     private LocalDate outDate;
     private String note;
     private String signatory;
-    private Organization Organization;
-    private Citizen citizen;
     private CorrespondentType correspondentType;
     private Boolean deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private RecordDTO record;
+    private OrganizationDTO organization;
+    private CitizenDTO citizen;
 }

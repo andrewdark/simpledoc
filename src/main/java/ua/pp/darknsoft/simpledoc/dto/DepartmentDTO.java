@@ -17,9 +17,10 @@ public class DepartmentDTO {
     private String position;
     private Boolean official;
     private Boolean deleted;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
     private DepartmentDTO parent;
     private List<DepartmentDTO> children;
     private AppUserDTO appUserDTO;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

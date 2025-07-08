@@ -8,6 +8,7 @@ import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -18,17 +19,19 @@ import java.util.Set;
 @Builder
 public class RecordDTO {
     private Long id;
-    private RecordGroupDTO recordGroup;
     private Long orderNum;
     private String regNum;
     private LocalDate regDate;
     private String consist;
     private String content;
     private String note;
-    private DeliveryDTO delivery;
     private Boolean collective;
     private Integer signCount;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
+    private RecordGroupDTO recordGroup;
+    private DeliveryDTO delivery;
     private List<ResolutionDTO> resolutions;
     private List<FileLinkDTO> files;
     private List<RubricDTO> rubrics;

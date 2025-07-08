@@ -18,8 +18,9 @@ public class CitizenDTO {
     private String fullName;
     private String address;
     private Boolean deleted;
-    private List<CitizenStatus> status;
-    private List<CitizenCategory> category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private List<CitizenStatusDTO> status;
+    private List<CitizenCategoryDTO> category;
 }

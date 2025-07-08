@@ -20,8 +20,9 @@ public class RecordGroupDTO {
     private String indexNum;
     private String templateNum;
     private Boolean deleted;
-    private RecordGroup parent;
-    private List<RecordGroupDTO> children;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private RecordGroupDTO parent;
+    private List<RecordGroupDTO> children;
 }

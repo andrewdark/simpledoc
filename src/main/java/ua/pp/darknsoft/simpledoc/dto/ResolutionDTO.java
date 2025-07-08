@@ -20,17 +20,18 @@ import java.util.Set;
 @Builder
 public class ResolutionDTO {
     private Long id;
-    private Record record;
     private String content;
-    private Department author;
     private LocalDate resDate;
     private LocalDate planDate;
     private LocalDate factDate;
     private String resume;
     private String summary;
-    private ResolutionCategory resolutionCategory;
-    private List<ReplyDTO> replays;
     private Boolean deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private ResolutionCategoryDTO resolutionCategory;
+    private RecordDTO record;
+    private DepartmentDTO author;
+    private List<ReplyDTO> replays;
 }

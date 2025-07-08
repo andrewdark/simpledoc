@@ -67,7 +67,7 @@ public class Correspondent implements Serializable {
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
-    private Organization Organization;
+    private Organization organization;
 
     /**
      * Ссылка на физлицо-корреспондента

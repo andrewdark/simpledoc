@@ -18,8 +18,9 @@ public class RubricDTO {
     private String name;
     private Boolean deleted;
     private Boolean node;
-    private Rubric parent;
-    private List<Rubric> children;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    private RubricDTO parent;
+    private List<RubricDTO> children;
 }
