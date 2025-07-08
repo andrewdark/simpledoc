@@ -14,16 +14,21 @@ export const OrganizationItem: FC<OrganizationItemProps> = ({item, readItemHandl
 
     return (
         <div key={item.id} className={css.organizationItem}>
-            <div>{item.id}</div>
+            <div className={css.simpleColumn}>{item.id}</div>
+            <div className={css.unitedColumn}>
+                <div><b>{item.name}</b></div>
+                <div>{item.code}</div>
+            </div>
+
 
             <div className={css.itemNavigation}>
                 <div onClick={() => {
-                    readItemHandler(item.id ? item.id : 0)
+                    readItemHandler(item.id ?? 0)
                 }}><BsFileText/></div>
                 <div onClick={() => {
-                    updateItemHandler(item.id ? item.id : 0)
+                    updateItemHandler(item.id ?? 0)
                 }}><BsFeather/></div>
-                <div onClick={() => deleteItemHandler(item.id ? item.id : 0)}><BsTrash/></div>
+                <div onClick={() => deleteItemHandler(item.id ?? 0)}><BsTrash/></div>
             </div>
         </div>
     );

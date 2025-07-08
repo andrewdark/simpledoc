@@ -1,15 +1,44 @@
 .organizationItem {
     display: flex;
     padding: 4px 8px;
-    justify-content: space-between;
+    gap: 4px;
     background-color: #fff;
     border-color: #dee2e6;
     border-style: solid;
     border-radius: 8px;
 }
 
+.simpleColumn{
+    flex: 1; /* Makes these divs share available space equally */
+    /*padding: 10px;*/
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
+    min-width: 32px;
+}
+.unitedColumn{
+    flex-grow: 0; /* Prevents this div from growing */
+    flex-shrink: 1; /* Allows this div to shrink if needed */
+    flex-basis: auto; /* Its size is determined by its content */
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
+    /* Optional: if you want a minimum width for the third div */
+    /*min-width: 160px;*/
+    width: 100%;
+}
 .itemNavigation {
     width: 64px;
     display: flex;
     justify-content: space-between;
+}
+
+@media only screen and (min-width: 768px) {
+    .departmentItem {
+        gap: 8px;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    .departmentItem {
+        gap: 16px;
+    }
+    .itemNavigation {
+        width: 92px;
+    }
 }

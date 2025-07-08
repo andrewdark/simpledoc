@@ -1,5 +1,5 @@
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
-import {FC} from "react";
+import React, {FC} from "react";
 import {ICitizenStatus} from "../../../../models/catalog/ICitizenStatus";
 import css from './CitizenStatusItem.module.css';
 
@@ -15,7 +15,7 @@ export const CitizenStatusItem: FC<CitizenStatusItemProps> = ({item, readItemHan
     return (
         <div key={item.id} className={css.citizenStatusItem}>
             <div>{item.id}</div>
-
+            <div>{item.name}</div>
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)

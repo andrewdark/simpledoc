@@ -15,6 +15,7 @@ export const RubricItem: FC<RubricItemProps> = ({item, readItemHandler, updateIt
     return (
         <div key={item.id} className={css.rubricItem}>
             <div>{item.id}</div>
+            <div>{item.name}</div>
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)

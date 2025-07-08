@@ -21,11 +21,13 @@ export const DepartmentItem: FC<DepartmentItemProps> = ({
 
     return (
         <div key={item.id} className={css.departmentItem}>
-            <div>{item.id}</div>
-            <div>{item.official ? <BsPersonVcard size="24"/> : <BsBuilding size="24"/>}</div>
-            <div><b>{item.name}</b></div>
-            <div>{item.official ? item.position : null}</div>
-            <div className={css.createdAt}>{item.createdAt}</div>
+            <div className={css.simpleColumn}>{item.id}</div>
+            <div className={css.simpleColumn}>{item.official ? <BsPersonVcard size="24"/> : <BsBuilding size="24"/>}</div>
+            <div className={css.unitedColumn}>
+                <div><b>{item.name}</b></div>
+                <div>{item.official ? item.position : null}</div>
+            </div>
+
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)

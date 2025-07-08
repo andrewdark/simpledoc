@@ -1,5 +1,5 @@
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
-import {FC} from "react";
+import React, {FC} from "react";
 import {IResolutionCategory} from "../../../../models/catalog/IResolutionCategory";
 import css from './ResolutionCategoryItem.module.css';
 
@@ -15,7 +15,7 @@ export const ResolutionCategoryItem: FC<ResolutionCategoryItemProps> = ({item, r
     return (
         <div key={item.id} className={css.resolutionCategoryItem}>
             <div>{item.id}</div>
-            
+            <div>{item.name}</div>
             <div className={css.itemNavigation}>
                 <div onClick={() => {
                     readItemHandler(item.id ? item.id : 0)
