@@ -38,6 +38,7 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body("Error: All fields required");
         }
+        registrationRequestDTO.setEmail(registrationRequestDTO.getEmail().toLowerCase().trim());
         AuthenticationResponseDTO authenticationResponseDTO = authService.registration(registrationRequestDTO);
         if (Objects.isNull(authenticationResponseDTO)) return ResponseEntity.badRequest()
                 .body("Error: Username is already taken!");
@@ -51,6 +52,7 @@ public class AuthController {
     @PostMapping(value = "/signin")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO authenticationRequest, HttpServletResponse response) throws Exception {
         try {
+            authenticationRequest.setEmail(authenticationRequest.getEmail().toLowerCase().trim());
             AuthenticationResponseDTO responseDTO = authService.authenticateUser(authenticationRequest);
             //Set cookie with  RefreshToken
             if (Objects.nonNull(responseDTO.getRefreshToken())) {
