@@ -13,7 +13,7 @@ const ResolutionCategoryId = () => {
 
     return (
         <div className={css.resolutionCategoryId}>
-            <NavBar isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>ResolutionCategory page ID: {id}</h1>
         </div>
     );

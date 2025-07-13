@@ -18,7 +18,7 @@ const DeliveryId: React.FC = () => {
 
     return (
         <div className={css.deliveryId}>
-            <NavBar isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>Delivery page ID: {id}</h1>
         </div>
     );

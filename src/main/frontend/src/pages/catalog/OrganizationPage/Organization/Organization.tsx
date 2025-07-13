@@ -65,7 +65,7 @@ const Organization = () => {
             <ModalFormContainer>
                 <OrganizationForm formHandler={saveItemHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true}/>
+            <NavBar isAddButton={true} isBackButton={true}/>
             <List items={items}
                   renderItems={(item: IOrganization) => <OrganizationItem item={item} readItemHandler={readItemHandler}
                                                                   updateItemHandler={updateItemHandler}

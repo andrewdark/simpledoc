@@ -13,7 +13,7 @@ const RecordGroupId = () => {
 
     return (
         <div className={css.recordGroupId}>
-            <NavBar isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>RecordGroup page ID: {id}</h1>
         </div>
     );

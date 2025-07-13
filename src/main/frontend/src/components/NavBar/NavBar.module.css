@@ -14,6 +14,9 @@
   justify-content: flex-start;
 }
 
+.navBarItem:not(:first-child)::before {
+  content: " / ";
+}
 .navBarItem strong {
   color: #5e6e82;
 }

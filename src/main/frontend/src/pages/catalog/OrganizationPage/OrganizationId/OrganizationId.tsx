@@ -13,7 +13,7 @@ const OrganizationId = () => {
 
     return (
         <div className={css.organizationId}>
-            <NavBar isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>Organization page ID: {id}</h1>
         </div>
     );

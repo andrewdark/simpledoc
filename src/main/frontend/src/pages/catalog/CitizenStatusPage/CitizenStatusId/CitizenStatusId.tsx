@@ -14,7 +14,7 @@ const CitizenStatusId = () => {
     const state = location.state as {navLinks: navLinks[]} | undefined;
     return (
         <div className={css.citizenStatusId}>
-            <NavBar navLinks={ state?state.navLinks: null} isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>CitizenStatus ID: {id}</h1>
         </div>
     );

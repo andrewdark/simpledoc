@@ -70,7 +70,7 @@ const ResolutionCategory = () => {
             <ModalFormContainer>
                 <ResolutionCategoryForm formHandler={saveItemHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true}/>
+            <NavBar isAddButton={true} isBackButton={true}/>
             <List items={items}
                   renderItems={(item: IResolutionCategory) => <ResolutionCategoryItem item={item}
                                                                                       readItemHandler={readItemHandler}

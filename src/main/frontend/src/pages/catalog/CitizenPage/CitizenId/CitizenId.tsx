@@ -13,7 +13,7 @@ const CitizenId = () => {
 
     return (
         <div className={css.citizenId}>
-            <NavBar navLinks={null} isAddButton={false} />
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>Citizen page ID: {id}</h1>
         </div>
     );

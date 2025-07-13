@@ -66,7 +66,7 @@ const Citizen = () => {
             <ModalFormContainer>
                 <CitizenForm formHandler={saveItemHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true}/>
+            <NavBar isAddButton={true} isBackButton={true}/>
             <List items={items}
                   renderItems={(item: ICitizen) => <CitizenItem item={item} readItemHandler={readItemHandler}
                                                                   updateItemHandler={updateItemHandler}

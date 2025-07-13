@@ -13,7 +13,7 @@ const RubricId = () => {
 
     return (
         <div className={css.rubricId}>
-            <NavBar isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>Rubric page ID: {id}</h1>
         </div>
     );

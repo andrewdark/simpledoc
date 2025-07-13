@@ -13,7 +13,7 @@ const DepartmentId = () => {
 
     return (
         <div className={css.departmentId}>
-            <NavBar isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <h1>Department page ID: {id}</h1>
         </div>
     )

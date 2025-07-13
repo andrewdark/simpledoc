@@ -5,12 +5,20 @@ import CatalogItem from "../../components/catalog/CatalogItem/CatalogItem";
 import css from './CatalogPage.module.css';
 
 import {NavBar, navLinks} from "../../components/NavBar/NavBar";
+import {useAppDispatch} from "../../hooks/redux";
+import {useEffect} from "react";
+import {setNavegante} from "../../redux/navegante/slice";
 
 const CatalogPage = () => {
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"}, {link: "/catalog", title: "Довідники"}];
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(setNavegante({link: "/catalog", title: "Довідники"}));
+    }, [dispatch]);
+
     return (
         <div className={css.catalogPage}>
-            <NavBar navLinks={navLinks} isAddButton={false}/>
+            <NavBar isAddButton={false} isBackButton={true}/>
             <List items={catalogList} renderItems={(catalog: ICatalog) => <CatalogItem catalog={catalog}/>}/>
         </div>
     );

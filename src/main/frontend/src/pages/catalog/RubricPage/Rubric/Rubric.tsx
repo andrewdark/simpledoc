@@ -68,7 +68,7 @@ const Rubric = () => {
             <ModalFormContainer>
                 <RubricForm formHandler={saveItemHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true}/>
+            <NavBar isAddButton={true} isBackButton={true}/>
             <List items={items}
                   renderItems={(item: IRubric) => <RubricItem item={item} readItemHandler={readItemHandler}
                                                                   updateItemHandler={updateItemHandler}

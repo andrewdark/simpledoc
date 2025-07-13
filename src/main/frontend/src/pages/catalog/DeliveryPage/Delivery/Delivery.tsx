@@ -66,7 +66,7 @@ const Delivery = () => {
             <ModalFormContainer>
                 <DeliveryForm formHandler={saveItemHandler}/>
             </ModalFormContainer>
-            <NavBar navLinks={navLinks} isAddButton={true}/>
+            <NavBar isAddButton={true} isBackButton={true}/>
             <List items={items}
                   renderItems={(item: IDelivery) => <DeliveryItem item={item} readItemHandler={readItemHandler}
                                                                       updateItemHandler={updateItemHandler}
