@@ -5,9 +5,10 @@ import {
     createRecordGroup,
     deleteRecordGroup,
     getAllRecordGroup,
-    getRecordGroupById,
+    getRecordGroupById, getRecordGroupChildren,
     updateRecordGroup
 } from "./operations";
+import RecordGroup from "../../../pages/catalog/RecordGroupPage/RecordGroup/RecordGroup";
 
 interface RecordGroupState {
     items: IRecordGroup[];
@@ -85,6 +86,15 @@ export const recordGroupSlice = createSlice({
                 state.error = '';
                 state.items = action.payload?.content ?? initialState.items;
                 state.page = action.payload?.page ?? initialState.page;
+            })
+            //getRecordGroupChildren
+            .addCase(getRecordGroupChildren.pending, handlePending)
+            .addCase(getRecordGroupChildren.rejected, handleRejected)
+            .addCase(getRecordGroupChildren.fulfilled, (state: RecordGroupState, action: PayloadAction<IRecordGroup>) => {
+                state.isLoading = false;
+                state.error = '';
+                state.items = action.payload?.children?? initialState.items;
+                state.page = initialState.page;
             })
             //getRecordGroupById
             .addCase(getRecordGroupById.pending, handlePending)

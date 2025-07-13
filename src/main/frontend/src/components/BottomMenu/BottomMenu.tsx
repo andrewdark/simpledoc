@@ -6,7 +6,7 @@ export const BottomMenu = () => {
     return (
         <div className={css.BottomMenu}>
             <NavLink to={'/report'}><BsBarChart className="left-menu-icon" size="24"/> </NavLink>
-            <NavLink to={'/registration'}><BsFileEarmark className="left-menu-icon" size="24"/> </NavLink>
+            <NavLink to={'/select-catalog/0'}><BsFileEarmark className="left-menu-icon" size="24"/> </NavLink>
             <NavLink to={'/searching'}><BsSearch className="left-menu-icon" size="24"/> </NavLink>
             <NavLink to={'/catalog'}><BsFolderCheck className="left-menu-icon" size="24"/></NavLink>
             <NavLink to={'/help'}><BsQuestionCircle className="left-menu-icon" size="24"/></NavLink>

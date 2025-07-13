@@ -13,6 +13,7 @@ import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RecordGroupRepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -138,7 +139,12 @@ public class RecordGroupServiceImpl implements RecordGroupService {
     @Override
     public Optional<RecordGroupDTO> getByIdWithChildren(Long id) {
         try {
-            Optional<RecordGroup> entityOptional = recordGroupRepository.findByIdWithChildren(id);
+            Optional<RecordGroup> root = Optional.empty();
+            if (id <= 0) {
+                List<RecordGroup> children = recordGroupRepository.findRootItems();
+                root = Optional.of(RecordGroup.builder().id(0L).children(children).build());
+            }
+            Optional<RecordGroup> entityOptional = id <= 0 ? root : recordGroupRepository.findByIdWithChildren(id);
             return entityOptional.map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
@@ -148,7 +154,7 @@ public class RecordGroupServiceImpl implements RecordGroupService {
     @Override
     public Page<RecordGroupDTO> getRootItems(Pageable pageable) {
         try {
-            return recordGroupRepository.findRootItems(pageable).map(toDTOConverter::convert);
+            return recordGroupRepository.findRootPagableItems(pageable).map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

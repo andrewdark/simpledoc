@@ -1,4 +1,3 @@
-import Resolution from "../pages/ResolutionPage/Resolution/Resolution";
 import {IResolution} from "./IResolution";
 import {IDepartment} from "./catalog/IDepartment";
 

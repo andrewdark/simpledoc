@@ -12,7 +12,10 @@ import java.util.Optional;
 
 public interface RecordGroupRepository extends JpaRepository<RecordGroup, Long> {
     @Query("SELECT rg FROM RecordGroup rg WHERE rg.parent IS NULL")
-    Page<RecordGroup> findRootItems(Pageable pageable);
+    Page<RecordGroup> findRootPagableItems(Pageable pageable);
+
+    @Query("SELECT rg FROM RecordGroup rg WHERE rg.parent IS NULL")
+    List<RecordGroup> findRootItems();
 
     @Query("""
             SELECT rg FROM RecordGroup rg LEFT JOIN FETCH rg.children WHERE rg.id = :id

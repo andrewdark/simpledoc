@@ -11,7 +11,7 @@ export const LeftMenu = () => {
                 <h2>Меню</h2>
                 <ul>
                     <li><NavLink to={'/report'}><BsBarChart className="left-menu-icon" size="24" /> Звітність</NavLink></li>
-                    <li><NavLink to={'/registration'}><BsFileEarmark className="left-menu-icon" size="24"/> Реєстрація</NavLink></li>
+                    <li><NavLink to={'/select-catalog/0'}><BsFileEarmark className="left-menu-icon" size="24"/> Реєстрація</NavLink></li>
                     <li><NavLink to={'/searching'}><BsSearch className="left-menu-icon" size="24"/> Розширений пошук</NavLink></li>
                     <li><NavLink to={'/help'}><BsQuestionCircle className="left-menu-icon" size="24"/> Допомога</NavLink></li>
                     <hr/>

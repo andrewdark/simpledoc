@@ -5,6 +5,7 @@ import {BiPlus} from "react-icons/bi";
 import {useAppDispatch} from "../../hooks/redux";
 import {setModal} from "../../redux/modal/slice";
 import {Button} from "../../UI/Button/Button";
+import {BsArrowCounterclockwise} from "react-icons/bs";
 
 export type navLinks = { link: string; title: string };
 
@@ -15,7 +16,7 @@ interface NavBarProps {
 
 export const NavBar: FC<NavBarProps> = (props) => {
     const dispatch = useAppDispatch();
-    const links: navLinks[] = props.navLinks??[{ link: "/", title: "Головна" }];
+    const links: navLinks[] = props.navLinks ?? [{link: "/", title: "Головна"}];
 
     const onClickHandler = () => {
         dispatch(setModal(true));
@@ -36,13 +37,18 @@ export const NavBar: FC<NavBarProps> = (props) => {
                 </>
 
             ))}
-            {props.isAddButton ? (
-                <div className={css.navBarItem}>
-                    <Button onClickHandler={onClickHandler} >
+
+
+            <div className={css.navBarItem}>
+                {props.isAddButton ? (
+                    <Button onClickHandler={onClickHandler}>
                         <BiPlus/>
                     </Button>
-                </div>
-            ) : null}
+                ) : (<Button onClickHandler={() => window.history.back()}>
+                    <BsArrowCounterclockwise/>
+                </Button>)}
+            </div>
+
         </div>
     );
 };

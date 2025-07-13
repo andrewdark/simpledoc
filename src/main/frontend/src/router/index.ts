@@ -26,6 +26,7 @@ import Organization from "../pages/catalog/OrganizationPage/Organization/Organiz
 import OrganizationId from "../pages/catalog/OrganizationPage/OrganizationId/OrganizationId";
 import RecordGroup from "../pages/catalog/RecordGroupPage/RecordGroup/RecordGroup";
 import RecordGroupId from "../pages/catalog/RecordGroupPage/RecordGroupId/RecordGroupId";
+import SelectRecordGroupPage from "../pages/SelectRecordGroupPage/SelectRecordGroupPage";
 
 
 export const routes = [
@@ -66,13 +67,19 @@ export const routes = [
         redirectToAuthorization: '/access-deny'
     },
     {
-        path: "/registration",
+        path: "/select-catalog/:selectGroupId/registration/:recordGroupId",
         component: RegistrationPage,
         allowedRoles: [Role.ADMIN, Role.OPERATOR, Role.USER],
         redirectToAuthentication: '/sign-in',
         redirectToAuthorization: '/access-deny'
     },
-
+    {
+        path: "/select-catalog/:selectGroupId",
+        component: SelectRecordGroupPage,
+        allowedRoles: [Role.ADMIN, Role.OPERATOR, Role.USER],
+        redirectToAuthentication: '/sign-in',
+        redirectToAuthorization: '/access-deny'
+    },
     {
         path: "/catalog/delivery",
         component: Delivery,

@@ -7,7 +7,7 @@ export const RecordGroupType = {
 } as const;
 
 export interface IRecordGroup {
-    id?: number | null;
+    id: number | null;
     name: string;
     node: boolean;
     recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
