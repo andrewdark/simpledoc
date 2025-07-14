@@ -8,7 +8,7 @@ const UserManagerPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setNavegante({link: "/report", title: "Звіти"}));
+        dispatch(setNavegante({id:0, link: "/user-manager", title: "Користувачі системи"}));
     }, [dispatch]);
     return (
         <div className={css.userManagerPage}>

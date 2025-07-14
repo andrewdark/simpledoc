@@ -16,6 +16,8 @@
 
 .navBarItem:not(:first-child)::before {
   content: " / ";
+  margin-left: 2px;
+  margin-right: 2px;
 }
 .navBarItem strong {
   color: #5e6e82;
@@ -25,10 +27,18 @@
   .navBar{
     row-gap: 8px;
   }
+  .navBarItem:not(:first-child)::before {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
 }
 
 @media only screen and (min-width: 1158px) {
   .navBar {
     row-gap: 16px;
+  }
+  .navBarItem:not(:first-child)::before {
+    margin-left: 8px;
+    margin-right: 8px;
   }
 }

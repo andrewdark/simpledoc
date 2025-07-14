@@ -35,14 +35,6 @@ export const NavBar: FC<NavBarProps> = (props) => {
                 </div>
             ))}
 
-            {props.isAddButton ? (
-                <div className={css.navBarItem}>
-                    <Button onClickHandler={onClickHandler}>
-                        <BiPlus/>
-                    </Button>
-                </div>
-            ) : null
-            }
             {props.isBackButton ? (
                 <div className={css.navBarItem}>
 
@@ -51,8 +43,16 @@ export const NavBar: FC<NavBarProps> = (props) => {
                     </Button>
                 </div>
             ) : null
-            }
 
+            }
+            {props.isAddButton ? (
+                <div className={css.navBarItem}>
+                    <Button onClickHandler={onClickHandler}>
+                        <BiPlus/>
+                    </Button>
+                </div>
+            ) : null
+            }
         </div>
 
     );

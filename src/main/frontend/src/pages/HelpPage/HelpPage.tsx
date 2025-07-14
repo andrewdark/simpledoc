@@ -11,7 +11,7 @@ const HelpPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setNavegante({link: "/help", title: "Допомога"}));
+        dispatch(setNavegante({id:0, link: "/help", title: "Допомога"}));
     }, [dispatch]);
     return (
         <div className={css.helpPage}>

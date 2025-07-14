@@ -7,7 +7,7 @@ const SearchEnginePage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setNavegante({link: "/searching", title: "Пошук"}));
+        dispatch(setNavegante({id:0, link: "/searching", title: "Пошук"}));
     }, [dispatch]);
 
     return (

@@ -31,17 +31,17 @@ export const SelectRecordGroupItem: FC<RecordGroupItemProps> = ({item, childrenL
 
         RecordGroupType.NODE === item.recordGroupType ?
             <div key={item.id} className={css.selectRecordGroupItem} onClick={() => childrenLoadHandler(item.id)}>
-                <div>{item.id}</div>
-                <div>{renderSwitch(item.recordGroupType)}</div>
-                <div>{item.name}</div>
+                <div className={css.simpleColumn}>{item.id}</div>
+                <div className={css.simpleColumn}>{renderSwitch(item.recordGroupType)}</div>
+                <div className={css.unitedColumn}>{item.name}</div>
             </div>
             :
 
             <NavLink to={`./registration/${item.id}`}>
                 <div key={item.id} className={css.selectRecordGroupItem}>
-                    <div>{item.id}</div>
-                    <div>{renderSwitch(item.recordGroupType)}</div>
-                    <div>{item.name}</div>
+                    <div className={css.simpleColumn}>{item.id}</div>
+                    <div className={css.simpleColumn}>{renderSwitch(item.recordGroupType)}</div>
+                    <div className={css.unitedColumn}>{item.name}</div>
                 </div>
             </NavLink>
 

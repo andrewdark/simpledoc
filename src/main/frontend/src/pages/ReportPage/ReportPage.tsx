@@ -11,7 +11,7 @@ const ReportPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setNavegante({link: "/report", title: "Звіти"}));
+        dispatch(setNavegante({id:0, link: "/report", title: "Звіти"}));
     }, [dispatch]);
 
     return (

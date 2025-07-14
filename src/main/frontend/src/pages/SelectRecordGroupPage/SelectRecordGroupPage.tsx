@@ -30,15 +30,19 @@ const SelectRecordGroupPage = () => {
     useEffect(() => {
         const groupId = parseStringToNumberOrDefaultZero(selectGroupId);
         dispatch(getRecordGroupChildren({id: groupId}));
-        dispatch(setNavegante({link: `/select-catalog/${selectGroupId}`, title: "Вибір картотеки"}));
-    }, [dispatch]);
+
+        if (groupId <= 0) {
+            dispatch(setNavegante({id:0 ,link: `/select-catalog/${groupId}`, title: "Вибір картотеки"}));
+        } else {
+            const docGroupName = docGroups.filter(el => el.id === groupId).map(el => el.name);
+            dispatch(addNavegante({id:`${groupId}` ,link: `/select-catalog/${groupId}`, title: `${docGroupName}`}))
+        }
+
+    }, [dispatch, selectGroupId]);
 
     const childrenLoadHandler = (id: number | null) => {
         if (id) {
             navigate(`/select-catalog/${id}`);
-            const docGroupName = docGroups.filter(el=>el.id===id).map(el=>el.name);
-            dispatch(addNavegante({link: `/select-catalog/${id}`, title: `${docGroupName}`}))
-            dispatch(getRecordGroupChildren({id: id}));
         }
     }
 

@@ -2,11 +2,11 @@ import {createSlice} from "@reduxjs/toolkit";
 import {INavegante} from "../../models/INavegante";
 
 interface NaveganteState {
-    navList:INavegante[];
+    navList: INavegante[];
 }
 
-const initialState:NaveganteState = {
-    navList:[{link:"/",title:"Головна"}]
+const initialState: NaveganteState = {
+    navList: [{id: -1, link: "/", title: "Головна"}]
 }
 export const naveganteSlice = createSlice({
     name: "navegante",
@@ -16,7 +16,15 @@ export const naveganteSlice = createSlice({
             state.navList = [...initialState.navList, action.payload];
         },
         addNavegante(state, action) {
-            state.navList = [...state.navList, action.payload];
+            const lastIndex = state.navList.length - 1;
+            const index = state.navList.findIndex(item => item.id === action.payload.id);
+            if (index > 0 && index != lastIndex) {
+                const myArray = state.navList.splice(index + 1, lastIndex);
+                state.navList = [...state.navList];
+            } else {
+                state.navList = [...state.navList, action.payload];
+            }
+
         },
         clearNavegante(state, action) {
             state.navList = initialState.navList;
