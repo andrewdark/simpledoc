@@ -4,9 +4,10 @@ import {NavBar} from "../../components/NavBar/NavBar";
 import {RegistrationForm} from "../../components/RegistrationForm/RegistrationForm";
 import {IRegistration} from "../../models/IRegistration";
 import {useParams} from "react-router-dom";
-import {INavegante} from "../../models/INavegante";
 import {useAppDispatch} from "../../hooks/redux";
 import {addNavegante} from "../../redux/navegante/slice";
+import {getRecordGroupById} from "../../redux/catalog/record_group/operations";
+import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 
 interface RegistrationParams {
     recordGroupId: string;
@@ -18,20 +19,21 @@ const RegistrationPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        const groupId = parseStringToNumberOrDefaultZero(recordGroupId);
         dispatch(addNavegante({
             link: `/registration/${recordGroupId}`,
             title: "Реєстраційна картка"
         }));
+        dispatch(getRecordGroupById({id: groupId}));
     }, [dispatch]);
 
     const saveItemHandler = (dto: IRegistration) => {
         if (dto && dto.id) {
             console.log("UPDATE")
         } else {
-            console.log("CREATE")
+            console.log("CREATE: ", dto);
         }
     };
-
 
     return (
         recordGroupId ?

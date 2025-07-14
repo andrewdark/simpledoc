@@ -3,6 +3,9 @@ import * as Yup from "yup";
 import {IRegistration} from "../../models/IRegistration";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import css from "./RegistrationForm.module.css";
+import {IRecordGroup} from "../../models/catalog/IRecordGroup";
+import {useAppSelector} from "../../hooks/redux";
+import {DatePickerField} from "../DatePickerField/DatePickerField";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
@@ -17,7 +20,9 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
+    const recordGroup: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
     const itemForUpdate: IRegistration | null = null;
+
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
         actions.resetForm();
@@ -25,8 +30,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const initialValues: IRegistration = {
         id: null,
         orderNum: 0,
-        regNum: "",
-        regDate: (new Date).toISOString().substring(0, 10),
+        regNum: recordGroup ? recordGroup.indexNum : "",
+        regDate: new Date(),
         content: "",
         recordGroup: null
     };
@@ -44,13 +49,13 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
                         <ErrorMessage className={css.error} name="orderNum" component="span"/>
                     </div>
                     <div className={css.fieldsGroup}>
-                        <label htmlFor="regNum">regNum:</label>
+                        <label htmlFor="regNum">/</label>
                         <Field className={css.fInput} type="text" id="regNum" name="regNum" placeholder="regNum"/>
                         <ErrorMessage className={css.error} name="regNum" component="span"/>
                     </div>
                     <div className={css.fieldsGroup}>
                         <label htmlFor="regDate">Від:</label>
-                        <Field className={css.fInput} type="text" id="regDate" name="regDate" placeholder="regDate"/>
+                        <Field className={css.fInput} component={DatePickerField} id="regDate" name="regDate" placeholder="regDate"/>
                         <ErrorMessage className={css.error} name="regDate" component="span"/>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ export interface IRegistration {
     id: number | null;
     orderNum: number | null;
     regNum: string;
-    regDate: string;
+    regDate: Date;
     consist?: string;
     content: string;
     note?: string;

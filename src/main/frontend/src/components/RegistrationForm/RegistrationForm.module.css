@@ -1,5 +1,12 @@
-.regInfoGroup{}
-.resolutionGroup{
+.registrationForm{
 
 }
-.mainContentGroup{}
+.regInfoGroup{
+    display: flex;
+}
+.resolutionGroup{
+    display: flex;
+}
+.mainContentGroup{
+    display: flex;
+}
