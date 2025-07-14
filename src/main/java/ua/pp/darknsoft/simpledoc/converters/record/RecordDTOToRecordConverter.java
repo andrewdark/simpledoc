@@ -11,6 +11,7 @@ import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.entities.records.*;
 
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,10 +24,10 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
     @Override
     @NonNull
     public Record convert(RecordDTO source) {
-        if(source.getRecordGroup()!=null){
+        if (source.getRecordGroup() != null) {
             RecordGroup recordGroup = recordGroupDTOToRecordGroupConverter.convert(source.getRecordGroup());
-            Record record = switch(source.getRecordGroup().getRecordGroupType()) {
-                case INCOMING ->  IncomingRecord.builder()
+            Record record = switch (source.getRecordGroup().getRecordGroupType()) {
+                case INCOMING -> IncomingRecord.builder()
                         .orderNum(source.getOrderNum())
                         .regNum(source.getRegNum())
                         .regDate(source.getRegDate())
@@ -34,7 +35,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .content(source.getContent())
                         .note(source.getNote())
                         .recordGroup(recordGroup)
-                        .correspondents(source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()))
+                        .correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
                         .build();
                 case INNER -> InnerRecord.builder()
                         .orderNum(source.getOrderNum())
@@ -55,7 +56,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .recordGroup(recordGroup)
                         .collective(source.getCollective())
                         .signCount(source.getSignCount())
-                        .correspondents(source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()))
+                        .correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
                         .build();
                 case OUTGOING -> OutgoingRecord.builder()
                         .orderNum(source.getOrderNum())
@@ -71,6 +72,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
             return record;
         }
 
-       return null;
+        return null;
     }
 }
+

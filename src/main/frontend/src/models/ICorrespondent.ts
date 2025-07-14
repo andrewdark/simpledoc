@@ -2,11 +2,11 @@ import {IOrganization} from "./catalog/IOrganization";
 import {ICitizen} from "./catalog/ICitizen";
 
 export const CorrespondentType = {
-    INCOMING_ORGANIZATION: "Вхідний від організації",
-    INCOMING_CITIZEN: "Вхідний від громадянина",
-    COVER_LETTER: "Супровідний лист",
-    OUTGOING_ORGANIZATION: "Вихідний до організації",
-    OUTGOING_CITIZEN: "Вхідний до громадянина"
+    INCOMING_ORGANIZATION: "INCOMING_ORGANIZATION",
+    INCOMING_CITIZEN: "INCOMING_CITIZEN",
+    COVER_LETTER: "COVER_LETTER",
+    OUTGOING_ORGANIZATION: "OUTGOING_ORGANIZATION",
+    OUTGOING_CITIZEN: "OUTGOING_CITIZEN"
 } as const;
 
 export interface ICorrespondent {
