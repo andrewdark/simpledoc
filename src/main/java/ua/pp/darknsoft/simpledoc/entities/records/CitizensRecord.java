@@ -1,11 +1,11 @@
 package ua.pp.darknsoft.simpledoc.entities.records;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +26,6 @@ public class CitizensRecord extends Record{
 
 
     /** Перечень кореспондентов (только для входящих и граждан) */
-    //@OneToMany(mappedBy = "Document")
-    //private Set<Correspondent> Correspondents;
+    @OneToMany(mappedBy = "record")
+    private List<Correspondent> correspondents;
 }

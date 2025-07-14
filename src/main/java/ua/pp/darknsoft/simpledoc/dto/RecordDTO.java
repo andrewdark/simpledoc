@@ -31,6 +31,7 @@ public class RecordDTO {
     private LocalDateTime updatedAt;
 
     private RecordGroupDTO recordGroup;
+    private List<CorrespondentDTO> correspondents;
     private DeliveryDTO delivery;
     private List<ResolutionDTO> resolutions;
     private List<FileLinkDTO> files;

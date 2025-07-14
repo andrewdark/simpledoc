@@ -1,22 +1,24 @@
 package ua.pp.darknsoft.simpledoc.converters.record;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentDTOToCorrespondentConverter;
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupDTOToRecordGroupConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.entities.records.*;
 
+import java.util.stream.Collectors;
+
 @Component
+@RequiredArgsConstructor
 public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> {
 
     private final RecordGroupDTOToRecordGroupConverter recordGroupDTOToRecordGroupConverter;
-
-    public RecordDTOToRecordConverter(RecordGroupDTOToRecordGroupConverter recordGroupDTOToRecordGroupConverter) {
-        this.recordGroupDTOToRecordGroupConverter = recordGroupDTOToRecordGroupConverter;
-    }
+    private final CorrespondentDTOToCorrespondentConverter correspondentDTOToCorrespondentConverter;
 
     @Override
     @NonNull
@@ -32,6 +34,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .content(source.getContent())
                         .note(source.getNote())
                         .recordGroup(recordGroup)
+                        .correspondents(source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()))
                         .build();
                 case INNER -> InnerRecord.builder()
                         .orderNum(source.getOrderNum())
@@ -52,6 +55,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .recordGroup(recordGroup)
                         .collective(source.getCollective())
                         .signCount(source.getSignCount())
+                        .correspondents(source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()))
                         .build();
                 case OUTGOING -> OutgoingRecord.builder()
                         .orderNum(source.getOrderNum())

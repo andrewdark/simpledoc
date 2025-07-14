@@ -38,7 +38,6 @@ public class RecordServiceImpl implements RecordService {
             //recordDTO.setDeleted(false);
 
             Record newEntity = toEntityConverter.convert(recordDTO);
-            if (Objects.isNull(newEntity)) return null;
 
             RecordGroup recordGroup = recordGroupService.getReference(newEntity.getRecordGroup().getId());
             newEntity.setRecordGroup(recordGroup);

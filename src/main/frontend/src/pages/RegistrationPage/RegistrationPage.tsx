@@ -32,6 +32,8 @@ const RegistrationPage = () => {
             console.log("UPDATE")
         } else {
             console.log("CREATE: ", dto);
+            //dispatch(createRecord({dto:dto}));
+
         }
     };
 
