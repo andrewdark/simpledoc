@@ -4,12 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter

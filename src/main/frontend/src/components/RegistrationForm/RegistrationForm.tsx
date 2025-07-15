@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 import * as Yup from "yup";
-import {IRegistration} from "../../models/IRegistration";
 import {ErrorMessage, Field, Form, Formik, FormikConsumer, useFormikContext} from "formik";
 import css from "./RegistrationForm.module.css";
 import {IRecordGroup, RecordGroupType} from "../../models/catalog/IRecordGroup";
@@ -13,6 +12,7 @@ import ModalFormContainer from "../../hoc/ModalFormContainer/ModalFormContainer"
 import {CorrespondentForm} from "../correspondent/CorrespondentForm/CorrespondentForm";
 import {getAllOrganization} from "../../redux/catalog/organization/operations";
 import {getAllCitizen} from "../../redux/catalog/citizen/operations";
+import {IRecord} from "../../models/IRecord";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
 });
 
 interface RegistrationFormProps {
-    formHandler: (registration: IRegistration) => void;
+    formHandler: (registration: IRecord) => void;
 }
 
 interface CorrespondentProps {
@@ -34,7 +34,7 @@ interface CorrespondentProps {
 const CorespondentField: FC<CorrespondentProps> = ({selectedCorespondentType, setSelectedCorespondentType}) => {
 
     const dispatch = useAppDispatch();
-    const {values} = useFormikContext<IRegistration>(); // Отримуємо доступ до об'єкта 'values' з Formik
+    const {values} = useFormikContext<IRecord>(); // Отримуємо доступ до об'єкта 'values' з Formik
     const shouldShowShadeField = RecordGroupType.INCOMING === values.recordGroup?.recordGroupType;
     useEffect(() => {
         if (CorrespondentType.INCOMING_ORGANIZATION === selectedCorespondentType) {
@@ -90,14 +90,14 @@ const CorespondentField: FC<CorrespondentProps> = ({selectedCorespondentType, se
 export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const [selectedCorespondentType, setSelectedCorespondentType] = useState<typeof CorrespondentType.INCOMING_ORGANIZATION | typeof CorrespondentType.INCOMING_CITIZEN>(CorrespondentType.INCOMING_ORGANIZATION);
     const recordGroup: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
-    const itemForUpdate: IRegistration | null = null;
+    const itemForUpdate: IRecord | null = null;
     const dispatch = useAppDispatch();
 
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
         actions.resetForm();
     };
-    const initialValues: IRegistration = {
+    const initialValues: IRecord = {
         id: null,
         orderNum: 0,
         regNum: recordGroup ? recordGroup.indexNum : "",
@@ -108,20 +108,13 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
         correspondents: []
     };
 
-    // const addCorrespondent = (dto: ICorrespondent) => {
-    //
-    //     dispatch(setModal(false));
-    //     console.log("CORRESPONDED: ", dto);
-    // if(values.correspondents){
-    //     setFieldValue('correspondents', [...values.correspondents, dto]);
-    // }
-    //}
-
     return (
         <>
             <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}
                     enableReinitialize={true}>
+
                 {({values, setFieldValue}) => {
+                    // Саме тут накидуємо кореспондентів у масив
                     const addCorrespondent = (dto: ICorrespondent) => {
                         dispatch(setModal(false));
                         if (values.correspondents) {

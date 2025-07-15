@@ -35,7 +35,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .content(source.getContent())
                         .note(source.getNote())
                         .recordGroup(recordGroup)
-                        .correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
+                        //.correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
                         .build();
                 case INNER -> InnerRecord.builder()
                         .orderNum(source.getOrderNum())
@@ -56,7 +56,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .recordGroup(recordGroup)
                         .collective(source.getCollective())
                         .signCount(source.getSignCount())
-                        .correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
+                        //.correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
                         .build();
                 case OUTGOING -> OutgoingRecord.builder()
                         .orderNum(source.getOrderNum())

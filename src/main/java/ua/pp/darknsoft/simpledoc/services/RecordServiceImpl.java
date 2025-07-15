@@ -27,6 +27,8 @@ public class RecordServiceImpl implements RecordService {
 
     private final RecordRepository recordRepository;
     private final RecordGroupService recordGroupService;
+
+    private final CorrespondentService correspondentService;
     private final RecordDTOToRecordConverter toEntityConverter;
     private final RecordToRecordDTOConverter toDTOConverter;
 
@@ -36,13 +38,15 @@ public class RecordServiceImpl implements RecordService {
         try {
             recordDTO.setId(null);
             //recordDTO.setDeleted(false);
-
+            if (recordDTO.getCorrespondents() != null) {
+                recordDTO.getCorrespondents().stream().filter(Objects::nonNull).forEach(el -> el.setDeleted(false));
+            }
             Record newEntity = toEntityConverter.convert(recordDTO);
 
             RecordGroup recordGroup = recordGroupService.getReference(newEntity.getRecordGroup().getId());
             newEntity.setRecordGroup(recordGroup);
-
             Record savedEntity = recordRepository.save(newEntity);
+            correspondentService.saveAll(savedEntity, recordDTO.getCorrespondents());
             return toDTOConverter.convert(savedEntity);
         } catch (Exception ex) {
             throw new AppException(ex);
