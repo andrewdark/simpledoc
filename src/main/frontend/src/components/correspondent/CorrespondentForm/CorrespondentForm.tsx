@@ -4,6 +4,7 @@ import css from "../../../default_styles/Form.module.css";
 import * as Yup from "yup";
 import {useAppSelector} from "../../../hooks/redux";
 import {ErrorMessage, Field, Form, Formik} from "formik";
+import {DatePickerField} from "../../DatePickerField/DatePickerField";
 
 interface CorrespondentFormProps {
     formHandler: (registration: ICorrespondent) => void;
@@ -60,7 +61,22 @@ export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, corr
                             </Field>
                             <ErrorMessage name="organizationId" component="div" className={css.error}/>
                         </div>
-
+                        <div className={css.fieldsGroup}>
+                            <label htmlFor="outNum">Вих. номер:</label>
+                            <Field className={css.fInput} type="text" id="outNum" name="outNum" placeholder="outNum"/>
+                            <ErrorMessage className={css.error} name="outNum" component="span"/>
+                        </div>
+                        <div className={css.fieldsGroup}>
+                            <label htmlFor="outDate">Дата:</label>
+                            <Field className={css.fInput} component={DatePickerField} id="outDate" name="outDate"
+                                   placeholder="outDate"/>
+                            <ErrorMessage className={css.error} name="outDate" component="span"/>
+                        </div>
+                        <div className={css.fieldsGroup}>
+                            <label htmlFor="signatory">Підписав:</label>
+                            <Field className={css.fInput} type="text" id="signatory" name="signatory" placeholder="signatory"/>
+                            <ErrorMessage className={css.error} name="signatory" component="span"/>
+                        </div>
                         <div className={css.fieldsGroup}>
                             <label htmlFor="note">Примітка:</label>
                             <Field className={css.fInput} type="text" id="note" name="note" placeholder="note"/>

@@ -3,6 +3,12 @@
     background: #ffffff;
 }
 
+.lock{
+    pointer-events: none; /* Запрещает все события мыши для этого div и его потомков */
+    opacity: 0.5; /* Опционально: делает элементы полупрозрачными для визуального эффекта "disabled" */
+    cursor: not-allowed; /* Опционально: меняет курсор на "нет" */
+}
+
 .regInfoGroup {
     display: flex;
     flex-direction: column;
@@ -30,6 +36,13 @@
     border: #dee2e6 solid 1px;
     border-radius: 8px;
     gap: 16px;
+}
+.selectCorrespondentType{
+    display: flex;
+    margin: 4px 0px;
+}
+.selectCorrespondentTypeSelector{
+    flex-grow: 1;
 }
 .mainContentGroup{
     display: flex;
