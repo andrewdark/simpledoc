@@ -11,7 +11,7 @@ export const CorrespondentType = {
 
 export interface ICorrespondent {
     id: number | null;
-    outNum?: string;
+    outNum?: string | null;
     outDate?: Date;
     note: string;
     signatory?: string;
@@ -22,4 +22,7 @@ export interface ICorrespondent {
 
     organization?: IOrganization | null;
     citizen?: ICitizen | null;
+
+    organizationId?: number | null;
+    citizenId?: number | null;
 }

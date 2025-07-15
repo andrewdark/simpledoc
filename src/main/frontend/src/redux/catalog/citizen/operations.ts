@@ -84,7 +84,15 @@ export const getAllCitizen = createAsyncThunk(
     "citizen/getAllCitizen",
     async (payload:CitizenThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.get(`/citizen`);
+            const params: { [key: string]: any } = {
+                number: payload.number,
+                size: payload.size,
+                sort:payload.sort,
+                order:payload.order
+            };
+            const res = await $api.get(`/citizen`, {
+                params: params,
+            });
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);

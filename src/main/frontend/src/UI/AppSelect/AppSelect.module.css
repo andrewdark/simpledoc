@@ -1,0 +1,18 @@
+.appSelect {
+    margin-bottom: 15px;
+}
+
+.appSelectLabel {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.appSelectComponent {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}

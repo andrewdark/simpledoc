@@ -17,7 +17,7 @@ export interface IRegistration {
     signCount?: number;
 
     recordGroup:IRecordGroup | null;
-    correspondent?: ICorrespondent | null;
+    correspondents?: ICorrespondent[];
     delivery?:IDelivery;
     resolutions?: IResolution[];
     files?: IFileLink[];
