@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordDTOToRecordConverter;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordToRecordDTOConverter;
+import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
@@ -39,7 +39,11 @@ public class RecordServiceImpl implements RecordService {
             recordDTO.setId(null);
             //recordDTO.setDeleted(false);
             if (recordDTO.getCorrespondents() != null) {
-                recordDTO.getCorrespondents().stream().filter(Objects::nonNull).forEach(el -> el.setDeleted(false));
+                long countCitizen = recordDTO.getCorrespondents().stream().filter(Objects::nonNull).map(CorrespondentDTO::getCitizen).filter(Objects::nonNull).count();
+                long countOrganization = recordDTO.getCorrespondents().stream().filter(Objects::nonNull).map(CorrespondentDTO::getOrganization).filter(Objects::nonNull).count();
+                if (countCitizen > 0 && countOrganization > 0) {
+                    throw new AppException("Не може бути документ одночасно з кореспондентами як організацій так і громадян");
+                }
             }
             Record newEntity = toEntityConverter.convert(recordDTO);
 

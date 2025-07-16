@@ -15,6 +15,7 @@ import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenRepository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -111,6 +112,24 @@ public class CitizenServiceImpl implements CitizenService {
     public Boolean isExistById(Long id) throws AppException {
         try {
             return citizenRepository.existsById(id);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
+
+    @Override
+    public Citizen getReferenceById(Long citizenId) throws AppException {
+        try {
+            return citizenRepository.getReferenceById(citizenId);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
+
+    @Override
+    public List<Citizen> findByIdIn(List<Long> ids) throws AppException {
+        try {
+            return citizenRepository.findByIdIn(ids);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

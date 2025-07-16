@@ -12,23 +12,30 @@ interface CorrespondentFormProps {
 }
 
 const validationSchema = Yup.object().shape({
-    id: Yup.number().nullable(),
-    note: Yup.string().nullable(),
-});
+        organizationId: Yup.number().nullable().when('correspondentType', {
+            is: CorrespondentType.INCOMING_ORGANIZATION,
+            then: schema => schema.required('Оберіть організацію')
+        }),
+        citizenId: Yup.number().nullable().when('correspondentType', {
+            is: CorrespondentType.INCOMING_CITIZEN,
+            then: schema => schema.required('Оберіть громадянина')
+        }),
+    }
+);
 
 export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, correspondentType}) => {
     const citizens = useAppSelector(state => state.citizenReducer.items);
     const organizations = useAppSelector(state => state.organizationReducer.items);
 
     const handleSubmit = (values: any, actions: any) => {
-        console.log("...try to handleSubmit");
+        console.log("orgId", values.organizationId);
+        console.log("citId", values.citizenId);
         if (CorrespondentType.INCOMING_ORGANIZATION === correspondentType) {
             values = {...values, organization: organizations.find(el => el.id == values.organizationId)};
         }
         if (CorrespondentType.INCOMING_CITIZEN === correspondentType) {
             values = {...values, citizen: citizens.find(el => el.id == values.citizenId)};
         }
-        console.log("...try to send values");
         formHandler(values);
         actions.resetForm();
     };
@@ -56,6 +63,7 @@ export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, corr
                         <div className={css.fieldsGroup}>
                             <label htmlFor="organizationId">Тип кореспондента:</label>
                             <Field as="select" id="organizationId" name="organizationId">
+                                <option value="">-- Виберіть організацію --</option>
                                 {organizations.map(el => <option key={el.id}
                                                                  value={el.id ?? 0}>{el.name} - {el.code}</option>)}
                             </Field>
@@ -74,7 +82,8 @@ export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, corr
                         </div>
                         <div className={css.fieldsGroup}>
                             <label htmlFor="signatory">Підписав:</label>
-                            <Field className={css.fInput} type="text" id="signatory" name="signatory" placeholder="signatory"/>
+                            <Field className={css.fInput} type="text" id="signatory" name="signatory"
+                                   placeholder="signatory"/>
                             <ErrorMessage className={css.error} name="signatory" component="span"/>
                         </div>
                         <div className={css.fieldsGroup}>
@@ -89,6 +98,7 @@ export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, corr
                     <div className={css.fieldsGroup}>
                         <label htmlFor="citizenId">Тип кореспондента:</label>
                         <Field as="select" id="citizenId" name="citizenId">
+                            <option value="">-- Виберіть громадянина --</option>
                             {citizens.map(el => <option key={el.id}
                                                         value={el.id ?? 0}>{el.fullName} - {el.address}</option>)}
                         </Field>

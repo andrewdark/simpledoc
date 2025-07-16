@@ -248,7 +248,11 @@ CREATE TABLE IF NOT EXISTS correspondent
     PRIMARY KEY (id),
     FOREIGN KEY (record_id) REFERENCES record (id),
     FOREIGN KEY (organization_id) REFERENCES organization (id),
-    FOREIGN KEY (citizen_id) REFERENCES citizen (id)
+    FOREIGN KEY (citizen_id) REFERENCES citizen (id),
+    CONSTRAINT chk_one_price_null CHECK (
+            (organization_id IS NULL AND citizen_id IS NOT NULL) OR
+            (organization_id IS NOT NULL AND citizen_id IS NULL)
+        )
 );
 ALTER TABLE IF EXISTS public.correspondent
     OWNER to postgres;

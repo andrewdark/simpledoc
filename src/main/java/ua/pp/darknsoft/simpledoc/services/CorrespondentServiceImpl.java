@@ -1,6 +1,5 @@
 package ua.pp.darknsoft.simpledoc.services;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,16 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentDTOToCorrespondentConverter;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentToCorrespondentDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
-import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.exception.AppException;
-import ua.pp.darknsoft.simpledoc.repositories.CitizenRepository;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,8 +26,8 @@ public class CorrespondentServiceImpl implements CorrespondentService {
     private final CorrespondentRepository correspondentRepository;
     private final CorrespondentToCorrespondentDTOConverter toDTOConverter;
     private final CorrespondentDTOToCorrespondentConverter toEntityConverter;
-
-    private final CitizenRepository citizenRepository;
+    private final CitizenService citizenService;
+    private final OrganizationService organizationService;
 
     @Override
     @Transactional
@@ -131,36 +128,11 @@ public class CorrespondentServiceImpl implements CorrespondentService {
         List<Correspondent> correspondents = dtoList.stream().map(toEntityConverter::convert)
                 .peek(el -> el.setDeleted(false))
                 .peek(el -> el.setRecord(record))
-                .peek(el -> el.setCitizen(citizenRepository.getReferenceById(el.getCitizen().getId())))
+                .peek(el -> el.setCitizen(el.getCitizen()!=null?citizenService.getReferenceById(el.getCitizen().getId()):null))
+                .peek(el -> el.setOrganization(el.getOrganization()!=null?organizationService.getReferenceById(el.getOrganization().getId()):null))
                 .toList();
-
-//        List<Citizen> detachedCitizen = correspondents.stream().map(Correspondent::getCitizen).filter(Objects::nonNull).toList();
-//        List<Citizen> mergedCitizen = citizenRepository.saveAll(detachedCitizen);
 
         return correspondentRepository.saveAll(correspondents);
 
     }
-
-    @Transactional
-    public <T> List<T> batchMerge(List<T> detachedEntities, EntityManager em, int batchSize) {
-
-        List<T> mergedList = new ArrayList<>(detachedEntities.size());
-        if (detachedEntities.isEmpty()) return mergedList;
-        for (int i = 0; i < detachedEntities.size(); i++) {
-            T merged = em.merge(detachedEntities.get(i));
-            mergedList.add(merged);
-
-            if (i % batchSize == 0 && i > 0) {
-                em.flush();
-                em.clear(); // очищает persistence context, освобождает память
-            }
-        }
-
-        // Последний flush, если не кратно batchSize
-        em.flush();
-        em.clear();
-
-        return mergedList;
-    }
-
 }

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import * as Yup from "yup";
 import {ErrorMessage, Field, Form, Formik, FormikConsumer, useFormikContext} from "formik";
 import css from "./RegistrationForm.module.css";
@@ -36,18 +36,19 @@ const CorespondentField: FC<CorrespondentProps> = ({selectedCorespondentType, se
     const dispatch = useAppDispatch();
     const {values} = useFormikContext<IRecord>(); // Отримуємо доступ до об'єкта 'values' з Formik
     const shouldShowShadeField = RecordGroupType.INCOMING === values.recordGroup?.recordGroupType;
-    useEffect(() => {
-        if (CorrespondentType.INCOMING_ORGANIZATION === selectedCorespondentType) {
-            dispatch(getAllOrganization({size: 100, number: 0}));
-        }
-        if (CorrespondentType.INCOMING_CITIZEN === selectedCorespondentType) {
-            dispatch(getAllCitizen({size: 100, number: 0}));
-        }
-    }, [dispatch, selectedCorespondentType]);
     if (!shouldShowShadeField) {
         return null;
     }
 
+    const chooseGroupHandler = (val: typeof CorrespondentType.INCOMING_ORGANIZATION | typeof CorrespondentType.INCOMING_CITIZEN) => {
+        setSelectedCorespondentType(val);
+        if (CorrespondentType.INCOMING_ORGANIZATION === val) {
+            dispatch(getAllOrganization({size: 100, number: 0}));
+        }
+        if (CorrespondentType.INCOMING_CITIZEN === val) {
+            dispatch(getAllCitizen({size: 100, number: 0}));
+        }
+    };
     const correspondentTypeOption = [
         {
             value: CorrespondentType.INCOMING_ORGANIZATION,
@@ -72,7 +73,7 @@ const CorespondentField: FC<CorrespondentProps> = ({selectedCorespondentType, se
                 <div className={rootClasses.join(' ')}>
                     <AppSelect<typeof CorrespondentType.INCOMING_ORGANIZATION | typeof CorrespondentType.INCOMING_CITIZEN>
                         options={correspondentTypeOption} value={selectedCorespondentType}
-                        onChange={setSelectedCorespondentType}/>
+                        onChange={chooseGroupHandler}/>
                 </div>
 
                 <button type="button" onClick={() => {
@@ -93,11 +94,15 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const itemForUpdate: IRecord | null = null;
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        dispatch(getAllOrganization({size: 100, number: 0}));
+    }, [dispatch]);
+
     const handleSubmit = (values: any, actions: any) => {
         props.formHandler(values);
         actions.resetForm();
     };
-    const initialValues: IRecord = {
+    const initialValues: IRecord = useMemo<IRecord>(() => ({
         id: null,
         orderNum: 0,
         regNum: recordGroup ? recordGroup.indexNum : "",
@@ -106,7 +111,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
         note: "",
         recordGroup: recordGroup ?? null,
         correspondents: []
-    };
+    }), [recordGroup]);
 
     return (
         <>
@@ -118,7 +123,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
                     const addCorrespondent = (dto: ICorrespondent) => {
                         dispatch(setModal(false));
                         if (values.correspondents) {
-                            setFieldValue('correspondents', [...values.correspondents, dto]);
+                            if (!!dto.citizen || !!dto.organization) {
+                                setFieldValue('correspondents', [...values.correspondents, dto]);
+                            }
                         }
                     };
                     return (

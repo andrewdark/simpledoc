@@ -115,4 +115,13 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new AppException(ex);
         }
     }
+
+    @Override
+    public Organization getReferenceById(Long organizationId) throws AppException {
+        try {
+            return organizationRepository.getReferenceById(organizationId);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
 }
