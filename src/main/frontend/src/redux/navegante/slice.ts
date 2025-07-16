@@ -6,7 +6,7 @@ interface NaveganteState {
 }
 
 const initialState: NaveganteState = {
-    navList: [{id: -1, link: "/", title: "Головна"}]
+    navList: [{id: -2, link: "/", title: "Головна"}]
 }
 export const naveganteSlice = createSlice({
     name: "navegante",

@@ -39,14 +39,18 @@ const RecordGroup = () => {
         console.log("groupId", groupId);
         dispatch(getRecordGroupChildren({id: groupId}));
         if (groupId <= 0) {
-            dispatch(setNavegante({id: 0, link: `/catalog/record-group/${groupId}`, title: "Групи документів"}));
+            dispatch(setNavegante({id: -1, link: `/catalog`, title: "Довідники"}));
+            dispatch(addNavegante({id: 0, link: `/catalog/record-group/${groupId}`, title: "Групи документів"}));
         } else {
             const docGroupName = items.find(el => el.id === groupId)?.name;
-            dispatch(addNavegante({
-                id: `${groupId}`,
-                link: `/catalog/record-group/${groupId}`,
-                title: `${docGroupName}`
-            }))
+            if (docGroupName) {
+                dispatch(addNavegante({
+                    id: `${groupId}`,
+                    link: `/catalog/record-group/${groupId}`,
+                    title: `${docGroupName}`
+                }))
+            }
+
         }
 
     }, [dispatch, id]);
@@ -63,9 +67,9 @@ const RecordGroup = () => {
             dispatch(updateRecordGroup({id: dto.id, dto: dto}));
         } else {
             const parentId: number = parseStringToNumberOrDefaultZero(id);
-            if(parentId>0){
-                dispatch(createRecordGroupChildren({id:parentId, dto: dto}));
-            }else {
+            if (parentId > 0) {
+                dispatch(createRecordGroupChildren({id: parentId, dto: dto}));
+            } else {
                 dispatch(createRecordGroup({dto: dto}));
             }
 

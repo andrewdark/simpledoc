@@ -50,9 +50,9 @@ export const RecordGroupItem: FC<RecordGroupItemProps> = ({
                 childrenLoadHandler(item.id ? item.id : 0);
             }
         }}>
-            <div>{item.id}</div>
-            <div>{renderSwitch(item.recordGroupType)}</div>
-            <div>{item.name}</div>
+            <div className={css.simpleColumn}>{item.id}</div>
+            <div className={css.simpleColumn}>{renderSwitch(item.recordGroupType)}</div>
+            <div className={css.unitedColumn}>{item.name}</div>
 
             <div className={css.itemNavigation}>
                 <div onClick={() => {

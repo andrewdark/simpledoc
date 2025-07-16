@@ -13,7 +13,7 @@ const CatalogPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setNavegante({id:0, link: "/catalog", title: "Довідники"}));
+        dispatch(setNavegante({id:-1, link: "/catalog", title: "Довідники"}));
     }, [dispatch]);
 
     return (
