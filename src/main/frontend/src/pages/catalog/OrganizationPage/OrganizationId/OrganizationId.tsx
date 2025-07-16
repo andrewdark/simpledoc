@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './OrganizationId.module.css';
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import {useParams} from "react-router-dom";
 
 interface OrganizationParams {

@@ -13,21 +13,23 @@ import {ICitizenStatus} from "../../../../models/catalog/ICitizenStatus";
 import {setModal} from "../../../../redux/modal/slice";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
 import {CitizenStatusForm} from "../../../../components/catalog/citizen_status/CitizenStatusForm/CitizenStatusForm";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {CitizenStatusItem} from "../../../../components/catalog/citizen_status/CitizenStatusItem/CitizenStatusItem";
 import {PageBar} from "../../../../components/PageBar/PageBar";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 const CitizenStatus = () => {
     const items = useAppSelector(state => state.citizenStatusReducer.items);
     const page = useAppSelector(state => state.citizenStatusReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/citizen-status", title: "Соціальні статуси"}];
 
     useEffect(() => {
+        dispatch(addNavegante({
+            link: `./citizen-status`,
+            title: "Соціальні статуси"
+        }));
         dispatch(getAllCitizenStatus({size: 10, number: 0}));
     }, [dispatch]);
 

@@ -16,16 +16,18 @@ interface RecordGroupItemProps {
     readItemHandler: (id: number) => void;
     updateItemHandler: (id: number) => void;
     deleteItemHandler: (id: number) => void;
+    childrenLoadHandler: (id: number | null) => void
 }
 
 export const RecordGroupItem: FC<RecordGroupItemProps> = ({
                                                               item,
                                                               readItemHandler,
                                                               updateItemHandler,
-                                                              deleteItemHandler
+                                                              deleteItemHandler,
+                                                              childrenLoadHandler,
                                                           }) => {
-    const renderSwitch = (type : typeof RecordGroupType[keyof typeof RecordGroupType]) => {
-        switch(type) {
+    const renderSwitch = (type: typeof RecordGroupType[keyof typeof RecordGroupType]) => {
+        switch (type) {
             case RecordGroupType.NODE:
                 return <BsFolderFill size="24px"/>;
             case RecordGroupType.INCOMING:
@@ -42,7 +44,12 @@ export const RecordGroupItem: FC<RecordGroupItemProps> = ({
     }
 
     return (
-        <div key={item.id} className={css.recordGroupItem}>
+
+        <div key={item.id} className={css.recordGroupItem} onClick={() => {
+            if (RecordGroupType.NODE === item.recordGroupType) {
+                childrenLoadHandler(item.id ? item.id : 0);
+            }
+        }}>
             <div>{item.id}</div>
             <div>{renderSwitch(item.recordGroupType)}</div>
             <div>{item.name}</div>

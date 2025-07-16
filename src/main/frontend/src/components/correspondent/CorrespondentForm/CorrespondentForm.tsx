@@ -61,10 +61,10 @@ export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, corr
                 {CorrespondentType.INCOMING_ORGANIZATION === correspondentType ?
                     <>
                         <div className={css.fieldsGroup}>
-                            <label htmlFor="organizationId">Тип кореспондента:</label>
+                            <label htmlFor="organizationId">Виберіть організацію:</label>
                             <Field as="select" id="organizationId" name="organizationId">
                                 <option value="">-- Виберіть організацію --</option>
-                                {organizations.map(el => <option key={el.id}
+                                {organizations.filter(el=>el.id).map(el => <option key={el.id}
                                                                  value={el.id ?? 0}>{el.name} - {el.code}</option>)}
                             </Field>
                             <ErrorMessage name="organizationId" component="div" className={css.error}/>
@@ -96,10 +96,10 @@ export const CorrespondentForm: FC<CorrespondentFormProps> = ({formHandler, corr
                 }
                 {CorrespondentType.INCOMING_CITIZEN === correspondentType ?
                     <div className={css.fieldsGroup}>
-                        <label htmlFor="citizenId">Тип кореспондента:</label>
+                        <label htmlFor="citizenId">Виберіть громадянина:</label>
                         <Field as="select" id="citizenId" name="citizenId">
                             <option value="">-- Виберіть громадянина --</option>
-                            {citizens.map(el => <option key={el.id}
+                            {citizens.filter(el=>el.id).map(el => <option key={el.id}
                                                         value={el.id ?? 0}>{el.fullName} - {el.address}</option>)}
                         </Field>
                         <ErrorMessage name="citizenId" component="div" className={css.error}/>

@@ -32,6 +32,7 @@ export const RecordGroupForm: FC<RecordGroupFormProps> = (props) => {
         recordGroupType: itemForUpdate ? itemForUpdate.recordGroupType : RecordGroupType.NODE,
         indexNum: itemForUpdate ? itemForUpdate.indexNum : "",
         templateNum: itemForUpdate ? itemForUpdate.templateNum : "",
+        parent:null
     };
 
     return (

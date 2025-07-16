@@ -22,7 +22,7 @@ const RegistrationPage = () => {
     useEffect(() => {
         const groupId = parseStringToNumberOrDefaultZero(recordGroupId);
         dispatch(addNavegante({
-            link: `/registration/${recordGroupId}`,
+            link: `.`,
             title: "Реєстраційна картка"
         }));
         dispatch(getRecordGroupById({id: groupId}));

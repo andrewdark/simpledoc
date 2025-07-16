@@ -6,9 +6,20 @@
     padding: 8px 16px;
     color: #6c6c6c;
 }
+
+.catalogItem a{
+    text-decoration: none;
+    color: #6c6c6c;
+}
 .catalogItem:hover, .catalogItem:focus{
-    font-size: 1.2rem;
-    padding: 12px 16px;
+    /*font-size: 1.2rem;*/
+    /*padding: 12px 16px;*/
     border-color: #bfbfc2;
+    color: #000000;
+    background-color: #f8f9fa;
+}
+
+.catalogItem a:hover, .catalogItem a:focus{
+    text-decoration: none;
     color: #000000;
 }

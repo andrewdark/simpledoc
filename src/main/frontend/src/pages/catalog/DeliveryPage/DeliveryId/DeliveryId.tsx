@@ -1,7 +1,7 @@
 import React from "react";
 import css from './DeliveryId.module.css';
 import {useLocation, useParams} from "react-router-dom";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 
 interface DeliveryParams {
     id: string;

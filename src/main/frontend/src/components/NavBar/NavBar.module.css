@@ -20,6 +20,7 @@
   margin-right: 2px;
 }
 .navBarItem strong {
+  font-size: small;
   color: #5e6e82;
 }
 
@@ -30,6 +31,10 @@
   .navBarItem:not(:first-child)::before {
     margin-left: 4px;
     margin-right: 4px;
+  }
+  .navBarItem strong {
+    font-size: inherit;
+    color: #5e6e82;
   }
 }
 

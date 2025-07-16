@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import css from "../RegistrationPage/RegistrationPage.module.css";
-import {NavBar, navLinks} from "../../components/NavBar/NavBar";
+import {NavBar} from "../../components/NavBar/NavBar";
 import List from "../../components/List/List";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {getRecordGroupChildren} from "../../redux/catalog/record_group/operations";

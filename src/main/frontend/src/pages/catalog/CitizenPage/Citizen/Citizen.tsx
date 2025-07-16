@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import css from './Citizen.module.css';
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
 import {setModal} from "../../../../redux/modal/slice";
 import List from "../../../../components/List/List";
@@ -17,17 +17,19 @@ import {
 import {ICitizen} from "../../../../models/catalog/ICitizen";
 import {CitizenForm} from "../../../../components/catalog/citizen/CitizenForm/CitizenForm";
 import {CitizenItem} from "../../../../components/catalog/citizen/CitizenItem/CitizenItem";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 const Citizen = () => {
     const items = useAppSelector(state => state.citizenReducer.items);
     const page = useAppSelector(state => state.citizenReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/citizen", title: "Фізичні особи"}];
 
     useEffect(() => {
+        dispatch(addNavegante({
+            link: `./citizen`,
+            title: "Фізичні особи"
+        }));
         dispatch(getAllCitizen({size: 10, number: 0}));
     }, [dispatch]);
 

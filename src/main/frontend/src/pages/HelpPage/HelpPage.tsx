@@ -1,5 +1,5 @@
 import css from "./HelpPage.module.css";
-import {NavBar, navLinks} from "../../components/NavBar/NavBar";
+import {NavBar} from "../../components/NavBar/NavBar";
 import List from "../../components/List/List";
 import {catalogList} from "../../models/static_content/RegistrationStaticContent";
 import {ICatalog} from "../../models/catalog/IСatalog";

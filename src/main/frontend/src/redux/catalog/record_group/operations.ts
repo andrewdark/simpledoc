@@ -29,6 +29,22 @@ export const createRecordGroup = createAsyncThunk(
 );
 
 /*
+ * POST @ /record-group/:id
+ * body: { }
+ */
+export const createRecordGroupChildren = createAsyncThunk(
+    'recordGroup/createChildren',
+    async (payload: RecordGroupThunkPayload, thunkAPI) => {
+        try {
+            const res = await $api.post<IRecordGroup>(`/record-group/${payload.id}/children`, payload.dto);
+            return res.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
+
+/*
  * PUT @ /record-group/:id
  * body: { }
  */

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import css from "./Department.module.css";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import {IDepartment} from "../../../../models/catalog/IDepartment";
@@ -16,17 +16,19 @@ import {
 } from "../../../../redux/catalog/department/operations";
 import {useNavigate} from "react-router-dom";
 import {setModal} from "../../../../redux/modal/slice";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 const Department = () => {
     const items = useAppSelector(state => state.departmentReducer.items);
     const page = useAppSelector(state => state.departmentReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/department", title: "Підрозділи, посадові особи"}];
 
     useEffect(() => {
+        dispatch(addNavegante({
+            link: `./department`,
+            title: "Підрозділи(структура)"
+        }));
         dispatch(getAllDepartment({size: 10, number: 0}));
     }, [dispatch]);
 

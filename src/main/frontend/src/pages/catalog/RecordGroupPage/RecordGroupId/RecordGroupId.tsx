@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import css from './RecordGroupId.module.css';
 import {useParams} from "react-router-dom";
 

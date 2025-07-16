@@ -12,7 +12,7 @@ import {
 import {IResolutionCategory} from "../../../../models/catalog/IResolutionCategory";
 import {setModal} from "../../../../redux/modal/slice";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {
     ResolutionCategoryItem
@@ -21,17 +21,19 @@ import {PageBar} from "../../../../components/PageBar/PageBar";
 import {
     ResolutionCategoryForm
 } from "../../../../components/catalog/resolution_category/ResolutionCategoryForm/ResolutionCategoryForm";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 const ResolutionCategory = () => {
     const items = useAppSelector(state => state.resolutionCategoryReducer.items);
     const page = useAppSelector(state => state.resolutionCategoryReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/resolution-category", title: "Категорії резолюцій"}];
 
     useEffect(() => {
+        dispatch(addNavegante({
+            link: `./resolution-category`,
+            title: "Категорії резолюції"
+        }));
         dispatch(getAllResolutionCategory({size: 10, number: 0}));
     }, [dispatch]);
 

@@ -4,7 +4,7 @@ import {catalogList} from "../../models/static_content/CatalogStaticContent"
 import CatalogItem from "../../components/catalog/CatalogItem/CatalogItem";
 import css from './CatalogPage.module.css';
 
-import {NavBar, navLinks} from "../../components/NavBar/NavBar";
+import {NavBar} from "../../components/NavBar/NavBar";
 import {useAppDispatch} from "../../hooks/redux";
 import {useEffect} from "react";
 import {setNavegante} from "../../redux/navegante/slice";

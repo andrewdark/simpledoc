@@ -1,5 +1,5 @@
 import css from './Delivery.module.css';
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
 import React, {useEffect} from "react";
 import {
@@ -17,17 +17,19 @@ import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormCont
 import {DeliveryForm} from "../../../../components/catalog/delivery/DeliveryForm/DeliveryForm";
 import {setModal} from "../../../../redux/modal/slice";
 import {useNavigate} from "react-router-dom";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 const Delivery = () => {
     const items = useAppSelector(state => state.deliveryReducer.items);
     const page = useAppSelector(state => state.deliveryReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/delivery", title: "Види доставки"}];
 
     useEffect(() => {
+        dispatch(addNavegante({
+            link: `./delivery`,
+            title: "Види доставки"
+        }));
         dispatch(getAllDelivery({size: 10, number: 0}));
     }, [dispatch]);
 

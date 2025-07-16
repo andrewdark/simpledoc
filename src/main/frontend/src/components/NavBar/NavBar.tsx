@@ -9,8 +9,6 @@ import {BsArrowCounterclockwise} from "react-icons/bs";
 import {INavegante} from "../../models/INavegante";
 import {clearNavegante} from "../../redux/navegante/slice";
 
-export type navLinks = { link: string; title: string };
-
 interface NavBarProps {
     isAddButton: boolean;
     isBackButton: boolean;
@@ -21,7 +19,6 @@ export const NavBar: FC<NavBarProps> = (props) => {
     const links: INavegante[] = useAppSelector(state => state.naveganteReducer.navList);
 
     const onClickHandler = () => {
-        dispatch(clearNavegante(""))
         dispatch(setModal(true));
     };
 

@@ -12,21 +12,23 @@ import {IOrganization} from "../../../../models/catalog/IOrganization";
 import {setModal} from "../../../../redux/modal/slice";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
 import {OrganizationForm} from "../../../../components/catalog/organization/OrganizationForm/OrganizationForm";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {OrganizationItem} from "../../../../components/catalog/organization/OrganizationItem/OrganizationItem";
 import {PageBar} from "../../../../components/PageBar/PageBar";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 const Organization = () => {
     const items = useAppSelector(state => state.organizationReducer.items);
     const page = useAppSelector(state => state.organizationReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/organization", title: "Підприємства"}];
 
     useEffect(() => {
+        dispatch(addNavegante({
+            link: `./organization`,
+            title: "Юридичні особи"
+        }));
         dispatch(getAllOrganization({size: 10, number: 0}));
     }, [dispatch]);
 

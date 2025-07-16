@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './CitizenStatusId.module.css';
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
-import {useLocation, useParams} from "react-router-dom";
+import {NavBar} from "../../../../components/NavBar/NavBar";
+import {useParams} from "react-router-dom";
 
 interface CitizenStatusParams {
     id: string;
@@ -10,8 +10,7 @@ interface CitizenStatusParams {
 
 const CitizenStatusId = () => {
     const { id } = useParams<CitizenStatusParams>();
-    const location = useLocation();
-    const state = location.state as {navLinks: navLinks[]} | undefined;
+
     return (
         <div className={css.citizenStatusId}>
             <NavBar isAddButton={false} isBackButton={true}/>

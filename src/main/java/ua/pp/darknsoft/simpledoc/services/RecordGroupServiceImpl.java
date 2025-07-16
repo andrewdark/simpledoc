@@ -57,6 +57,8 @@ public class RecordGroupServiceImpl implements RecordGroupService {
         try {
             RecordGroup parent = recordGroupRepository.getReferenceById(parentId);
             RecordGroup children = toEntityConverter.convert(childrenDTO);
+            parent.setDeleted(false);
+            children.setDeleted(false);
             children.setParent(parent);
             //parent.getChildren().add(children);
             return toDTOConverter.convert(recordGroupRepository.save(children));

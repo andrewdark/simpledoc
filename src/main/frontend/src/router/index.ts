@@ -117,6 +117,13 @@ export const routes = [
     },
     {
         path: "/catalog/record-group/:id",
+        component: RecordGroup,
+        allowedRoles: [Role.ADMIN, Role.OPERATOR],
+        redirectToAuthentication: '/sign-in',
+        redirectToAuthorization: '/access-deny'
+    },
+    {
+        path: "/catalog/record-group/:id/details",
         component: RecordGroupId,
         allowedRoles: [Role.ADMIN, Role.OPERATOR],
         redirectToAuthentication: '/sign-in',

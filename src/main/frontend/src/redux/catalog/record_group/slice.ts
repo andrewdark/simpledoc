@@ -2,7 +2,7 @@ import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/tool
 import {IPage, IPageable} from "../../../models/IPageable";
 import {IRecordGroup} from "../../../models/catalog/IRecordGroup";
 import {
-    createRecordGroup,
+    createRecordGroup, createRecordGroupChildren,
     deleteRecordGroup,
     getAllRecordGroup,
     getRecordGroupById, getRecordGroupChildren,
@@ -49,6 +49,14 @@ export const recordGroupSlice = createSlice({
             .addCase(createRecordGroup.pending, handlePending)
             .addCase(createRecordGroup.rejected, handleRejected)
             .addCase(createRecordGroup.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = "";
+                state.items.push(action.payload);
+            })
+            //createRecordGroupParent
+            .addCase(createRecordGroupChildren.pending, handlePending)
+            .addCase(createRecordGroupChildren.rejected, handleRejected)
+            .addCase(createRecordGroupChildren.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = "";
                 state.items.push(action.payload);

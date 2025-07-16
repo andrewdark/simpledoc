@@ -13,6 +13,9 @@ import {CorrespondentForm} from "../correspondent/CorrespondentForm/Corresponden
 import {getAllOrganization} from "../../redux/catalog/organization/operations";
 import {getAllCitizen} from "../../redux/catalog/citizen/operations";
 import {IRecord} from "../../models/IRecord";
+import {IDelivery} from "../../models/catalog/IDelivery";
+import {getAllDelivery} from "../../redux/catalog/delivery/operations";
+import {BsFiletypePdf} from "react-icons/bs";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
@@ -91,15 +94,20 @@ const CorespondentField: FC<CorrespondentProps> = ({selectedCorespondentType, se
 export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const [selectedCorespondentType, setSelectedCorespondentType] = useState<typeof CorrespondentType.INCOMING_ORGANIZATION | typeof CorrespondentType.INCOMING_CITIZEN>(CorrespondentType.INCOMING_ORGANIZATION);
     const recordGroup: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
+    const deliveries: IDelivery[] = useAppSelector(state => state.deliveryReducer.items);
     const itemForUpdate: IRecord | null = null;
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getAllOrganization({size: 100, number: 0}));
+        dispatch(getAllDelivery({size: 100, number: 0}));
     }, [dispatch]);
 
     const handleSubmit = (values: any, actions: any) => {
-        props.formHandler(values);
+        const selectedDelivery = deliveries.find(dlv => dlv.id === values.selectedDeliveryId);
+        const payload = {...values, delivery: selectedDelivery};
+        //submitForm(payload);
+        props.formHandler(payload);
         actions.resetForm();
     };
     const initialValues: IRecord = useMemo<IRecord>(() => ({
@@ -183,15 +191,21 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
                                                 <ErrorMessage className={css.error} name="consist" component="span"/>
                                             </div>
                                             <div className={css.fieldsGroup}>
-                                                <label htmlFor="delivery">Доставка:</label>
-                                                <Field className={css.fInput} id="delivery" type="text" name="delivery"
-                                                       placeholder=""/>
+                                                <label htmlFor="selectedDeliveryId">Доставка:</label>
+                                                <Field as="select" id="selectedDeliveryId" name="selectedDeliveryId" className={css.appSelectComponent}>
+                                                    <option value="">-- Спосіб доставки--</option>
+                                                    {deliveries.filter(el => el.id).map(el => <option key={el.id}
+                                                                                                      value={el.id ?? 0}>{el.name}</option>)}
+                                                </Field>
                                                 <ErrorMessage className={css.error} name="delivery" component="span"/>
                                             </div>
                                         </div>
 
-                                        <div className={css.filesContent}>
+                                        <div className={css.filesGroup}>
                                             <h5>Файли</h5>
+                                            <div className={css.filesContent}>
+                                                <BsFiletypePdf /> <strong> - Request.pdf</strong>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

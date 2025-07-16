@@ -2,7 +2,7 @@ import css from "./WelcomePage.module.css";
 import {NavBar} from "../../components/NavBar/NavBar";
 import {useAppDispatch} from "../../hooks/redux";
 import {useEffect} from "react";
-import {clearNavegante, setNavegante} from "../../redux/navegante/slice";
+import {clearNavegante} from "../../redux/navegante/slice";
 
 const WelcomePage = () => {
     const dispatch = useAppDispatch();

@@ -12,11 +12,12 @@ import {
 import {IRubric} from "../../../../models/catalog/IRubric";
 import {setModal} from "../../../../redux/modal/slice";
 import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormContainer";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {RubricItem} from "../../../../components/catalog/rubric/RubricItem/RubricItem";
 import {PageBar} from "../../../../components/PageBar/PageBar";
 import {RubricForm} from "../../../../components/catalog/rubric/RubricForm/RubricForm";
+import {addNavegante} from "../../../../redux/navegante/slice";
 
 ;
 
@@ -25,12 +26,13 @@ const Rubric = () => {
     const page = useAppSelector(state => state.rubricReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/rubric", title: "Рубрикатор"}];
 
     useEffect(() => {
         dispatch(getAllRubric({size: 10, number: 0}));
+        dispatch(addNavegante({
+            link: `./rubric`,
+            title: "Рубрикатор"
+        }));
     }, [dispatch]);
 
     //---=== CRUD OPERATION HANDLERS ===---//
@@ -44,7 +46,7 @@ const Rubric = () => {
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/rubric/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`./${id}`, {state: {param1: "hello", param2: "worm"}})
     };
     const updateItemHandler = async (id: number) => {
         if (id) {

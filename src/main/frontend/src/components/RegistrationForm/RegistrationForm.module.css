@@ -3,7 +3,7 @@
     background: #ffffff;
 }
 
-.lock{
+.lock {
     pointer-events: none; /* Запрещает все события мыши для этого div и его потомков */
     opacity: 0.5; /* Опционально: делает элементы полупрозрачными для визуального эффекта "disabled" */
     cursor: not-allowed; /* Опционально: меняет курсор на "нет" */
@@ -16,12 +16,15 @@
     border-radius: 8px;
     margin-bottom: 8px;
 }
-.numberOfDocGroup{
+
+.numberOfDocGroup {
     display: flex;
 }
-.numberOfDocGroup .fInput{
+
+.numberOfDocGroup .fInput {
     width: 64px;
 }
+
 .bodyContentGroup {
     display: flex;
     flex-direction: column;
@@ -37,14 +40,17 @@
     border-radius: 8px;
     gap: 16px;
 }
-.selectCorrespondentType{
+
+.selectCorrespondentType {
     display: flex;
     margin: 4px 0px;
 }
-.selectCorrespondentTypeSelector{
+
+.selectCorrespondentTypeSelector {
     flex-grow: 1;
 }
-.mainContentGroup{
+
+.mainContentGroup {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -57,13 +63,23 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.additionalAttributeContent{
+
+.additionalAttributeContent {
     border: #dee2e6 solid 1px;
     border-radius: 8px;
 }
-.filesContent{
+
+.appSelectComponent{
+    width: 100%;
+}
+.filesGroup {
     border: #dee2e6 solid 1px;
     border-radius: 8px;
+}
+
+.filesContent {
+    background-color: white;
+    width: 100%;
 }
 
 .fContent {
@@ -78,6 +94,7 @@
 .registrationForm .error {
     color: red;
 }
+
 .submitBtn {
     width: 80%;
     margin-left: 10%;
@@ -87,6 +104,7 @@
     outline: 0;
     -moz-outline-style: none;
 }
+
 .submitBtn {
     background: #e74c3c;
     border: none;
@@ -96,6 +114,7 @@
     cursor: pointer;
     transition: box-shadow .4s ease;
 }
+
 .submitBtn:hover {
     box-shadow: 1px 1px 5px #555;
 }

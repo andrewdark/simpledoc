@@ -15,7 +15,7 @@ import ModalFormContainer from "../../../../hoc/ModalFormContainer/ModalFormCont
 import {
     CitizenCategoryForm
 } from "../../../../components/catalog/citizen_category/CitizenCategoryForm/CitizenCategoryForm";
-import {NavBar, navLinks} from "../../../../components/NavBar/NavBar";
+import {NavBar} from "../../../../components/NavBar/NavBar";
 import List from "../../../../components/List/List";
 import {
     CitizenCategoryItem
@@ -27,9 +27,6 @@ const CitizenCategory = () => {
     const page = useAppSelector(state => state.citizenCategoryReducer.page);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const navLinks: navLinks[] = [{link: "/", title: "Головна"},
-        {link: "/catalog", title: "Довідники"},
-        {link: "/catalog/citizen-category", title: "Соціальні категорії"}];
 
     useEffect(() => {
         dispatch(getAllCitizenCategory({size: 10, number: 0}));
@@ -46,7 +43,7 @@ const CitizenCategory = () => {
         dispatch(setModal(false));
     };
     const readItemHandler = (id: number) => {
-        navigate(`/catalog/citizen-category/${id}`, {state: {navLinks: navLinks}})
+        navigate(`/catalog/citizen-category/${id}`);
     };
     const updateItemHandler = async (id: number) => {
         if (id) {
@@ -72,9 +69,10 @@ const CitizenCategory = () => {
             </ModalFormContainer>
             <NavBar isAddButton={true} isBackButton={true}/>
             <List items={items}
-                  renderItems={(item: ICitizenCategory) => <CitizenCategoryItem item={item} readItemHandler={readItemHandler}
-                                                                  updateItemHandler={updateItemHandler}
-                                                                  deleteItemHandler={deleteItemHandler}/>}></List>
+                  renderItems={(item: ICitizenCategory) => <CitizenCategoryItem item={item}
+                                                                                readItemHandler={readItemHandler}
+                                                                                updateItemHandler={updateItemHandler}
+                                                                                deleteItemHandler={deleteItemHandler}/>}></List>
             <PageBar page={page} clickPage={pageSelectionHandler}/>
         </div>
 
