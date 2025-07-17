@@ -1,7 +1,14 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../models/IPageable";
 import {IRecord} from '../../models/IRecord';
-import {createRecord, deleteRecord, getAllRecord, getRecordById, updateRecord} from "./operations";
+import {
+    createRecord,
+    deleteRecord,
+    getAllRecord,
+    getAllRecordByFilter,
+    getRecordById,
+    updateRecord
+} from "./operations";
 
 interface RecordState {
     items: IRecord[];
@@ -35,7 +42,16 @@ const handleRejected = (state: RecordState, action: any) => {
 export const recordSlice = createSlice({
     name: "record",
     initialState,
-    reducers: {},
+    reducers: {
+        clearRecords(state, action) {
+            state.item = initialState.item;
+            state.items = initialState.items;
+            state.page = initialState.page;
+            state.isLoading = initialState.isLoading;
+            state.error = initialState.error;
+            console.log("clear");
+        },
+    },
     extraReducers: (builder: ActionReducerMapBuilder<RecordState>) => {
 
         builder
@@ -81,6 +97,14 @@ export const recordSlice = createSlice({
                 state.items = action.payload?.content ?? initialState.items;
                 state.page = action.payload?.page ?? initialState.page;
             })
+            .addCase(getAllRecordByFilter.pending, handlePending)
+            .addCase(getAllRecordByFilter.rejected, handlePending)
+            .addCase(getAllRecordByFilter.fulfilled, (state: RecordState, action: PayloadAction<IPageable<IRecord>>) => {
+                state.isLoading = false;
+                state.error = '';
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
+            })
             //getRecordById
             .addCase(getRecordById.pending, handlePending)
             .addCase(getRecordById.rejected, handleRejected)
@@ -92,5 +116,5 @@ export const recordSlice = createSlice({
     }
 });
 
-
+export const {clearRecords} = recordSlice.actions;
 export const recordReducer = recordSlice.reducer;

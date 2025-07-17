@@ -24,18 +24,18 @@ public class RecordGroupController {
 
     @GetMapping
     public ResponseEntity<Page<RecordGroupDTO>> getRootItems(
-            @RequestParam(defaultValue = "0") int page,            // номер сторінки
+            @RequestParam(defaultValue = "0") int number,            // номер сторінки
             @RequestParam(defaultValue = "10") int size,           // розмір сторінки
             @RequestParam(defaultValue = "name") String sort,    // поле для сортування
             @RequestParam(defaultValue = "asc") String order     // напрямок: asc/desc
     ) {
         Pageable pageable = PageRequest.of(
-                page,
+                number,
                 size,
                 order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
         );
 
-        Page<RecordGroupDTO> items = recordGroupService.getRootItems(pageable);
+        Page<RecordGroupDTO> items = recordGroupService.findAll(pageable);
         return ResponseEntity.ok(items);
     }
 

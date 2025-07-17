@@ -9,6 +9,7 @@ import {
     updateRecordGroup
 } from "./operations";
 import RecordGroup from "../../../pages/catalog/RecordGroupPage/RecordGroup/RecordGroup";
+import {modalSlice} from "../../modal/slice";
 
 interface RecordGroupState {
     items: IRecordGroup[];
@@ -101,7 +102,7 @@ export const recordGroupSlice = createSlice({
             .addCase(getRecordGroupChildren.fulfilled, (state: RecordGroupState, action: PayloadAction<IRecordGroup>) => {
                 state.isLoading = false;
                 state.error = '';
-                state.items = action.payload?.children?? initialState.items;
+                state.items = action.payload?.children ?? initialState.items;
                 state.page = initialState.page;
             })
             //getRecordGroupById

@@ -25,13 +25,13 @@ public class ResolutionCategoryController {
 
     @GetMapping()
     public ResponseEntity<Page<ResolutionCategoryDTO>> getAllItems(
-            @RequestParam(defaultValue = "0") int page,            // номер сторінки
+            @RequestParam(defaultValue = "0") int number,            // номер сторінки
             @RequestParam(defaultValue = "10") int size,           // розмір сторінки
             @RequestParam(defaultValue = "id") String sort,    // поле для сортування
             @RequestParam(defaultValue = "asc") String order     // напрямок: asc/desc
     ) {
         Pageable pageable = PageRequest.of(
-                page,
+                number,
                 size,
                 order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
         );

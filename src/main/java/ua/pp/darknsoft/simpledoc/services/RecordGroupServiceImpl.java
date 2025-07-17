@@ -166,7 +166,7 @@ public class RecordGroupServiceImpl implements RecordGroupService {
     @Override
     public Page<RecordGroupDTO> findAll(Pageable pageable) {
         try {
-            return getRootItems(pageable);
+            return recordGroupRepository.findAll(pageable).map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

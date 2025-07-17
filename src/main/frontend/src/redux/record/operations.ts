@@ -1,14 +1,17 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {$api} from "../../http";
-import {SortOrder} from "../../models/IPageable";
+import {IPageable, SortOrder} from "../../models/IPageable";
 import {IRecord} from "../../models/IRecord";
+import {IRecordSearchFilter} from "../../models/IRecordSearchFilter";
 
 interface RecordThunkPayload {
     id?: number;
     dto?: IRecord;
+    filter?:IRecordSearchFilter;
     number?: number;
     size?: number;
     sort?:string;
+    multipleSort?:string[]
     order?:SortOrder;
 }
 
@@ -96,6 +99,29 @@ export const getAllRecord = createAsyncThunk(
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);
+        }
+    }
+);
+
+/*
+ * POST @ /record/search
+ * body: { }
+ */
+export const getAllRecordByFilter = createAsyncThunk(
+    'record/getAllRecordByFilter',
+    async (payload: RecordThunkPayload, thunkAPI) => {
+        try {
+            const params: { [key: string]: any } = {
+                number: payload.number,
+                size: payload.size,
+                sort:payload.sort,
+                order:payload.order
+            };
+
+            const res = await $api.post<IPageable<IRecord>>(`/record/search`, payload.filter,{ params: params});
+            return res.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );

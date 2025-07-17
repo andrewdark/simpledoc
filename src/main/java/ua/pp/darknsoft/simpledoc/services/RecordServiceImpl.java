@@ -168,31 +168,37 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public Page<RecordDTO> searchRecords(RecordSearchFilter filter, Pageable pageable) throws AppException {
         try {
-            Page<RecordDTO> recordPage = switch (filter.getRecordGroupType()){
-                case INCOMING -> {
-                    Specification<IncomingRecord> spec = IncomingRecordSpecification.withFilter(filter);
-                    yield incomingRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
-                }
-                case INNER -> {
-                    Specification<InnerRecord> spec = InnerRecordSpecification.withFilter(filter);
-                    yield innerRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
-                }
-                case CITIZEN -> {
-                    Specification<CitizensRecord> spec = CitizensRecordSpecification.withFilter(filter);
-                    yield citizensRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
-                }
-                case OUTGOING -> {
-                    Specification<OutgoingRecord> spec = OutgoingRecordSpecification.withFilter(filter);
-                    yield outgoingRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
-                }
-                default -> {
-                    Specification<Record> spec = RecordSpecification.withFilter(filter);
-                    yield recordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
-                }
+            Page<RecordDTO> recordPage = Optional.ofNullable(filter.getRecordGroupType())
+                    .map(myEnum -> switch (myEnum) {
+                        case INCOMING -> {
+                            Specification<IncomingRecord> spec = IncomingRecordSpecification.withFilter(filter);
+                            yield incomingRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                        }
+                        case INNER -> {
+                            Specification<InnerRecord> spec = InnerRecordSpecification.withFilter(filter);
+                            yield innerRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                        }
+                        case CITIZEN -> {
+                            Specification<CitizensRecord> spec = CitizensRecordSpecification.withFilter(filter);
+                            yield citizensRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                        }
+                        case OUTGOING -> {
+                            Specification<OutgoingRecord> spec = OutgoingRecordSpecification.withFilter(filter);
+                            yield outgoingRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                        }
+                        default -> {
+                            Specification<Record> spec = RecordSpecification.withFilter(filter);
+                            yield recordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                        }
+                    })
+                    .orElseGet(() -> {
+                        Specification<Record> spec = RecordSpecification.withFilter(filter);
+                        return recordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                    });
 
-            };
             return recordPage;
-        } catch (Exception ex) {
+        } catch (
+                Exception ex) {
             throw new AppException(ex);
         }
     }

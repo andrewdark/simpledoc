@@ -3,7 +3,7 @@ import React, {FC} from "react";
 import css from './SelectRecordGroupItem.module.css';
 import {BsDownload, BsFillInboxFill, BsFillPeopleFill, BsFolderFill, BsUpload} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
-import {DocGroupTypeIcon} from "../../../../pages/DocGroupTypeIcon/DocGroupTypeIcon";
+import {DocGroupTypeIcon} from "../../../DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordGroupItemProps {
     item: IRecordGroup,

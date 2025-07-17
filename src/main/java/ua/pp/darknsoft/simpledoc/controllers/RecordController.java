@@ -30,13 +30,13 @@ public class RecordController {
     @GetMapping()
     public ResponseEntity<Page<RecordDTO>> getAllItems(
             @RequestParam(defaultValue = "node") String type,
-            @RequestParam(defaultValue = "0") int page,            // номер сторінки
+            @RequestParam(defaultValue = "0") int number,            // номер сторінки
             @RequestParam(defaultValue = "10") int size,           // розмір сторінки
             @RequestParam(defaultValue = "id") String sort,    // поле для сортування
             @RequestParam(defaultValue = "asc") String order     // напрямок: asc/desc
     ) {
         Pageable pageable = PageRequest.of(
-                page,
+                number,
                 size,
                 order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
         );
@@ -55,8 +55,16 @@ public class RecordController {
     @PostMapping("/search") //search?page=0&size=5&sort=id,desc
     public Page<RecordDTO> search(
             @RequestBody RecordSearchFilter filter,
-            @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+            @RequestParam(defaultValue = "0") int number,            // номер сторінки
+            @RequestParam(defaultValue = "10") int size,           // розмір сторінки
+            @RequestParam(defaultValue = "id") String sort,    // поле для сортування
+            @RequestParam(defaultValue = "asc") String order
     ) {
+        Pageable pageable = PageRequest.of(
+                number,
+                size,
+                order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
+        );
         return recordService.searchRecords(filter, pageable);
     }
 

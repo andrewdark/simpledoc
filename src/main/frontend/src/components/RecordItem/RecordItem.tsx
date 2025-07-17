@@ -12,7 +12,7 @@ import {
     BsUpload
 } from "react-icons/bs";
 import {RecordGroupType} from "../../models/catalog/IRecordGroup";
-import {DocGroupTypeIcon} from "../../pages/DocGroupTypeIcon/DocGroupTypeIcon";
+import {DocGroupTypeIcon} from "../DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordItemProps {
     item: IRecord,

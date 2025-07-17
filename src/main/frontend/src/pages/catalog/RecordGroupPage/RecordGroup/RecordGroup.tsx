@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 import {
     createRecordGroup, createRecordGroupChildren,
     deleteRecordGroup,
-    getAllRecordGroup,
     getRecordGroupById, getRecordGroupChildren,
     updateRecordGroup
 } from "../../../../redux/catalog/record_group/operations";
@@ -93,7 +92,8 @@ const RecordGroup = () => {
 
     const pageSelectionHandler = (currentPage: number) => {
         if (currentPage >= 0 && currentPage < page.totalPages) {
-            dispatch(getAllRecordGroup({size: 10, number: currentPage}));
+            const groupId = parseStringToNumberOrDefaultZero(id);
+            dispatch(getRecordGroupChildren({id: groupId, size: 10, number: currentPage}));
         }
     };
 

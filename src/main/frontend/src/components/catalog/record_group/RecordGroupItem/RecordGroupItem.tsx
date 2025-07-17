@@ -2,7 +2,7 @@ import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
 import React, {FC} from "react";
 import {IRecordGroup, RecordGroupType} from "../../../../models/catalog/IRecordGroup";
 import css from './RecordGroupItem.module.css';
-import {DocGroupTypeIcon} from "../../../../pages/DocGroupTypeIcon/DocGroupTypeIcon";
+import {DocGroupTypeIcon} from "../../../DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordGroupItemProps {
     item: IRecordGroup,
