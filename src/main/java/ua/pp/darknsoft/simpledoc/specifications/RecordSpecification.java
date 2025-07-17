@@ -23,6 +23,12 @@ public class RecordSpecification {
                 filter.getRecordIdSet().forEach(inClause::value);
                 predicates.add(inClause);
             }
+            if (filter.getRegNum() != null && filter.getOrderNum() != null) {
+                predicates.add(cb.equal(root.get("orderNum"), filter.getOrderNum()));
+                predicates.add(cb.equal(root.get("regNum"), filter.getRegNum()));
+            } else if (filter.getRegNum() != null) {
+                predicates.add(cb.equal(root.get("regNum"), filter.getRegNum()));
+            }
             if (filter.getRegDateFrom() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("regDate"), filter.getRegDateFrom()));
             }

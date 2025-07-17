@@ -5,8 +5,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import css from "./SearchEngineForm.module.css";
 import {DatePickerField} from "../DatePickerField/DatePickerField";
 import {RecordGroupType} from "../../models/catalog/IRecordGroup";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {CorrespondentType} from "../../models/ICorrespondent";
+import {useAppSelector} from "../../hooks/redux";
 
 const validationSchema = Yup.object().shape({
     orderNum: Yup.number().nullable().when('regNum', {
