@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
-import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
 import ua.pp.darknsoft.simpledoc.services.DepartmentService;
 
 import java.util.Optional;

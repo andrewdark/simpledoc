@@ -5,12 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
+import ua.pp.darknsoft.simpledoc.filters.RecordSearchFilter;
 import ua.pp.darknsoft.simpledoc.services.RecordService;
 
 import java.util.Objects;
@@ -50,11 +52,21 @@ public class RecordController {
         return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @PostMapping("/search") //search?page=0&size=5&sort=id,desc
+    public Page<RecordDTO> search(
+            @RequestBody RecordSearchFilter filter,
+            @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+        return recordService.searchRecords(filter, pageable);
+    }
+
     @PostMapping
     public ResponseEntity<RecordDTO> create(@RequestBody RecordDTO request) {
-        if(Objects.isNull(request.getRecordGroup())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        if(Objects.isNull(request.getRecordGroup().getRecordGroupType())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        if(RecordGroupType.NODE==request.getRecordGroup().getRecordGroupType()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (Objects.isNull(request.getRecordGroup())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (Objects.isNull(request.getRecordGroup().getRecordGroupType()))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (RecordGroupType.NODE == request.getRecordGroup().getRecordGroupType())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         RecordDTO saved = recordService.add(request);
         return ResponseEntity.ok(saved);

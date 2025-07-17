@@ -9,10 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ReplyDTOToReplyConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ReplyToReplyDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ReplyDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.Reply;
-import ua.pp.darknsoft.simpledoc.entities.enums.ReplyType;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ReplyRepository;
 
 import java.util.Map;

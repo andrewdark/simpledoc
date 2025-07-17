@@ -21,7 +21,8 @@ const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
     orderNum: Yup.number().nullable(),
     regNum: Yup.string().nullable(),
-    regDate: Yup.date().nullable(),
+    regDate: Yup.date().required("Обов\'язкове поле"),
+    content: Yup.string().min(2, "Занадто коротке!").required("Обов\'язкове поле"),
     note: Yup.string().nullable()
 });
 

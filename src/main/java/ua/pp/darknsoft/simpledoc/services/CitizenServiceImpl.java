@@ -10,9 +10,7 @@ import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenDTOToCitizenConverter
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenToCitizenDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenDTO;
 import ua.pp.darknsoft.simpledoc.entities.Citizen;
-import ua.pp.darknsoft.simpledoc.entities.Delivery;
-import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenRepository;
 
 import java.util.List;

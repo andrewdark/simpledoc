@@ -9,9 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusDTOToCitizenStatusConverter;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenStatusToCitizenStatusDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenStatusDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.CitizenStatus;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenStatusRepository;
 
 import java.util.Map;

@@ -9,10 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryDTOToCitizenCategoryConverter;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenCategoryToCitizenCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenCategoryDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.entities.CitizenCategory;
-import ua.pp.darknsoft.simpledoc.entities.Delivery;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenCategoryRepository;
 
 import java.util.Map;

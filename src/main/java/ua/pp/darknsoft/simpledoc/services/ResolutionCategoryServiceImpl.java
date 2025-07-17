@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryDTOToResolutionCategoryConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionCategoryToResolutionCategoryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionCategoryDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
-import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.ResolutionCategory;
-import ua.pp.darknsoft.simpledoc.entities.records.Record;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionCategoryRepository;
 
 import java.util.Map;

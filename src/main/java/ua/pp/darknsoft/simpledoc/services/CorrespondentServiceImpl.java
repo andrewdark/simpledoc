@@ -11,7 +11,7 @@ import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentToCorresp
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
 
 import java.util.List;

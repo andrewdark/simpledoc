@@ -3,7 +3,7 @@ package ua.pp.darknsoft.simpledoc.services;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.services.base.CRUDService;
 
 import java.util.List;

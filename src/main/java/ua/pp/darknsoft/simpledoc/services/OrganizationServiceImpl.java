@@ -9,10 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationDTOToOrganizationConverter;
 import ua.pp.darknsoft.simpledoc.converters.organization.OrganizationToOrganizationDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
-import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Organization;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.OrganizationRepository;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ua.pp.darknsoft.simpledoc.exception;
+package ua.pp.darknsoft.simpledoc.exceptions;
 
 public class AppException extends RuntimeException{
     public AppException(String msg) {

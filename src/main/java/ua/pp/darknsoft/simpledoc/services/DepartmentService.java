@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Department;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.services.base.CRUDService;
 
 import java.util.Optional;

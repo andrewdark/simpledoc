@@ -9,13 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionDTOToResolutionConverter;
 import ua.pp.darknsoft.simpledoc.converters.resolution.ResolutionToResolutionDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
-import ua.pp.darknsoft.simpledoc.entities.Citizen;
-import ua.pp.darknsoft.simpledoc.entities.Organization;
 import ua.pp.darknsoft.simpledoc.entities.Resolution;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.ResolutionRepository;
 
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 

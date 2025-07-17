@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.pp.darknsoft.simpledoc.dto.ResolutionCategoryDTO;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
 import ua.pp.darknsoft.simpledoc.services.ResolutionService;
 

@@ -84,7 +84,15 @@ export const getAllRecord = createAsyncThunk(
     "record/getAllRecord",
     async (payload:RecordThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.get(`/record`);
+            const params: { [key: string]: any } = {
+                number: payload.number,
+                size: payload.size,
+                sort:payload.sort,
+                order:payload.order
+            };
+            const res = await $api.get(`/record`, {
+                params: params,
+            });
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.data.message);

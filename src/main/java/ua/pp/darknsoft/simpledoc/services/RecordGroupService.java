@@ -6,7 +6,6 @@ import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.services.base.CRUDService;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface RecordGroupService extends CRUDService<RecordGroupDTO, Long> {

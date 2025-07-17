@@ -10,7 +10,7 @@ import ua.pp.darknsoft.simpledoc.converters.department.DepartmentDTOToDepartment
 import ua.pp.darknsoft.simpledoc.converters.department.DepartmentToDepartmentDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Department;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.DepartmentRepository;
 
 import java.util.Map;

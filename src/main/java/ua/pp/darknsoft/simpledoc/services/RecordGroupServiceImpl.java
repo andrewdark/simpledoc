@@ -10,7 +10,7 @@ import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupDTOToRecordGr
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupToRecordGroupDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.RecordGroupRepository;
 
 import java.util.List;

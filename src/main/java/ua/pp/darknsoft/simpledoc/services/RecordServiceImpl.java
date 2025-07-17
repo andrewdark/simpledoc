@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordDTOToRecordConverter;
@@ -12,9 +13,16 @@ import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
+import ua.pp.darknsoft.simpledoc.entities.records.*;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
+import ua.pp.darknsoft.simpledoc.filters.RecordSearchFilter;
 import ua.pp.darknsoft.simpledoc.repositories.RecordRepository;
+import ua.pp.darknsoft.simpledoc.repositories.records.CitizensRecordRepository;
+import ua.pp.darknsoft.simpledoc.repositories.records.IncomingRecordRepository;
+import ua.pp.darknsoft.simpledoc.repositories.records.InnerRecordRepository;
+import ua.pp.darknsoft.simpledoc.repositories.records.OutgoingRecordRepository;
+import ua.pp.darknsoft.simpledoc.specifications.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -26,6 +34,12 @@ import java.util.Optional;
 public class RecordServiceImpl implements RecordService {
 
     private final RecordRepository recordRepository;
+
+    private final CitizensRecordRepository citizensRecordRepository;
+    private final IncomingRecordRepository incomingRecordRepository;
+    private final InnerRecordRepository innerRecordRepository;
+    private final OutgoingRecordRepository outgoingRecordRepository;
+
     private final RecordGroupService recordGroupService;
 
     private final CorrespondentService correspondentService;
@@ -146,6 +160,38 @@ public class RecordServiceImpl implements RecordService {
                 default -> recordRepository.findAllRecord(pageable);
             };
             return recordPage.map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
+
+    @Override
+    public Page<RecordDTO> searchRecords(RecordSearchFilter filter, Pageable pageable) throws AppException {
+        try {
+            Page<RecordDTO> recordPage = switch (filter.getRecordGroupType()){
+                case INCOMING -> {
+                    Specification<IncomingRecord> spec = IncomingRecordSpecification.withFilter(filter);
+                    yield incomingRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                }
+                case INNER -> {
+                    Specification<InnerRecord> spec = InnerRecordSpecification.withFilter(filter);
+                    yield innerRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                }
+                case CITIZEN -> {
+                    Specification<CitizensRecord> spec = CitizensRecordSpecification.withFilter(filter);
+                    yield citizensRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                }
+                case OUTGOING -> {
+                    Specification<OutgoingRecord> spec = OutgoingRecordSpecification.withFilter(filter);
+                    yield outgoingRecordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                }
+                default -> {
+                    Specification<Record> spec = RecordSpecification.withFilter(filter);
+                    yield recordRepository.findAll(spec, pageable).map(toDTOConverter::convert);
+                }
+
+            };
+            return recordPage;
         } catch (Exception ex) {
             throw new AppException(ex);
         }

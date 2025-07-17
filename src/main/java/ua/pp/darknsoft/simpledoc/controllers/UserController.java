@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.simpledoc.dto.AppUserDTO;
 import ua.pp.darknsoft.simpledoc.services.AppUserService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController

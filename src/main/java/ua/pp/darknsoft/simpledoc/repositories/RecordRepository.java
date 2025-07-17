@@ -2,11 +2,12 @@ package ua.pp.darknsoft.simpledoc.repositories;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RecordRepository extends JpaRepository<Record, Long> {
+public interface RecordRepository extends JpaRepository<Record, Long>, JpaSpecificationExecutor<Record> {
     @Query("""
             SELECT rec FROM Record rec JOIN FETCH rec.recordGroup
             """)

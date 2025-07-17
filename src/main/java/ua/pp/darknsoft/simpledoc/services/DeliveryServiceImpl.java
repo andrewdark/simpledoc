@@ -10,12 +10,11 @@ import ua.pp.darknsoft.simpledoc.converters.delivery.DeliveryDTOToDeliveryConver
 import ua.pp.darknsoft.simpledoc.converters.delivery.DeliveryToDeliveryDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.DeliveryDTO;
 import ua.pp.darknsoft.simpledoc.entities.Delivery;
-import ua.pp.darknsoft.simpledoc.exception.AppException;
+import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.DeliveryRepository;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
