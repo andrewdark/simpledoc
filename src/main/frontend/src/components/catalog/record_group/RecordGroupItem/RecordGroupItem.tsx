@@ -1,15 +1,8 @@
-import {
-    BsDownload,
-    BsFeather,
-    BsFileText,
-    BsFillInboxFill,
-    BsFillPeopleFill,
-    BsFolderFill,
-    BsTrash, BsUpload
-} from "react-icons/bs";
-import {FC} from "react";
+import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
+import React, {FC} from "react";
 import {IRecordGroup, RecordGroupType} from "../../../../models/catalog/IRecordGroup";
 import css from './RecordGroupItem.module.css';
+import {DocGroupTypeIcon} from "../../../../pages/DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordGroupItemProps {
     item: IRecordGroup,
@@ -26,22 +19,6 @@ export const RecordGroupItem: FC<RecordGroupItemProps> = ({
                                                               deleteItemHandler,
                                                               childrenLoadHandler,
                                                           }) => {
-    const renderSwitch = (type: typeof RecordGroupType[keyof typeof RecordGroupType]) => {
-        switch (type) {
-            case RecordGroupType.NODE:
-                return <BsFolderFill size="24px"/>;
-            case RecordGroupType.INCOMING:
-                return <BsDownload size="24px"/>;
-            case RecordGroupType.CITIZEN:
-                return <BsFillPeopleFill size="24px"/>;
-            case RecordGroupType.OUTGOING:
-                return <BsUpload size="24px"/>;
-            case RecordGroupType.INNER:
-                return <BsFillInboxFill size="24px"/>;
-            default:
-                return <BsFolderFill size="24px"/>;
-        }
-    }
 
     return (
 
@@ -51,7 +28,7 @@ export const RecordGroupItem: FC<RecordGroupItemProps> = ({
             }
         }}>
             <div className={css.simpleColumn}>{item.id}</div>
-            <div className={css.simpleColumn}>{renderSwitch(item.recordGroupType)}</div>
+            <div className={css.simpleColumn}><DocGroupTypeIcon type={item.recordGroupType} size={"24px"}/></div>
             <div className={css.unitedColumn}>{item.name}</div>
 
             <div className={css.itemNavigation}>

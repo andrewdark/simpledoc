@@ -12,31 +12,18 @@ import {
     BsUpload
 } from "react-icons/bs";
 import {RecordGroupType} from "../../models/catalog/IRecordGroup";
+import {DocGroupTypeIcon} from "../../pages/DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordItemProps {
     item: IRecord,
 }
-export const RecordItem:FC<RecordItemProps> = ({item}) => {
-    const renderSwitch = (type: typeof RecordGroupType[keyof typeof RecordGroupType] | undefined) => {
-        switch (type) {
-            case RecordGroupType.NODE:
-                return <BsFolderFill size="24px"/>;
-            case RecordGroupType.INCOMING:
-                return <BsDownload size="24px"/>;
-            case RecordGroupType.CITIZEN:
-                return <BsFillPeopleFill size="24px"/>;
-            case RecordGroupType.OUTGOING:
-                return <BsUpload size="24px"/>;
-            case RecordGroupType.INNER:
-                return <BsFillInboxFill size="24px"/>;
-            default:
-                return <BsFolderFill size="24px"/>;
-        }
-    }
+
+export const RecordItem: FC<RecordItemProps> = ({item}) => {
+
     return (
         <div className={css.recordItem}>
             <div className={css.simpleColumn}>{item.id}</div>
-            <div className={css.simpleColumn}>{renderSwitch(item.recordGroup?.recordGroupType)}</div>
+            <div className={css.simpleColumn}><DocGroupTypeIcon type={item.recordGroup?.recordGroupType} size={"24px"}/></div>
             <div className={css.unitedColumn}>
                 <div className={css.regInfoGroup}>
                     <div>{item.orderNum}/{item.regNum}</div>
@@ -55,7 +42,8 @@ export const RecordItem:FC<RecordItemProps> = ({item}) => {
                 <div onClick={() => {
 
                 }}><BsFeather/></div>
-                <div onClick={() => {}}><BsTrash/></div>
+                <div onClick={() => {
+                }}><BsTrash/></div>
             </div>
         </div>
     );

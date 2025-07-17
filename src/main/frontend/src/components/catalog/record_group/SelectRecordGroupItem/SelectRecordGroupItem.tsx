@@ -1,8 +1,9 @@
 import {IRecordGroup, RecordGroupType} from "../../../../models/catalog/IRecordGroup";
-import {FC} from "react";
+import React, {FC} from "react";
 import css from './SelectRecordGroupItem.module.css';
 import {BsDownload, BsFillInboxFill, BsFillPeopleFill, BsFolderFill, BsUpload} from "react-icons/bs";
 import {NavLink} from "react-router-dom";
+import {DocGroupTypeIcon} from "../../../../pages/DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordGroupItemProps {
     item: IRecordGroup,
@@ -10,29 +11,13 @@ interface RecordGroupItemProps {
 }
 
 export const SelectRecordGroupItem: FC<RecordGroupItemProps> = ({item, childrenLoadHandler}) => {
-    const renderSwitch = (type: typeof RecordGroupType[keyof typeof RecordGroupType]) => {
-        switch (type) {
-            case RecordGroupType.NODE:
-                return <BsFolderFill size="24px"/>;
-            case RecordGroupType.INCOMING:
-                return <BsDownload size="24px"/>;
-            case RecordGroupType.CITIZEN:
-                return <BsFillPeopleFill size="24px"/>;
-            case RecordGroupType.OUTGOING:
-                return <BsUpload size="24px"/>;
-            case RecordGroupType.INNER:
-                return <BsFillInboxFill size="24px"/>;
-            default:
-                return <BsFolderFill size="24px"/>;
-        }
-    }
 
     return (
 
         RecordGroupType.NODE === item.recordGroupType ?
             <div key={item.id} className={css.selectRecordGroupItem} onClick={() => childrenLoadHandler(item.id)}>
                 <div className={css.simpleColumn}>{item.id}</div>
-                <div className={css.simpleColumn}>{renderSwitch(item.recordGroupType)}</div>
+                <div className={css.simpleColumn}><DocGroupTypeIcon type={item.recordGroupType} size={"24px"}/></div>
                 <div className={css.unitedColumn}>{item.name}</div>
             </div>
             :
@@ -40,7 +25,7 @@ export const SelectRecordGroupItem: FC<RecordGroupItemProps> = ({item, childrenL
             <NavLink to={`./registration/${item.id}`}>
                 <div key={item.id} className={css.selectRecordGroupItem}>
                     <div className={css.simpleColumn}>{item.id}</div>
-                    <div className={css.simpleColumn}>{renderSwitch(item.recordGroupType)}</div>
+                    <div className={css.simpleColumn}><DocGroupTypeIcon type={item.recordGroupType} size={"24px"}/></div>
                     <div className={css.unitedColumn}>{item.name}</div>
                 </div>
             </NavLink>

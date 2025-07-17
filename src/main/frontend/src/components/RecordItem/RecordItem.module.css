@@ -8,6 +8,7 @@
     color: #5e6e82;
     column-gap: 4px;
 }
+
 .itemNavigation {
     width: 64px;
     display: flex;
@@ -47,3 +48,4 @@
     }
 
 }
+
