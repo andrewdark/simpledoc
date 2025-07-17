@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import * as Yup from "yup";
 import {IRecordSearchFilter} from "../../models/IRecordSearchFilter";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -6,10 +6,18 @@ import css from "./SearchEngineForm.module.css";
 import {DatePickerField} from "../DatePickerField/DatePickerField";
 import {RecordGroupType} from "../../models/catalog/IRecordGroup";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {getAllRecordGroup} from "../../redux/catalog/record_group/operations";
-import {clearRecords} from "../../redux/record/slice";
+import {CorrespondentType} from "../../models/ICorrespondent";
 
 const validationSchema = Yup.object().shape({
+    orderNum: Yup.number().nullable().when('regNum', {
+        is: (val: any) => val === null || val === undefined || val === '',
+        then: (schema) => schema.test({
+            name: 'orderNum',
+            message: 'Поле "orderNum" не буває без "regNum"',
+            test: (value) => value === null || value === undefined
+        }),
+        otherwise: (schema) => schema
+    }),
     withRecordGroup: Yup.boolean().nullable()
 });
 
@@ -19,7 +27,6 @@ interface SearchEngineFormProps {
 
 export const SearchEngineForm: FC<SearchEngineFormProps> = ({formHandler}) => {
     const docGroups = useAppSelector(state => state.recordGroupReducer.items);
-    const dispatch = useAppDispatch();
 
     const initialValues: IRecordSearchFilter = {
 
@@ -33,6 +40,12 @@ export const SearchEngineForm: FC<SearchEngineFormProps> = ({formHandler}) => {
     };
 
     const handleSubmit = (values: any, actions: any) => {
+        if (values.recordGroupName == "") {
+            values = {...values, recordGroupName: null};
+        }
+        if (values.recordGroupType == "") {
+            values = {...values, recordGroupType: null};
+        }
         formHandler(values);
         actions.resetForm();
     };
@@ -41,6 +54,7 @@ export const SearchEngineForm: FC<SearchEngineFormProps> = ({formHandler}) => {
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}
                 enableReinitialize={true}>
             <Form className={css.form}>
+                <h2>Пошукова форма</h2>
                 <div>
                     <div className={[css.fieldsGroup, css.docGroupNumber].join(" ")}>
                         <div>
@@ -78,7 +92,7 @@ export const SearchEngineForm: FC<SearchEngineFormProps> = ({formHandler}) => {
                         <label htmlFor="recordGroupType">По типу документу:</label>
                         <Field as="select" id="recordGroupType" name="recordGroupType"
                                className={css.appSelectComponent}>
-                            <option value={undefined}>--Тип групи документу--</option>
+                            <option value="">--Тип групи документу--</option>
                             <option value={RecordGroupType.INCOMING}>Вхідні</option>
                             <option value={RecordGroupType.OUTGOING}>Вихідні</option>
                             <option value={RecordGroupType.CITIZEN}>Звернення громадян</option>
@@ -90,7 +104,7 @@ export const SearchEngineForm: FC<SearchEngineFormProps> = ({formHandler}) => {
                         <label htmlFor="recordGroupName">Назва групи документів:</label>
                         <Field as="select" id="recordGroupName" name="recordGroupName"
                                className={css.appSelectComponent}>
-                            <option value={undefined}>--Назва групи документів--</option>
+                            <option value="">--Назва групи документів--</option>
                             {docGroups.filter(el => el.recordGroupType !== RecordGroupType.NODE).map(el =>
                                 <option key={el.id} value={el.name}>{el.name}</option>
                             )}

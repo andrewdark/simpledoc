@@ -1,0 +1,10 @@
+.datePickerField{
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    outline: 0;
+    border: 1px solid #bbb;
+    padding: 0 0 0 10px;
+    font-size: 14px;
+    -moz-outline-style: none;
+}

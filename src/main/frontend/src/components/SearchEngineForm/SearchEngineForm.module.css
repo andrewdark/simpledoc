@@ -5,12 +5,14 @@
 .docGroupNumber {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 8px;
+    gap: 8px;
 }
 
 .docGroupDate {
+    display: flex;
     flex-wrap: wrap;
-    max-width: 200px;
+    gap: 8px;
+
 }
 
 .fInput {
@@ -66,7 +68,7 @@ p {
 }
 
 .fieldsGroup select {
-    width: 92px;
+    width: 100%;
 }
 
 .error {
