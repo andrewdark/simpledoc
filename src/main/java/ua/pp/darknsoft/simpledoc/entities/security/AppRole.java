@@ -27,10 +27,10 @@ public class AppRole implements Serializable {
     )
     private Long id;
     @Column(name = "role_name", length = 36, nullable = false)
-    @Pattern.List({
-            @Pattern(regexp = "^ROLE_[A-Z0-9]{2,36}$"),
-            @Pattern(regexp = "^[A-Z]")
-    })
+    @Pattern(
+            regexp = "^ROLE_[A-Z0-9]{2,36}$",
+            message = "Role name має бути у форматі ROLE_ і містити 2-36 символів A-Z0-9"
+    )
     private String roleName;
     @Version
     private Long version;
