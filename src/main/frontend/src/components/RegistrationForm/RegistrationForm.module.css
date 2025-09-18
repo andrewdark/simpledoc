@@ -2,3 +2,68 @@
     padding: 25px;
     background: #ffffff;
 }
+.formField{
+
+}
+.registrationFormContainer {
+    border: 1px solid #ccc;
+}
+
+.navigationBar{
+    border: 1px solid #ccc;
+
+}
+.someButton{
+    margin-right: 8px;
+}
+.submitButton{
+    margin-right: 8px;
+}
+.regInfoGroup{
+    display: flex; /* Выравнивает инпуты в ряд */
+    border: 1px solid #ccc;
+}
+.numberOfDocGroup{
+    display: flex; /* Выравнивает инпуты в ряд */
+    border: 1px solid #ccc; /* Общая граница для всего контейнера */
+    border-radius: 5px; /* Скругление углов контейнера */
+    overflow: hidden; /* Скрывает границы инпутов, если они выходят за пределы контейнера */
+    width: fit-content; /* Ширина по содержимому */
+}
+.singleInputForNumber{
+    width: 40px; /* Ширина каждого инпута */
+    height: 40px; /* Высота каждого инпута */
+    text-align: center; /* Выравнивание текста по центру */
+    border: none; /* Убираем индивидуальные границы */
+    outline: none; /* Убираем синюю рамку при фокусе */
+    font-size: 1.5rem; /* Размер шрифта */
+    padding: 0;
+    margin: 0;
+}
+
+/*.singleInputForNumber:not(:last-child) {*/
+/*    border-right: 1px solid #ccc;*/
+/*}*/
+.datePickerField{
+    width: 120px; /* Ширина каждого инпута */
+    height: 40px; /* Высота каждого инпута */
+}
+
+.bodyContentGroup{
+    display: flex;
+    border: 1px solid #ccc;
+}
+/*mainContentGroup */
+.mainContentGroup{
+    border: 1px solid #ccc;
+}
+.mainContentCorrespondents{}
+.mainContentAttributes{}
+/*additionalContentGroup */
+.additionalContentGroup{}
+.additionalContentAttributes{}
+.additionalContentFiles{}
+
+.resolutionGroup{
+    border: 1px solid #ccc;
+}
