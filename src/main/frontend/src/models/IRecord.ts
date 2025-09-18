@@ -8,20 +8,20 @@ import {IRubric} from "./catalog/IRubric";
 export interface IRecord {
     id: number | null;
     orderNum: number | null;
-    regNum: string;
-    regDate: Date;
-    consist?: string;
-    content: string;
-    note?: string;
-    collective?: boolean;
-    signCount?: number;
+    regNum: string | null;
+    regDate: Date | null;
+    consist?: string | null;
+    content: string | null;
+    note?: string | null;
+    collective?: boolean | null;
+    signCount?: number | null;
 
     recordGroup:IRecordGroup | null;
-    correspondents?: ICorrespondent[];
-    delivery?:IDelivery;
-    resolutions?: IResolution[];
-    files?: IFileLink[];
-    rubrics?: IRubric[];
+    correspondents?: ICorrespondent[] | null;
+    delivery?:IDelivery | null;
+    resolutions?: IResolution[] | null;
+    files?: IFileLink[] | null;
+    rubrics?: IRubric[] | null;
     // links: ILinkRecord[];
 
     createdAt?: string;

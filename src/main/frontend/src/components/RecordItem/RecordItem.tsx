@@ -23,11 +23,12 @@ export const RecordItem: FC<RecordItemProps> = ({item}) => {
     return (
         <div className={css.recordItem}>
             <div className={css.simpleColumn}>{item.id}</div>
-            <div className={css.simpleColumn}><DocGroupTypeIcon type={item.recordGroup?.recordGroupType} size={"24px"}/></div>
+            <div className={css.simpleColumn}><DocGroupTypeIcon type={item.recordGroup?.recordGroupType} size={"24px"}/>
+            </div>
             <div className={css.unitedColumn}>
                 <div className={css.regInfoGroup}>
                     <div>{item.orderNum}/{item.regNum}</div>
-                    <div>{new Date(item.regDate).toLocaleDateString()}</div>
+                    <div>{item.regDate ? new Date(item.regDate).toLocaleDateString() : ''}</div>
                 </div>
                 <div>
                     {item.content}

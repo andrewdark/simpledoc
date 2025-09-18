@@ -1,23 +1,31 @@
-import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react';
 import {IRecord} from "../../models/IRecord";
 import css from "./RegistrationForm.module.css";
 import DatePicker from 'react-datepicker';
-import {IRecordGroup} from "../../models/catalog/IRecordGroup";
+import {IRecordGroup, RecordGroupType} from "../../models/catalog/IRecordGroup";
 import {ICorrespondent} from "../../models/ICorrespondent";
 import {IDelivery} from "../../models/catalog/IDelivery";
 import {IResolution} from "../../models/IResolution";
 import {IFileLink} from "../../models/IFileLink";
 import {IRubric} from "../../models/catalog/IRubric";
-import {VscNewFile, VscSaveAs} from "react-icons/vsc";
+import {VscAttach, VscNewFile, VscSaveAs} from "react-icons/vsc";
 import {uk} from "date-fns/locale";
 import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {BsFeather, BsFileText, BsFiletypePdf, BsTrash} from "react-icons/bs";
+import {getAllDelivery} from "../../redux/catalog/delivery/operations";
 
 
 interface RegistrationFormProps {
+    dto?: IRecord;
     formHandler: (registration: IRecord) => void;
 }
 
-export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
+export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) => {
+    const recordGroupInit: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
+    const deliveries: IDelivery[] = useAppSelector(state => state.deliveryReducer.items);
+    const dispatch = useAppDispatch();
+
     const [id, setId] = useState<number | null>(null);
     const [orderNum, setOrderNum] = useState<number>(0);
     const [regNum, setRegNum] = useState<string>('');
@@ -28,17 +36,49 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const [collective, setCollective] = useState<boolean>(false);
     const [signCount, setSignCount] = useState<number>(0);
 
-    const [recordGroup, setRecordGroup] = useState<string>(''); //IRecordGroup | null;
-    const [correspondents, setCorrespondents] = useState<string>(''); //ICorrespondent[];
-    const [delivery, setDelivery] = useState<string>(''); //IDelivery;
-    const [resolutions, setResolutions] = useState<string>(''); //IResolution[];
-    const [files, setFiles] = useState<string>(''); //IFileLink[];
-    const [rubrics, setRubrics] = useState<string>(''); //IRubric[];
+    const [recordGroup, setRecordGroup] = useState<IRecordGroup | null>(null); //IRecordGroup | null;
+    const [correspondents, setCorrespondents] = useState<ICorrespondent[] | null>([]); //ICorrespondent[];
+    const [delivery, setDelivery] = useState<IDelivery | null>(null); //IDelivery;
+    const [resolutions, setResolutions] = useState<IResolution[] | null>(null); //IResolution[];
+    const [files, setFiles] = useState<IFileLink[] | null>(null); //IFileLink[];
+    const [rubrics, setRubrics] = useState<IRubric[] | null>(null); //IRubric[];
+
+    useEffect(() => {
+        if (recordGroupInit) {
+            setRecordGroup(recordGroupInit);
+            setRegNum(recordGroupInit.indexNum);
+        }
+
+        dispatch(getAllDelivery({size: 100, number: 0}));
+    }, [dispatch]);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Предотвращаем перезагрузку страницы
-        console.log("FORM-DATA: ", {orderNum}, " ", {regNum}, " від:", {regDate});
+        const dto: IRecord = {
+            id: id,
+            orderNum: orderNum,
+            regNum: regNum,
+            regDate: regDate,
+            consist: consist,
+            content: content,
+            note: note,
+            collective: collective,
+            signCount: signCount,
+            recordGroup: recordGroup,
+            correspondents: correspondents,
+            delivery: delivery,
+            resolutions: resolutions,
+            files: files,
+            rubrics: rubrics,
+        }
         // Здесь можно отправить данные на сервер
+        if (dto.recordGroup) {
+            formHandler(dto);
+            console.log("FORM-DATA: ", {dto});
+        } else {
+            alert("RecordGroup is missing");
+        }
+
     };
     const handleRegNumChange = (event: ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
@@ -47,6 +87,26 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
     const handleOrderNumChange = (event: ChangeEvent<HTMLInputElement>) => {
         const val = parseStringToNumberOrDefaultZero(event.target.value);
         setOrderNum(val);
+    };
+    const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const val = event.target.value;
+        setContent(val);
+    };
+    const handleNoteChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const val = event.target.value;
+        setNote(val);
+    };
+    const handleConsistChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const val = event.target.value;
+        setConsist(val);
+    };
+    const handleDeliverySelect = (event: ChangeEvent<HTMLSelectElement>) => {
+        console.log(event.target.value)
+        const value = parseStringToNumberOrDefaultZero(event.target.value);
+        const val = deliveries.find(el => el.id === value);
+        if (val) {
+            setDelivery(val);
+        }
     };
 
     return <form className={css.registrationForm} onSubmit={handleSubmit}>
@@ -63,9 +123,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
             <div className={css.regInfoGroup}>
                 <div className={css.numberOfDocGroup}>
                     <label>№</label>
-                    <input type="text" className={css.singleInputForNumber} value={regNum}
+                    <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
                            onChange={handleRegNumChange}/>
-                    <input type="text" className={css.singleInputForNumber} value="/"/>
+                    <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`} value="/"/>
                     <input type="text" className={css.singleInputForNumber} value={orderNum}
                            onChange={handleOrderNumChange}/>
                 </div>
@@ -81,31 +141,122 @@ export const RegistrationForm: FC<RegistrationFormProps> = (props) => {
             <div className={css.bodyContentGroup}>
                 <div className={css.mainContentGroup}>
                     <div className={css.mainContentCorrespondents}>
-                        <div className={css.formField}>
-                            <label>Кореспондент: </label>
-                            <input/>
-                        </div>
-                       
+                        {(RecordGroupType.OUTGOING === recordGroup?.recordGroupType) || (RecordGroupType.INNER === recordGroup?.recordGroupType) ?
+                            <div className={css.formField}>
+                                <label>Виконавець: </label>
+                                <input/>
+                            </div>
+                            :
+                            <>
+                                <h5>Кореспонденти</h5>
+                                <div className={css.formField}>
+                                    <label>Кореспондент: </label>
+                                    <input/>
+                                </div>
+                            </>
+
+                        }
                     </div>
-                    <div className={css.mainContentAttributes}></div>
+                    <div className={css.mainContentAttributes}>
+                        <div className={css.formField}>
+                            <label>Зміст: </label>
+                            <textarea value={content} onChange={handleContentChange}/>
+                        </div>
+                        <div className={css.formField}>
+                            <label>Примітка: </label>
+                            <input value={note} onChange={handleNoteChange}/>
+                        </div>
+                    </div>
                 </div>
                 <div className={css.additionalContentGroup}>
                     <div className={css.additionalContentAttributes}>
                         <div className={css.formField}>
                             <label>Склад: </label>
-                            <input/>
+                            <input value={consist} onChange={handleConsistChange}/>
                         </div>
 
                         <div className={css.formField}>
                             <label>Доставка: </label>
-                            <input/>
+                            <select onChange={handleDeliverySelect}>
+                                <option value="">-- Спосіб доставки--</option>
+                                {deliveries.filter(el => el.id).map(el => <option key={el.id}
+                                                                                  value={el.id ?? 0}>{el.name}</option>)}
+                            </select>
                         </div>
 
                     </div>
-                    <div className={css.additionalContentFiles}></div>
+                    <div className={css.additionalContentFiles}>
+                        <h5>Файли</h5>
+                        <div className={css.navigationBar}>
+                            <button type="button" className={css.someButton}>
+                                <VscAttach size={16}/>
+                            </button>
+                        </div>
+                        <div className={css.fileList}>
+                            <div className={css.fileItem}>
+                                <div className={css.fileName}>
+                                    <BsFiletypePdf/> <strong>SomeRequest.pdf</strong>
+                                </div>
+                                <div className={css.fileAction} onClick={() => {
+                                }}><BsTrash/></div>
+                            </div>
+                            <div className={css.fileItem}>
+                                <div className={css.fileName}>
+                                    <BsFiletypePdf/> <strong>AnotherRequest.pdf</strong>
+                                </div>
+                                <div className={css.fileAction} onClick={() => {
+                                }}><BsTrash/></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className={css.resolutionGroup}></div>
+            <div className={css.resolutionGroup}>
+                <h5>Резолюції</h5>
+                <div className={css.resolutionHeader}>
+                    <div className={css.formField}>
+                        <label>Автор: </label>
+                        <input/>
+                    </div>
+                    <div className={css.formField}>
+                        <label>Від: </label>
+                        <input value="0000-00-00" disabled={true}/>
+                    </div>
+                    <div className={css.formField}>
+                        <label>План: </label>
+                        <input value="0000-00-00" disabled={true}/>
+                    </div>
+                    <div className={css.formField}>
+                        <label>Факт: </label>
+                        <input value="0000-00-00" disabled={true}/>
+                    </div>
+                </div>
+                <div className={css.resolutionBody}>
+                    <div className={css.resolutionText}>
+                        <div className={css.formField}>
+                            <label>Текст: </label>
+                            <div className={css.resolutionTextArea}>Lorem Ipsum is simply dummy text MSME </div>
+                        </div>
+                    </div>
+
+                    <div className={css.performerList}>
+                        <ul>
+                            <li>Іванов І.І.</li>
+                            <li>Петров П.П.</li>
+                        </ul>
+                    </div>
+                    <div className={css.resolutionNavigation}>
+                        <div onClick={() => {
+
+                        }}><BsFileText/></div>
+                        <div onClick={() => {
+
+                        }}><BsFeather/></div>
+                        <div onClick={() => {
+                        }}><BsTrash/></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 };

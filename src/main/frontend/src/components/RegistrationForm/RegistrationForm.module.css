@@ -3,15 +3,15 @@
     background: #ffffff;
 }
 .formField{
-
+    display: flex;
 }
 .registrationFormContainer {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
 }
 
 .navigationBar{
     border: 1px solid #ccc;
-
+    margin-bottom: 16px;
 }
 .someButton{
     margin-right: 8px;
@@ -22,6 +22,7 @@
 .regInfoGroup{
     display: flex; /* Выравнивает инпуты в ряд */
     border: 1px solid #ccc;
+    margin-bottom: 16px;
 }
 .numberOfDocGroup{
     display: flex; /* Выравнивает инпуты в ряд */
@@ -40,6 +41,12 @@
     padding: 0;
     margin: 0;
 }
+.regDelimiterInput{
+    width: 20px;
+}
+.regNumInput{
+    width: 60px;
+}
 
 /*.singleInputForNumber:not(:last-child) {*/
 /*    border-right: 1px solid #ccc;*/
@@ -51,19 +58,55 @@
 
 .bodyContentGroup{
     display: flex;
+    justify-content: space-between;
     border: 1px solid #ccc;
+    margin-bottom: 16px;
 }
 /*mainContentGroup */
 .mainContentGroup{
     border: 1px solid #ccc;
+    flex-grow: 1;
 }
 .mainContentCorrespondents{}
 .mainContentAttributes{}
 /*additionalContentGroup */
-.additionalContentGroup{}
-.additionalContentAttributes{}
+.additionalContentGroup{
+    max-width: 300px;
+}
+.additionalContentAttributes{
+    margin-bottom: 16px;
+}
 .additionalContentFiles{}
-
+.fileList{}
+.fileItem{
+    display: flex;
+}
 .resolutionGroup{
     border: 1px solid #ccc;
 }
+.resolutionHeader{
+    display: flex;
+    margin-bottom: 16px;
+}
+.resolutionBody{
+    display: flex;
+    justify-content: space-between;
+}
+.resolutionText{
+    width: 45%;
+}
+.resolutionTextArea{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 58px;
+}
+.performerList{
+    padding-left: 24px;
+    border: 1px solid #ccc;
+    width: 45%;
+    height: 58px;
+}
+.resolutionNavigation{
+
+}
+
