@@ -14,6 +14,8 @@ import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {BsFeather, BsFileText, BsFiletypePdf, BsTrash} from "react-icons/bs";
 import {getAllDelivery} from "../../redux/catalog/delivery/operations";
+import {AutocompleteInput} from "../../UI/AutocompleteInput/AutocompleteInput";
+import {FileUpload} from "../FileUpload/FileUpload";
 
 
 interface RegistrationFormProps {
@@ -40,7 +42,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
     const [correspondents, setCorrespondents] = useState<ICorrespondent[] | null>([]); //ICorrespondent[];
     const [delivery, setDelivery] = useState<IDelivery | null>(null); //IDelivery;
     const [resolutions, setResolutions] = useState<IResolution[] | null>(null); //IResolution[];
-    const [files, setFiles] = useState<IFileLink[] | null>(null); //IFileLink[];
+    const [files, setFiles] = useState<IFileLink[]>([]); //IFileLink[];
     const [rubrics, setRubrics] = useState<IRubric[] | null>(null); //IRubric[];
 
     useEffect(() => {
@@ -109,6 +111,18 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
         }
     };
 
+    const handleFilesSelect = (selectedFile: File) => {
+        //TODO: For example
+        if(files.map(el=>el.id).find(el=>el==selectedFile.lastModified)){
+            console.log("File Exist");
+        }else {
+            const someFile: IFileLink = {id: selectedFile.lastModified, fileName: selectedFile.name}
+
+            setFiles([...files, someFile]);
+        }
+
+    }
+
     return <form className={css.registrationForm} onSubmit={handleSubmit}>
         <div className={css.registrationFormContainer}>
             <div className={css.navigationBar}>
@@ -151,7 +165,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                                 <h5>Кореспонденти</h5>
                                 <div className={css.formField}>
                                     <label>Кореспондент: </label>
-                                    <input/>
+                                    {/*<input/>*/}
+                                    <AutocompleteInput/>
                                 </div>
                             </>
 
@@ -188,25 +203,23 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.additionalContentFiles}>
                         <h5>Файли</h5>
                         <div className={css.navigationBar}>
-                            <button type="button" className={css.someButton}>
-                                <VscAttach size={16}/>
-                            </button>
+                            <FileUpload setFile={handleFilesSelect} accept={'.doc,.docx,.xls,.xlsx,.pdf,image/*'}>
+                                <button type="button" className={css.someButton}>
+                                    <VscAttach size={16}/>
+                                </button>
+                            </FileUpload>
+
                         </div>
                         <div className={css.fileList}>
-                            <div className={css.fileItem}>
-                                <div className={css.fileName}>
-                                    <BsFiletypePdf/> <strong>SomeRequest.pdf</strong>
-                                </div>
-                                <div className={css.fileAction} onClick={() => {
-                                }}><BsTrash/></div>
-                            </div>
-                            <div className={css.fileItem}>
-                                <div className={css.fileName}>
-                                    <BsFiletypePdf/> <strong>AnotherRequest.pdf</strong>
-                                </div>
-                                <div className={css.fileAction} onClick={() => {
-                                }}><BsTrash/></div>
-                            </div>
+                            {files.map(el => (
+                                <div className={css.fileItem} key={el.id}>
+                                    <div className={css.fileName}>
+                                        <BsFiletypePdf/> <strong>{el.fileName}</strong>
+                                    </div>
+                                    <div className={css.fileAction} onClick={() => {
+                                    }}><BsTrash/></div>
+                                </div>))
+                            }
                         </div>
                     </div>
                 </div>
@@ -235,7 +248,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.resolutionText}>
                         <div className={css.formField}>
                             <label>Текст: </label>
-                            <div className={css.resolutionTextArea}>Lorem Ipsum is simply dummy text MSME </div>
+                            <div className={css.resolutionTextArea}>Lorem Ipsum is simply dummy text MSME</div>
                         </div>
                     </div>
 
