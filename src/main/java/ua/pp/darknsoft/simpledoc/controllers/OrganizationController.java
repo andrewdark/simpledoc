@@ -39,7 +39,23 @@ public class OrganizationController {
         Page<OrganizationDTO> items = organizationService.findAll(pageable);
         return ResponseEntity.ok(items);
     }
+    @GetMapping("/search")
+    public ResponseEntity<Page<OrganizationDTO>> getAllItemsByName(
+            @RequestParam(defaultValue = "name") String name,
+            @RequestParam(defaultValue = "0") int number,            // номер сторінки
+            @RequestParam(defaultValue = "10") int size,           // розмір сторінки
+            @RequestParam(defaultValue = "id") String sort,    // поле для сортування
+            @RequestParam(defaultValue = "asc") String order     // напрямок: asc/desc
+    ) {
+        Pageable pageable = PageRequest.of(
+                number,
+                size,
+                order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
+        );
 
+        Page<OrganizationDTO> items = organizationService.getAllByNameLike(name,pageable);
+        return ResponseEntity.ok(items);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrganizationDTO> getById(@PathVariable Long id) {

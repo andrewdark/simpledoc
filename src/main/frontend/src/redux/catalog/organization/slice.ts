@@ -6,7 +6,8 @@ import {
     deleteOrganization,
     getAllOrganization,
     getOrganizationById,
-    updateOrganization
+    updateOrganization,
+    getAllOrganizationByName
 } from "./operations";
 
 interface OrganizationState {
@@ -82,6 +83,15 @@ export const organizationSlice = createSlice({
             .addCase(getAllOrganization.pending, handlePending)
             .addCase(getAllOrganization.rejected, handleRejected)
             .addCase(getAllOrganization.fulfilled, (state: OrganizationState, action: PayloadAction<IPageable<IOrganization>>) => {
+                state.isLoading = false;
+                state.error = '';
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
+            })
+            //getAllOrganization
+            .addCase(getAllOrganizationByName.pending, handlePending)
+            .addCase(getAllOrganizationByName.rejected, handleRejected)
+            .addCase(getAllOrganizationByName.fulfilled, (state: OrganizationState, action: PayloadAction<IPageable<IOrganization>>) => {
                 state.isLoading = false;
                 state.error = '';
                 state.items = action.payload?.content ?? initialState.items;

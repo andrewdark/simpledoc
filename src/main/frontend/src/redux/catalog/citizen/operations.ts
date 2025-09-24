@@ -10,6 +10,7 @@ interface CitizenThunkPayload {
     size?: number;
     sort?:string;
     order?:SortOrder;
+    searchQuery?:string;
 }
 
 /*
@@ -91,6 +92,27 @@ export const getAllCitizen = createAsyncThunk(
                 order:payload.order
             };
             const res = await $api.get(`/citizen`, {
+                params: params,
+            });
+            return res.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data.data.message);
+        }
+    }
+);
+
+export const getAllCitizenByFullName = createAsyncThunk(
+    "citizen/getAllCitizenByFullName",
+    async (payload:CitizenThunkPayload, thunkAPI) => {
+        try {
+            const params: { [key: string]: any } = {
+                fullName: payload.searchQuery,
+                number: payload.number,
+                size: payload.size,
+                sort:payload.sort,
+                order:payload.order
+            };
+            const res = await $api.get(`/citizen/search`, {
                 params: params,
             });
             return res.data;

@@ -10,6 +10,7 @@ interface OrganizationThunkPayload {
     size?: number;
     sort?:string;
     order?:SortOrder;
+    searchQuery?:string;
 }
 
 /*
@@ -85,6 +86,30 @@ export const getAllOrganization = createAsyncThunk(
     async (payload:OrganizationThunkPayload, thunkAPI) => {
         try {
             const params: { [key: string]: any } = {
+                number: payload.number,
+                size: payload.size,
+                sort:payload.sort,
+                order:payload.order
+            };
+            const res = await $api.get(`/organization`, {
+                params: params,
+            });
+            return res.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data.data.message);
+        }
+    }
+);
+/*
+ * GET @ /organization?name=org-name-str&page=0&size=10&sort=id&order=ASC
+ * body: { }
+ */
+export const getAllOrganizationByName = createAsyncThunk(
+    "organization/getAllOrganizationByName",
+    async (payload:OrganizationThunkPayload, thunkAPI) => {
+        try {
+            const params: { [key: string]: any } = {
+                name:payload.searchQuery,
                 number: payload.number,
                 size: payload.size,
                 sort:payload.sort,

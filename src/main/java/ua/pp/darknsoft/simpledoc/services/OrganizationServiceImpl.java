@@ -122,4 +122,13 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new AppException(ex);
         }
     }
+
+    @Override
+    public Page<OrganizationDTO> getAllByNameLike(String name, Pageable pageable) throws AppException {
+        try {
+            return organizationRepository.findAllByDeletedAndNameLikeIgnoreCase(false, "%" + name.toUpperCase().trim() + "%", pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
 }

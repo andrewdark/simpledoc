@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.simpledoc.dto.CitizenDTO;
 import ua.pp.darknsoft.simpledoc.services.CitizenService;
@@ -44,6 +45,26 @@ public class CitizenController {
     public ResponseEntity<CitizenDTO> getById(@PathVariable Long id) {
         Optional<CitizenDTO> dto = citizenService.getById(id);
         return dto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<CitizenDTO>> findByName(@RequestParam String fullName,
+                                                       @RequestParam(defaultValue = "0") int number,         // номер сторінки
+                                                       @RequestParam(defaultValue = "10") int size,        // розмір сторінки
+                                                       @RequestParam(defaultValue = "fullName") String sort,     // поле для сортування
+                                                       @RequestParam(defaultValue = "asc") String order) {    // напрямок: asc/desc) {
+
+        if (StringUtils.hasLength(fullName) && fullName.length() > 1) {
+            Pageable pageable = PageRequest.of(
+                    number,
+                    size,
+                    order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
+            );
+            Page<CitizenDTO> items = citizenService.getAllByFullNameLike(fullName, pageable);
+
+            return ResponseEntity.ok(items);
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping

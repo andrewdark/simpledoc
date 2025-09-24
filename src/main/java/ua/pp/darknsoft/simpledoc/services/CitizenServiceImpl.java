@@ -4,8 +4,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenDTOToCitizenConverter;
 import ua.pp.darknsoft.simpledoc.converters.citizen.CitizenToCitizenDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CitizenDTO;
@@ -13,9 +15,8 @@ import ua.pp.darknsoft.simpledoc.entities.Citizen;
 import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CitizenRepository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -128,6 +129,15 @@ public class CitizenServiceImpl implements CitizenService {
     public List<Citizen> findByIdIn(List<Long> ids) throws AppException {
         try {
             return citizenRepository.findByIdIn(ids);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
+
+    @Override
+    public Page<CitizenDTO> getAllByFullNameLike(String fullName, Pageable pageable) throws AppException {
+        try {
+            return citizenRepository.findAllByDeletedAndFullNameLikeIgnoreCase(false, "%" + fullName.toUpperCase().trim() + "%", pageable).map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

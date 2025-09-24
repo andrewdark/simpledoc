@@ -1,7 +1,14 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {ICitizen} from "../../../models/catalog/ICitizen";
-import {createCitizen, deleteCitizen, getAllCitizen, getCitizenById, updateCitizen} from "./operations";
+import {
+    createCitizen,
+    deleteCitizen,
+    getAllCitizen,
+    getAllCitizenByFullName,
+    getCitizenById,
+    updateCitizen
+} from "./operations";
 
 interface CitizenState {
     items: ICitizen[];
@@ -76,6 +83,15 @@ export const citizenSlice = createSlice({
             .addCase(getAllCitizen.pending, handlePending)
             .addCase(getAllCitizen.rejected, handleRejected)
             .addCase(getAllCitizen.fulfilled, (state: CitizenState, action: PayloadAction<IPageable<ICitizen>>) => {
+                state.isLoading = false;
+                state.error = '';
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
+            })
+            //getAllCitizenByFullName
+            .addCase(getAllCitizenByFullName.pending, handlePending)
+            .addCase(getAllCitizenByFullName.rejected, handleRejected)
+            .addCase(getAllCitizenByFullName.fulfilled, (state: CitizenState, action: PayloadAction<IPageable<ICitizen>>) => {
                 state.isLoading = false;
                 state.error = '';
                 state.items = action.payload?.content ?? initialState.items;
