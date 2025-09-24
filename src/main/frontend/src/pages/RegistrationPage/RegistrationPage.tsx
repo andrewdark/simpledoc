@@ -3,20 +3,23 @@ import css from './RegistrationPage.module.css'
 import {NavBar} from "../../components/NavBar/NavBar";
 import {RegistrationForm} from "../../components/RegistrationForm/RegistrationForm";
 import {useParams} from "react-router-dom";
-import {useAppDispatch} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {addNavegante} from "../../redux/navegante/slice";
 import {getRecordGroupById} from "../../redux/catalog/record_group/operations";
 import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 import {createRecord} from "../../redux/record/operations";
 import {IRecord} from "../../models/IRecord";
+import {IRecordGroup} from "../../models/catalog/IRecordGroup";
 
 interface RegistrationParams {
     recordGroupId: string;
+
     [key: string]: string | undefined; // Индексная сигнатура: любой другой строковый ключ имеет тип string | undefined
 }
 
 const RegistrationPage = () => {
     const {recordGroupId} = useParams<RegistrationParams>();
+    const recordGroupInit: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -28,18 +31,18 @@ const RegistrationPage = () => {
         dispatch(getRecordGroupById({id: groupId}));
     }, [dispatch]);
 
-    const saveItemHandler = (dto: IRecord) => {
+    const saveItemHandler = (dto: IRecord, fileList: File[]) => {
         if (dto && dto.id) {
             console.log("UPDATE")
         } else {
             console.log("CREATE: ", dto);
-            dispatch(createRecord({dto:dto}));
+            dispatch(createRecord({dto: dto, fileList: fileList}));
 
         }
     };
 
     return (
-        recordGroupId ?
+        recordGroupInit ?
             <div className={css.registrationPage}>
                 <NavBar isAddButton={false} isBackButton={true}/>
                 <RegistrationForm formHandler={saveItemHandler}/>

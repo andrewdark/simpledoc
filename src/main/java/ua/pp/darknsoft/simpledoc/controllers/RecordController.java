@@ -9,12 +9,15 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
 import ua.pp.darknsoft.simpledoc.filters.RecordSearchFilter;
 import ua.pp.darknsoft.simpledoc.services.RecordService;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -68,16 +71,23 @@ public class RecordController {
         return recordService.searchRecords(filter, pageable);
     }
 
-    @PostMapping
-    public ResponseEntity<RecordDTO> create(@RequestBody RecordDTO request) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<RecordDTO> create(@RequestPart("data") RecordDTO request,
+                                            @RequestPart(value = "fileList", required = false) List<MultipartFile> fileList) {
         if (Objects.isNull(request.getRecordGroup())) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         if (Objects.isNull(request.getRecordGroup().getRecordGroupType()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         if (RecordGroupType.NODE == request.getRecordGroup().getRecordGroupType())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        RecordDTO saved = recordService.add(request);
+        if(CollectionUtils.isEmpty(fileList)){
+            RecordDTO saved = recordService.add(request);
+            return ResponseEntity.ok(saved);
+        }
+
+        RecordDTO saved = recordService.add(request, fileList);
         return ResponseEntity.ok(saved);
+
     }
 
     @PutMapping("/{id}")

@@ -20,7 +20,7 @@ import {FileUpload} from "../FileUpload/FileUpload";
 
 interface RegistrationFormProps {
     dto?: IRecord;
-    formHandler: (registration: IRecord) => void;
+    formHandler: (registration: IRecord, fileList: File[]) => void;
 }
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) => {
@@ -43,12 +43,15 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
     const [delivery, setDelivery] = useState<IDelivery | null>(null); //IDelivery;
     const [resolutions, setResolutions] = useState<IResolution[] | null>(null); //IResolution[];
     const [files, setFiles] = useState<IFileLink[]>([]); //IFileLink[];
+    const [fileList, setFileList] = useState<File[]>([]);
     const [rubrics, setRubrics] = useState<IRubric[] | null>(null); //IRubric[];
 
     useEffect(() => {
         if (recordGroupInit) {
             setRecordGroup(recordGroupInit);
             setRegNum(recordGroupInit.indexNum);
+        } else {
+
         }
 
         dispatch(getAllDelivery({size: 100, number: 0}));
@@ -75,8 +78,10 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
         }
         // Здесь можно отправить данные на сервер
         if (dto.recordGroup) {
-            formHandler(dto);
             console.log("FORM-DATA: ", {dto});
+            console.log("FILE-LIST: ", fileList);
+            formHandler(dto, fileList);
+
         } else {
             alert("RecordGroup is missing");
         }
@@ -113,11 +118,11 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
 
     const handleFilesSelect = (selectedFile: File) => {
         //TODO: For example
-        if(files.map(el=>el.id).find(el=>el==selectedFile.lastModified)){
+        if (files.map(el => el.id).find(el => el == selectedFile.lastModified)) {
             console.log("File Exist");
-        }else {
+        } else {
             const someFile: IFileLink = {id: selectedFile.lastModified, fileName: selectedFile.name}
-
+            setFileList([...fileList, selectedFile]);
             setFiles([...files, someFile]);
         }
 

@@ -13,6 +13,7 @@ interface RecordThunkPayload {
     sort?:string;
     multipleSort?:string[]
     order?:SortOrder;
+    fileList?: File[];
 }
 
 /*
@@ -23,7 +24,19 @@ export const createRecord = createAsyncThunk(
     'record/create',
     async (payload: RecordThunkPayload, thunkAPI) => {
         try {
-            const res = await $api.post<IRecord>('/record', payload.dto);
+            const formData = new FormData();
+            formData.append(
+                "data",
+                new Blob([JSON.stringify(payload.dto)], { type: "application/json" })
+            );
+            console.log("payload.files: ", payload.fileList);
+            payload.fileList?.forEach((file: File) => {
+                formData.append("fileList", file);
+            });
+            console.log("FD: ",formData)
+            const res = await $api.post<IRecord>('/record', formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
             return res.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message);

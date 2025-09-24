@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordDTOToRecordConverter;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordToRecordDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
@@ -24,6 +25,7 @@ import ua.pp.darknsoft.simpledoc.repositories.records.InnerRecordRepository;
 import ua.pp.darknsoft.simpledoc.repositories.records.OutgoingRecordRepository;
 import ua.pp.darknsoft.simpledoc.specifications.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -69,6 +71,18 @@ public class RecordServiceImpl implements RecordService {
         } catch (Exception ex) {
             throw new AppException(ex);
         }
+    }
+
+    @Override
+    @Transactional
+    public RecordDTO add(RecordDTO dto, List<MultipartFile> fileList) throws AppException {
+        try{
+
+            return add(dto);
+        }catch (Exception ex){
+            throw new AppException(ex);
+        }
+
     }
 
     @Override
