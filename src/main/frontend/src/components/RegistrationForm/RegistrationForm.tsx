@@ -3,7 +3,7 @@ import {IRecord} from "../../models/IRecord";
 import css from "./RegistrationForm.module.css";
 import DatePicker from 'react-datepicker';
 import {IRecordGroup, RecordGroupType} from "../../models/catalog/IRecordGroup";
-import {ICorrespondent} from "../../models/ICorrespondent";
+import {CorrespondentType, ICorrespondent} from "../../models/ICorrespondent";
 import {IDelivery} from "../../models/catalog/IDelivery";
 import {IResolution} from "../../models/IResolution";
 import {IFileLink} from "../../models/IFileLink";
@@ -14,8 +14,12 @@ import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {BsFeather, BsFileText, BsFiletypePdf, BsTrash} from "react-icons/bs";
 import {getAllDelivery} from "../../redux/catalog/delivery/operations";
-import {AutocompleteInput} from "../../UI/AutocompleteInput/AutocompleteInput";
+import {AutocompleteInput} from "../AutocompleteInput/AutocompleteInput";
 import {FileUpload} from "../FileUpload/FileUpload";
+import {getAllOrganizationByName} from "../../redux/catalog/organization/operations";
+import {getAllCitizenByFullName} from "../../redux/catalog/citizen/operations";
+import {clearOrganizations} from "../../redux/catalog/organization/slice";
+import {clearCitizens} from "../../redux/catalog/citizen/slice";
 
 
 interface RegistrationFormProps {
@@ -53,7 +57,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
         } else {
 
         }
-
+        dispatch(clearOrganizations());
+        dispatch(clearCitizens());
         dispatch(getAllDelivery({size: 100, number: 0}));
     }, [dispatch]);
 
@@ -160,20 +165,28 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             <div className={css.bodyContentGroup}>
                 <div className={css.mainContentGroup}>
                     <div className={css.mainContentCorrespondents}>
-                        {(RecordGroupType.OUTGOING === recordGroup?.recordGroupType) || (RecordGroupType.INNER === recordGroup?.recordGroupType) ?
-                            <div className={css.formField}>
-                                <label>Виконавець: </label>
-                                <input/>
-                            </div>
-                            :
-                            <>
-                                <h5>Кореспонденти</h5>
+                        {
+                            (RecordGroupType.OUTGOING === recordGroup?.recordGroupType) || (RecordGroupType.INNER === recordGroup?.recordGroupType) ?
                                 <div className={css.formField}>
-                                    <label>Кореспондент: </label>
-                                    {/*<input/>*/}
-                                    <AutocompleteInput/>
+                                    <label>Виконавець: </label>
+                                    <input/>
                                 </div>
-                            </>
+                                :
+                                <>
+                                    <h5>Кореспонденти</h5>
+                                    <div className={css.formField}>
+                                        <label>Кореспондент: </label>
+                                        {/*<input/>*/}
+                                        {(RecordGroupType.INCOMING === recordGroup?.recordGroupType) &&
+                                            <AutocompleteInput recordGroupType={RecordGroupType.INCOMING}/>
+
+                                        }
+                                        {(RecordGroupType.CITIZEN === recordGroup?.recordGroupType) &&
+                                            <AutocompleteInput recordGroupType={RecordGroupType.CITIZEN}/>
+                                        }
+
+                                    </div>
+                                </>
 
                         }
                     </div>

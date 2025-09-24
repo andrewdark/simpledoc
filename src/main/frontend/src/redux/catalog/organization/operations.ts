@@ -115,7 +115,7 @@ export const getAllOrganizationByName = createAsyncThunk(
                 sort:payload.sort,
                 order:payload.order
             };
-            const res = await $api.get(`/organization`, {
+            const res = await $api.get(`/organization/search`, {
                 params: params,
             });
             return res.data;

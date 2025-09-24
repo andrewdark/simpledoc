@@ -9,6 +9,7 @@ import {
     getCitizenById,
     updateCitizen
 } from "./operations";
+import {organizationSlice} from "../organization/slice";
 
 interface CitizenState {
     items: ICitizen[];
@@ -42,7 +43,11 @@ const handleRejected = (state: CitizenState, action: any) => {
 export const citizenSlice = createSlice({
     name: "citizen",
     initialState,
-    reducers: {},
+    reducers: {
+        clearCitizens(state) {
+            state.items = []; // Просто присваиваем пустой массив
+        },
+    },
     extraReducers: (builder: ActionReducerMapBuilder<CitizenState>) => {
 
         builder
@@ -108,5 +113,5 @@ export const citizenSlice = createSlice({
     }
 });
 
-
+export const {clearCitizens} = citizenSlice.actions;
 export const citizenReducer = citizenSlice.reducer;

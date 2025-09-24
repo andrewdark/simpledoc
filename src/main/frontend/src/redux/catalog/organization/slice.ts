@@ -42,7 +42,11 @@ const handleRejected = (state: OrganizationState, action: any) => {
 export const organizationSlice = createSlice({
     name: "organization",
     initialState,
-    reducers: {},
+    reducers: {
+        clearOrganizations(state) {
+            state.items = []; // Просто присваиваем пустой массив
+        },
+    },
     extraReducers: (builder: ActionReducerMapBuilder<OrganizationState>) => {
 
         builder
@@ -88,7 +92,7 @@ export const organizationSlice = createSlice({
                 state.items = action.payload?.content ?? initialState.items;
                 state.page = action.payload?.page ?? initialState.page;
             })
-            //getAllOrganization
+            //getAllOrganizationByName
             .addCase(getAllOrganizationByName.pending, handlePending)
             .addCase(getAllOrganizationByName.rejected, handleRejected)
             .addCase(getAllOrganizationByName.fulfilled, (state: OrganizationState, action: PayloadAction<IPageable<IOrganization>>) => {
@@ -108,4 +112,5 @@ export const organizationSlice = createSlice({
     }
 });
 
+export const { clearOrganizations } = organizationSlice.actions;
 export const organizationReducer = organizationSlice.reducer;
