@@ -20,6 +20,7 @@ import {getAllOrganizationByName} from "../../redux/catalog/organization/operati
 import {getAllCitizenByFullName} from "../../redux/catalog/citizen/operations";
 import {clearOrganizations} from "../../redux/catalog/organization/slice";
 import {clearCitizens} from "../../redux/catalog/citizen/slice";
+import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 
 
 interface RegistrationFormProps {
@@ -165,30 +166,108 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             <div className={css.bodyContentGroup}>
                 <div className={css.mainContentGroup}>
                     <div className={css.mainContentCorrespondents}>
-                        {
-                            (RecordGroupType.OUTGOING === recordGroup?.recordGroupType) || (RecordGroupType.INNER === recordGroup?.recordGroupType) ?
+
+                        {(RecordGroupType.OUTGOING === recordGroup?.recordGroupType) &&
+                            <div className={css.outgoingCorrespondent}>
+                                <h5>Підписанти</h5>
                                 <div className={css.formField}>
                                     <label>Виконавець: </label>
                                     <input/>
                                 </div>
-                                :
-                                <>
-                                    <h5>Кореспонденти</h5>
-                                    <div className={css.formField}>
-                                        <label>Кореспондент: </label>
-                                        {/*<input/>*/}
-                                        {(RecordGroupType.INCOMING === recordGroup?.recordGroupType) &&
-                                            <AutocompleteInput recordGroupType={RecordGroupType.INCOMING}/>
-
-                                        }
-                                        {(RecordGroupType.CITIZEN === recordGroup?.recordGroupType) &&
-                                            <AutocompleteInput recordGroupType={RecordGroupType.CITIZEN}/>
-                                        }
-
-                                    </div>
-                                </>
+                            </div>
 
                         }
+                        {(RecordGroupType.INNER === recordGroup?.recordGroupType) &&
+                            <div className={css.outgoingCorrespondent}>
+                                <h5>Підписанти</h5>
+                                <div className={css.formField}>
+                                    <label>Виконавець: </label>
+                                    <input/>
+                                </div>
+                            </div>
+
+                        }
+
+                        {(RecordGroupType.INCOMING === recordGroup?.recordGroupType) &&
+                            <div className={css.incomingCorrespondent}>
+                                <div className={css.correspondentHeader}>
+                                    <h5>Кореспонденти (0)</h5>
+                                    <div className={css.correspondentNavigation}>
+
+                                        <div onClick={() => {
+
+                                        }}>
+                                            <FiChevronLeft/>
+                                        </div>
+                                        <div onClick={() => {
+
+                                        }}>
+                                            <FiChevronRight/>
+                                        </div>
+                                        <div onClick={() => {
+
+                                        }}><VscNewFile/>
+                                        </div>
+                                        <div onClick={() => {
+
+                                        }}><VscSaveAs/>
+                                        </div>
+                                        <div onClick={() => {
+
+                                        }}><BsFileText/></div>
+
+                                        <div onClick={() => {
+
+                                        }}><BsFeather/></div>
+                                        <div onClick={() => {
+                                        }}><BsTrash/></div>
+                                    </div>
+                                </div>
+
+                                <div className={css.formField}>
+                                    <label>Коресп: </label>
+                                    <AutocompleteInput recordGroupType={RecordGroupType.INCOMING}/>
+                                </div>
+                                <div className={css.incomingOrgDetails}>
+                                    <div className={css.formField}>
+                                        <label>Вих №: </label>
+                                        <input/>
+                                    </div>
+                                    <div className={css.formField}>
+                                        <label>Дата: </label>
+                                        <DatePicker
+                                            className={css.datePickerField}
+                                            locale={uk}
+                                            selected={regDate} // Текущая выбранная дата
+                                            onChange={(date) => setRegDate(date)} // Функция для обновления состояния
+                                            dateFormat="yyyy-MM-dd" // Формат отображения даты
+                                        />
+                                    </div>
+                                    <div className={css.formField}>
+                                        <label>Підписав: </label>
+                                        <input/>
+                                    </div>
+                                </div>
+
+                                <div className={css.formField}>
+                                    <label>Прим: </label>
+                                    <input/>
+                                </div>
+                            </div>
+
+                        }
+                        {(RecordGroupType.CITIZEN === recordGroup?.recordGroupType) &&
+                            <div className={css.incomingCorrespondent}>
+                                <h5>Кореспонденти (0)</h5>
+                                <div className={css.formField}>
+                                    <label>Громад: </label>
+                                    <AutocompleteInput recordGroupType={RecordGroupType.CITIZEN}/>
+                                </div>
+                            </div>
+
+                        }
+
+
                     </div>
                     <div className={css.mainContentAttributes}>
                         <div className={css.formField}>
@@ -196,7 +275,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                             <textarea value={content} onChange={handleContentChange}/>
                         </div>
                         <div className={css.formField}>
-                            <label>Примітка: </label>
+                            <label>Прим: </label>
                             <input value={note} onChange={handleNoteChange}/>
                         </div>
                     </div>

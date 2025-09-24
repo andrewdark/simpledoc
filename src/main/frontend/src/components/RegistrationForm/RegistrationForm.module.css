@@ -2,36 +2,45 @@
     padding: 25px;
     background: #ffffff;
 }
-.formField{
+textarea{
+    width: 100%; height: 120px;
+}
+.formField {
     display: flex;
 }
+
 .registrationFormContainer {
     /*border: 1px solid #ccc;*/
 }
 
-.navigationBar{
+.navigationBar {
     border: 1px solid #ccc;
     margin-bottom: 16px;
 }
-.someButton{
+
+.someButton {
     margin-right: 8px;
 }
-.submitButton{
+
+.submitButton {
     margin-right: 8px;
 }
-.regInfoGroup{
+
+.regInfoGroup {
     display: flex; /* Выравнивает инпуты в ряд */
     border: 1px solid #ccc;
     margin-bottom: 16px;
 }
-.numberOfDocGroup{
+
+.numberOfDocGroup {
     display: flex; /* Выравнивает инпуты в ряд */
     border: 1px solid #ccc; /* Общая граница для всего контейнера */
     border-radius: 5px; /* Скругление углов контейнера */
     overflow: hidden; /* Скрывает границы инпутов, если они выходят за пределы контейнера */
     width: fit-content; /* Ширина по содержимому */
 }
-.singleInputForNumber{
+
+.singleInputForNumber {
     width: 40px; /* Ширина каждого инпута */
     height: 40px; /* Высота каждого инпута */
     text-align: center; /* Выравнивание текста по центру */
@@ -41,72 +50,112 @@
     padding: 0;
     margin: 0;
 }
-.regDelimiterInput{
+
+.regDelimiterInput {
     width: 20px;
 }
-.regNumInput{
+
+.regNumInput {
     width: 60px;
 }
 
 /*.singleInputForNumber:not(:last-child) {*/
 /*    border-right: 1px solid #ccc;*/
 /*}*/
-.datePickerField{
+.datePickerField {
     width: 120px; /* Ширина каждого инпута */
     height: 40px; /* Высота каждого инпута */
 }
 
-.bodyContentGroup{
+.bodyContentGroup {
     display: flex;
     justify-content: space-between;
     border: 1px solid #ccc;
     margin-bottom: 16px;
 }
+
 /*mainContentGroup */
-.mainContentGroup{
+.mainContentGroup {
     border: 1px solid #ccc;
     flex-grow: 1;
 }
-.mainContentCorrespondents{}
-.mainContentAttributes{}
-/*additionalContentGroup */
-.additionalContentGroup{
-    max-width: 300px;
-}
-.additionalContentAttributes{
-    margin-bottom: 16px;
-}
-.additionalContentFiles{}
-.fileList{}
-.fileItem{
-    display: flex;
-}
-.resolutionGroup{
+
+.mainContentCorrespondents {
     border: 1px solid #ccc;
-}
-.resolutionHeader{
-    display: flex;
     margin-bottom: 16px;
 }
-.resolutionBody{
+
+.incomingCorrespondent {
+}
+.correspondentHeader{
     display: flex;
     justify-content: space-between;
 }
-.resolutionText{
+.correspondentNavigation {
+    display: flex;
+}
+
+.outgoingCorrespondent {
+}
+
+.incomingOrgDetails {
+    display: flex;
+}
+
+.mainContentAttributes {
+}
+
+/*additionalContentGroup */
+.additionalContentGroup {
+    max-width: 300px;
+}
+
+.additionalContentAttributes {
+    margin-bottom: 16px;
+}
+
+.additionalContentFiles {
+}
+
+.fileList {
+}
+
+.fileItem {
+    display: flex;
+}
+
+.resolutionGroup {
+    border: 1px solid #ccc;
+}
+
+.resolutionHeader {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.resolutionBody {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resolutionText {
     width: 45%;
 }
-.resolutionTextArea{
+
+.resolutionTextArea {
     border: 1px solid #ccc;
     width: 100%;
     height: 58px;
 }
-.performerList{
+
+.performerList {
     padding-left: 24px;
     border: 1px solid #ccc;
     width: 45%;
     height: 58px;
 }
-.resolutionNavigation{
+
+.resolutionNavigation {
 
 }
 
