@@ -201,13 +201,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                                            correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
                         }
                         {(RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
-                            <div className={css.incomingCorrespondent}>
-                                <h5>Кореспонденти ({correspondents.length})</h5>
-                                <div className={css.formField}>
-                                    <label>Громад: </label>
-                                    {/*<AutocompleteInput recordGroupType={RecordGroupType.CITIZEN}/>*/}
-                                </div>
-                            </div>
+                            <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
+                                           correspondentType={CorrespondentType.INCOMING_CITIZEN}/>
                         }
                     </div>
 

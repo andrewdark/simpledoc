@@ -10,9 +10,11 @@ import {IOrganization} from "../../models/catalog/IOrganization";
 import {ICitizen} from "../../models/catalog/ICitizen";
 import {clearOrganizations} from "../../redux/catalog/organization/slice";
 import {clearCitizens} from "../../redux/catalog/citizen/slice";
+import {CorrespondentType} from "../../models/ICorrespondent";
 
 interface AutocompleteInputProps {
-    recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
+    correspondentType: typeof CorrespondentType[keyof typeof CorrespondentType];
+    disabled: boolean;
     organization: IOrganization | null;
     setOrganization: (val: IOrganization) => void;
     citizen: ICitizen | null;
@@ -20,7 +22,7 @@ interface AutocompleteInputProps {
 }
 
 export const AutocompleteInput: FC<AutocompleteInputProps> = ({
-                                                                  recordGroupType,
+                                                                  correspondentType, disabled,
                                                                   organization,
                                                                   setOrganization,
                                                                   citizen,
@@ -34,10 +36,10 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (RecordGroupType.INCOMING === recordGroupType) {
+        if (CorrespondentType.INCOMING_ORGANIZATION === correspondentType) {
             setInputValue(organization?.name ?? '');
         }
-        if (RecordGroupType.CITIZEN === recordGroupType) {
+        if (CorrespondentType.INCOMING_CITIZEN === correspondentType) {
             setInputValue(citizen?.fullName ?? '');
         }
     }, [citizen, organization]);
@@ -51,10 +53,10 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({
         debounce((query: string) => {
 
             if (query.length >= 2) {
-                if (RecordGroupType.INCOMING === recordGroupType) {
+                if (CorrespondentType.INCOMING_ORGANIZATION === correspondentType) {
                     dispatch(getAllOrganizationByName({searchQuery: query}));
                 }
-                if (RecordGroupType.CITIZEN === recordGroupType) {
+                if (CorrespondentType.INCOMING_CITIZEN === correspondentType) {
                     dispatch(getAllCitizenByFullName({searchQuery: query}));
                 }
             } else {
@@ -95,14 +97,14 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({
                 value={inputValue}
                 onChange={handleInputChange}
                 placeholder="Почніть вводити текст..."
-                className={css.autocompleteInput}
+                className={css.autocompleteInput} disabled={disabled}
             />
 
             {/*{loading && <div className="loading-indicator">Завантаження...</div>}*/}
 
             {/*  {error && <div className="error-message">Помилка: {error}</div>}*/}
 
-            {RecordGroupType.INCOMING === recordGroupType && organizations.length > 0 && !selectedItem && (
+            {CorrespondentType.INCOMING_ORGANIZATION === correspondentType && organizations.length > 0 && !selectedItem && (
                 <ul className={css.suggestionsList}>
                     {organizations.map((item, index) => (
                         <li key={index} onClick={(event) => handleSelectOrganization(item, event)}>
@@ -111,7 +113,7 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({
                     ))}
                 </ul>
             )}
-            {RecordGroupType.CITIZEN === recordGroupType && citizens.length > 0 && !selectedItem && (
+            {CorrespondentType.INCOMING_CITIZEN === correspondentType && citizens.length > 0 && !selectedItem && (
                 <ul className={css.suggestionsList}>
                     {citizens.map((item, index) => (
                         <li key={index} onClick={(event) => handleSelectCitizen(item, event)}>

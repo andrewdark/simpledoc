@@ -28,10 +28,6 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
     const [organization, setOrganization] = useState<IOrganization | null>(null);
     const [citizen, setCitizen] = useState<ICitizen | null>(null);
 
-    // useEffect(() => {
-    //     setPosition(correspondents.length);
-    // }, [correspondents]);
-
     const AddNewCorrespondent = () => {
         setIsNewCorr(true);
         setOutNum('');
@@ -196,43 +192,66 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                     <div onClick={RemoveCorrespondent}><BsTrash/></div>
                 </div>
             </div>
-            <div className={css.correspondentBody}>
-                <div className={css.formField}>
-                    <label>Коресп: </label>
-                    <div>
-                        <AutocompleteInput recordGroupType={RecordGroupType.INCOMING} organization={organization}
-                                           setOrganization={setOrganization}
-                                           citizen={citizen} setCitizen={setCitizen}/>
+            {CorrespondentType.INCOMING_ORGANIZATION === correspondentType &&
+                <div className={css.correspondentBody}>
+                    <div className={css.formField}>
+                        <label>Коресп: </label>
+                        <div>
+                            <AutocompleteInput correspondentType={CorrespondentType.INCOMING_ORGANIZATION}
+                                               organization={organization}
+                                               setOrganization={setOrganization}
+                                               citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
 
+                        </div>
                     </div>
-                </div>
-                <div className={css.incomingOrgDetails}>
-                    <div className={css.formField}>
-                        <label>Вих №: </label>
-                        <input value={outNum} onChange={handleOutNumChange} disabled={disabled}/>
+                    <div className={css.incomingOrgDetails}>
+                        <div className={css.formField}>
+                            <label>Вих №: </label>
+                            <input value={outNum} onChange={handleOutNumChange} disabled={disabled}/>
+                        </div>
+                        <div className={css.formField}>
+                            <label>Дата: </label>
+                            <DatePicker
+                                className={css.datePickerField}
+                                locale={uk}
+                                selected={outDate} // Текущая выбранная дата
+                                onChange={(date) => setOutDate(date)} // Функция для обновления состояния
+                                dateFormat="yyyy-MM-dd" // Формат отображения даты
+                                disabled={disabled}
+                            />
+                        </div>
+                        <div className={css.formField}>
+                            <label>Підпис: </label>
+                            <input value={signatory} onChange={handleSignatoryChange} disabled={disabled}/>
+                        </div>
                     </div>
-                    <div className={css.formField}>
-                        <label>Дата: </label>
-                        <DatePicker
-                            className={css.datePickerField}
-                            locale={uk}
-                            selected={outDate} // Текущая выбранная дата
-                            onChange={(date) => setOutDate(date)} // Функция для обновления состояния
-                            dateFormat="yyyy-MM-dd" // Формат отображения даты
-                            disabled={disabled}
-                        />
-                    </div>
-                    <div className={css.formField}>
-                        <label>Підпис: </label>
-                        <input value={signatory} onChange={handleSignatoryChange} disabled={disabled}/>
-                    </div>
-                </div>
 
-                <div className={css.formField}>
-                    <label>Прим: </label>
-                    <input value={note} onChange={handleNoteChange} disabled={disabled}/>
+                    <div className={css.formField}>
+                        <label>Прим: </label>
+                        <input value={note} onChange={handleNoteChange} disabled={disabled}/>
+                    </div>
                 </div>
-            </div>
+            }
+            {CorrespondentType.INCOMING_CITIZEN === correspondentType &&
+                <div className={css.correspondentBody}>
+                    <div className={css.formField}>
+                        <label>Громад: </label>
+                        <div>
+                            <AutocompleteInput correspondentType={CorrespondentType.INCOMING_CITIZEN}
+                                               organization={organization}
+                                               setOrganization={setOrganization}
+                                               citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
+
+                        </div>
+                    </div>
+                    <div className={css.incomingOrgDetails}>
+                        <div className={css.formField}>
+                            <label>Адреса: </label>
+                            <input value={citizen?.address} disabled={true}/>
+                        </div>
+                    </div>
+                </div>
+            }
 
         </div>
     );
