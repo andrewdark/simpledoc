@@ -14,7 +14,6 @@ import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {BsFeather, BsFileText, BsFiletypePdf, BsTrash} from "react-icons/bs";
 import {getAllDelivery} from "../../redux/catalog/delivery/operations";
-import {AutocompleteInput} from "../AutocompleteInput/AutocompleteInput";
 import {FileUpload} from "../FileUpload/FileUpload";
 import {clearOrganizations} from "../../redux/catalog/organization/slice";
 import {clearCitizens} from "../../redux/catalog/citizen/slice";
@@ -36,6 +35,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
     const [regNum, setRegNum] = useState<string>('');
     const [regDate, setRegDate] = useState<Date | null>(null); //Date;
     const [consist, setConsist] = useState<string>('');
+    const [recipient, setRecipient] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const [note, setNote] = useState<string>('');
     const [collective, setCollective] = useState<boolean>(false);
@@ -69,6 +69,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             regNum: regNum,
             regDate: regDate,
             consist: consist,
+            recipient: recipient,
             content: content,
             note: note,
             collective: collective,
@@ -98,6 +99,10 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
     const handleOrderNumChange = (event: ChangeEvent<HTMLInputElement>) => {
         const val = parseStringToNumberOrDefaultZero(event.target.value);
         setOrderNum(val);
+    };
+    const handleRecipientChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const val = event.target.value;
+        setRecipient(val);
     };
     const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const val = event.target.value;
@@ -144,22 +149,28 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                 </button>
             </div>
             <div className={css.regInfoGroup}>
-                <div className={css.numberOfDocGroup}>
-                    <label>№</label>
-                    <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
-                           onChange={handleRegNumChange}/>
-                    <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`} value="/"/>
-                    <input type="text" className={css.singleInputForNumber} value={orderNum}
-                           onChange={handleOrderNumChange}/>
+                <div className={css.formField}>
+                    <label>№:</label>
+                    <div className={css.numberOfDocGroup}>
+                        <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
+                               onChange={handleRegNumChange}/>
+                        <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`} value="/"/>
+                        <input type="text" className={css.singleInputForNumber} value={orderNum}
+                               onChange={handleOrderNumChange}/>
+                    </div>
                 </div>
-                <label>від:</label>
-                <DatePicker
-                    className={css.datePickerField}
-                    locale={uk}
-                    selected={regDate} // Текущая выбранная дата
-                    onChange={(date) => setRegDate(date)} // Функция для обновления состояния
-                    dateFormat="yyyy-MM-dd" // Формат отображения даты
-                />
+
+                <div className={css.formField}>
+                    <label>Від:</label>
+                    <DatePicker
+                        className={css.datePickerField}
+                        locale={uk}
+                        selected={regDate} // Текущая выбранная дата
+                        onChange={(date) => setRegDate(date)} // Функция для обновления состояния
+                        dateFormat="yyyy-MM-dd" // Формат отображения даты
+                    />
+                </div>
+
             </div>
             <div className={css.bodyContentGroup}>
                 <div className={css.mainContentGroup}>
@@ -186,7 +197,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                         }
 
                         {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
-                            <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents} correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
+                            <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
+                                           correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
                         }
                         {(RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
                             <div className={css.incomingCorrespondent}>
@@ -197,10 +209,13 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                                 </div>
                             </div>
                         }
-
-
                     </div>
+
                     <div className={css.mainContentAttributes}>
+                        <div className={css.formField}>
+                            <label>Кому: </label>
+                            <input value={recipient} onChange={handleRecipientChange}/>
+                        </div>
                         <div className={css.formField}>
                             <label>Зміст: </label>
                             <textarea value={content} onChange={handleContentChange}/>

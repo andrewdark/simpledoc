@@ -11,6 +11,7 @@ export interface IRecord {
     regNum: string | null;
     regDate: Date | null;
     consist?: string | null;
+    recipient?: string | null; //TODO: ADD to other parts
     content: string | null;
     note?: string | null;
     collective?: boolean | null;

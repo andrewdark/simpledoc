@@ -87,36 +87,41 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                     }}><BsTrash/></div>
                 </div>
             </div>
+<div className={css.correspondentBody}>
+    <div className={css.formField}>
+        <label>Коресп: </label>
+        <div>
+            <AutocompleteInput recordGroupType={RecordGroupType.INCOMING} setOrganization={setOrganization} setCitizen={setCitizen}/>
 
-            <div className={css.formField}>
-                <label>Коресп: </label>
-                <AutocompleteInput recordGroupType={RecordGroupType.INCOMING} setOrganization={setOrganization} setCitizen={setCitizen}/>
-            </div>
-            <div className={css.incomingOrgDetails}>
-                <div className={css.formField}>
-                    <label>Вих №: </label>
-                    <input value={outNum} onChange={handleOutNumChange}/>
-                </div>
-                <div className={css.formField}>
-                    <label>Дата: </label>
-                    <DatePicker
-                        className={css.datePickerField}
-                        locale={uk}
-                        selected={outDate} // Текущая выбранная дата
-                        onChange={(date) => setOutDate(date)} // Функция для обновления состояния
-                        dateFormat="yyyy-MM-dd" // Формат отображения даты
-                    />
-                </div>
-                <div className={css.formField}>
-                    <label>Підписав: </label>
-                    <input value={signatory} onChange={handleSignatoryChange}/>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div className={css.incomingOrgDetails}>
+        <div className={css.formField}>
+            <label>Вих №: </label>
+            <input value={outNum} onChange={handleOutNumChange}/>
+        </div>
+        <div className={css.formField}>
+            <label>Дата: </label>
+            <DatePicker
+                className={css.datePickerField}
+                locale={uk}
+                selected={outDate} // Текущая выбранная дата
+                onChange={(date) => setOutDate(date)} // Функция для обновления состояния
+                dateFormat="yyyy-MM-dd" // Формат отображения даты
+            />
+        </div>
+        <div className={css.formField}>
+            <label>Підпис: </label>
+            <input value={signatory} onChange={handleSignatoryChange}/>
+        </div>
+    </div>
 
-            <div className={css.formField}>
-                <label>Прим: </label>
-                <input value={note} onChange={handleNoteChange}/>
-            </div>
+    <div className={css.formField}>
+        <label>Прим: </label>
+        <input value={note} onChange={handleNoteChange}/>
+    </div>
+</div>
+
         </div>
     );
 };
