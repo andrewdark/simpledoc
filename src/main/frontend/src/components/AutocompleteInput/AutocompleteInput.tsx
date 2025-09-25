@@ -13,17 +13,34 @@ import {clearCitizens} from "../../redux/catalog/citizen/slice";
 
 interface AutocompleteInputProps {
     recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
+    organization: IOrganization | null;
     setOrganization: (val: IOrganization) => void;
+    citizen: ICitizen | null;
     setCitizen: (val: ICitizen) => void;
 }
 
-export const AutocompleteInput: FC<AutocompleteInputProps> = ({recordGroupType, setOrganization, setCitizen}) => {
+export const AutocompleteInput: FC<AutocompleteInputProps> = ({
+                                                                  recordGroupType,
+                                                                  organization,
+                                                                  setOrganization,
+                                                                  citizen,
+                                                                  setCitizen
+                                                              }) => {
     // Типізуємо useState для поля вводу та вибраного елемента
     const organizations = useAppSelector(state => state.organizationReducer.items);
     const citizens = useAppSelector(state => state.citizenReducer.items);
     const [inputValue, setInputValue] = useState<string>('');
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (RecordGroupType.INCOMING === recordGroupType) {
+            setInputValue(organization?.name ?? '');
+        }
+        if (RecordGroupType.CITIZEN === recordGroupType) {
+            setInputValue(citizen?.fullName ?? '');
+        }
+    }, [citizen, organization]);
 
     // Типізуємо useSelector
     //const { suggestions, loading, error } = useSelector((state: RootState) => state.autocomplete);

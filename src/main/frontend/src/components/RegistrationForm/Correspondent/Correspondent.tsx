@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import css from "./Correspondent.module.css";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {VscNewFile, VscSaveAs} from "react-icons/vsc";
@@ -18,7 +18,9 @@ interface CorrespondentProps {
 }
 
 export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorrespondents, correspondentType}) => {
-
+    const [isNewCorr, setIsNewCorr] = useState<boolean>(true);
+    const [disabled, setDisabled] = useState<boolean>(false);
+    const [position, setPosition] = useState<number>(0);
     const [outNum, setOutNum] = useState<string>('');
     const [outDate, setOutDate] = useState<Date | null>(null); //Date;
     const [note, setNote] = useState<string>('');
@@ -26,20 +28,94 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
     const [organization, setOrganization] = useState<IOrganization | null>(null);
     const [citizen, setCitizen] = useState<ICitizen | null>(null);
 
+    // useEffect(() => {
+    //     setPosition(correspondents.length);
+    // }, [correspondents]);
+
     const AddNewCorrespondent = () => {
-        const newCorrespondent: ICorrespondent = {
-            id: null,
-            outNum: outNum,
-            outDate: outDate,
-            note: note,
-            signatory: signatory,
-            organization: organization,
-            citizen: citizen,
-            correspondentType: correspondentType
+        setIsNewCorr(true);
+        setOutNum('');
+        setOutDate(null); //Date;
+        setNote('');
+        setSignatory('');
+        setOrganization(null);
+        setCitizen(null);
+        setDisabled(false);
+    }
+
+    const EditCorrespondent = () => {
+        setDisabled(false);
+    }
+
+    const RemoveCorrespondent = () => {
+        const isConfirmed = window.confirm(`Видалити поточного кореспондента?`);
+        let id: number = 0;
+        if (CorrespondentType.INCOMING_ORGANIZATION === correspondentType && organization) {
+            id = organization.id ?? 0;
         }
-        if(organization || citizen){
-            setCorrespondents([...correspondents, newCorrespondent])
+        if (CorrespondentType.INCOMING_CITIZEN === correspondentType && citizen) {
+            id = citizen.id ?? 0;
         }
+        if (isConfirmed) {
+            const newCorrArr = correspondents.filter(cor => cor.organization?.id !== id);
+            setCorrespondents(newCorrArr);
+            const curCorrespondent: ICorrespondent = newCorrArr[0];
+
+            if (curCorrespondent) {
+                setOutNum(curCorrespondent.outNum ?? '');
+                setOutDate(curCorrespondent.outDate ?? null);
+                setNote(curCorrespondent.note ?? '');
+                setSignatory(curCorrespondent.signatory ?? '');
+                setOrganization(curCorrespondent.organization ?? null);
+                setCitizen(curCorrespondent.citizen ?? null);
+                setPosition(1);
+                setDisabled(true);
+            } else {
+                setIsNewCorr(true);
+                setOutNum('');
+                setOutDate(null); //Date;
+                setNote('');
+                setSignatory('');
+                setOrganization(null);
+                setCitizen(null);
+                setPosition(0);
+                setDisabled(false);
+            }
+        }
+
+    }
+
+    const SaveCorrespondent = () => {
+        if (isNewCorr) {
+            const newCorrespondent: ICorrespondent = {
+                id: null,
+                outNum: outNum,
+                outDate: outDate,
+                note: note,
+                signatory: signatory,
+                organization: organization,
+                citizen: citizen,
+                correspondentType: correspondentType
+            }
+            if (organization || citizen) {
+                setCorrespondents([...correspondents, newCorrespondent])
+                setIsNewCorr(false);
+                const newPosition = position + 1;
+                setPosition(newPosition);
+            }
+        } else {
+            const curCorrespondent: ICorrespondent = correspondents[position - 1];
+
+            if (curCorrespondent) {
+                curCorrespondent.outNum = outNum;
+                curCorrespondent.outDate = outDate;
+                curCorrespondent.note = note;
+                curCorrespondent.signatory = signatory;
+                curCorrespondent.organization = organization;
+                curCorrespondent.citizen = citizen;
+            }
+        }
+        setDisabled(true);
 
     };
     const handleOutNumChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,72 +131,108 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
         setSignatory(val);
     };
 
+    const navLeftBtn = () => {
+
+        if (position > 1) {
+            const newPosition = position - 1;
+            setPosition(newPosition);
+            setDisabled(true);
+            const curCorrespondent: ICorrespondent = correspondents[newPosition - 1];
+            if (curCorrespondent) {
+                setOutNum(curCorrespondent.outNum ?? '');
+                setOutDate(curCorrespondent.outDate ?? null); //Date;
+                setNote(curCorrespondent.note ?? '');
+                setSignatory(curCorrespondent.signatory ?? '');
+                setOrganization(curCorrespondent.organization ?? null);
+                setCitizen(curCorrespondent.citizen ?? null);
+            }
+
+        }
+
+    };
+
+    const navRightBtn = () => {
+        const maxPosition = correspondents.length;
+
+        if (position < maxPosition) {
+            setDisabled(true);
+            const newPosition = position + 1;
+            setPosition(newPosition);
+
+            const curCorrespondent: ICorrespondent = correspondents[newPosition - 1];
+
+            if (curCorrespondent) {
+                setOutNum(curCorrespondent.outNum ?? '');
+                setOutDate(curCorrespondent.outDate ?? null); //Date;
+                setNote(curCorrespondent.note ?? '');
+                setSignatory(curCorrespondent.signatory ?? '');
+                setOrganization(curCorrespondent.organization ?? null);
+                setCitizen(curCorrespondent.citizen ?? null);
+            }
+        }
+
+    };
+
     return (
         <div className={css.incomingCorrespondent}>
             <div className={css.correspondentHeader}>
-                <h5>Кореспонденти ({correspondents.length})</h5>
+                <h5>Кореспонденти ({position} з {correspondents.length})</h5>
                 <div className={css.correspondentNavigation}>
 
-                    <div onClick={() => {
-
-                    }}>
+                    <div onClick={navLeftBtn}>
                         <FiChevronLeft/>
                     </div>
-                    <div onClick={() => {
-
-                    }}>
+                    <div onClick={navRightBtn}>
                         <FiChevronRight/>
                     </div>
-                    <div onClick={() => {
-
-                    }}><VscNewFile/>
+                    <div onClick={AddNewCorrespondent}><VscNewFile/>
                     </div>
-                    <div onClick={AddNewCorrespondent}><VscSaveAs/></div>
+                    <div onClick={SaveCorrespondent}><VscSaveAs/></div>
                     <div onClick={() => {
 
                     }}><BsFileText/></div>
 
-                    <div onClick={() => {
-
-                    }}><BsFeather/></div>
-                    <div onClick={() => {
-                    }}><BsTrash/></div>
+                    <div onClick={EditCorrespondent}><BsFeather/></div>
+                    <div onClick={RemoveCorrespondent}><BsTrash/></div>
                 </div>
             </div>
-<div className={css.correspondentBody}>
-    <div className={css.formField}>
-        <label>Коресп: </label>
-        <div>
-            <AutocompleteInput recordGroupType={RecordGroupType.INCOMING} setOrganization={setOrganization} setCitizen={setCitizen}/>
+            <div className={css.correspondentBody}>
+                <div className={css.formField}>
+                    <label>Коресп: </label>
+                    <div>
+                        <AutocompleteInput recordGroupType={RecordGroupType.INCOMING} organization={organization}
+                                           setOrganization={setOrganization}
+                                           citizen={citizen} setCitizen={setCitizen}/>
 
-        </div>
-    </div>
-    <div className={css.incomingOrgDetails}>
-        <div className={css.formField}>
-            <label>Вих №: </label>
-            <input value={outNum} onChange={handleOutNumChange}/>
-        </div>
-        <div className={css.formField}>
-            <label>Дата: </label>
-            <DatePicker
-                className={css.datePickerField}
-                locale={uk}
-                selected={outDate} // Текущая выбранная дата
-                onChange={(date) => setOutDate(date)} // Функция для обновления состояния
-                dateFormat="yyyy-MM-dd" // Формат отображения даты
-            />
-        </div>
-        <div className={css.formField}>
-            <label>Підпис: </label>
-            <input value={signatory} onChange={handleSignatoryChange}/>
-        </div>
-    </div>
+                    </div>
+                </div>
+                <div className={css.incomingOrgDetails}>
+                    <div className={css.formField}>
+                        <label>Вих №: </label>
+                        <input value={outNum} onChange={handleOutNumChange} disabled={disabled}/>
+                    </div>
+                    <div className={css.formField}>
+                        <label>Дата: </label>
+                        <DatePicker
+                            className={css.datePickerField}
+                            locale={uk}
+                            selected={outDate} // Текущая выбранная дата
+                            onChange={(date) => setOutDate(date)} // Функция для обновления состояния
+                            dateFormat="yyyy-MM-dd" // Формат отображения даты
+                            disabled={disabled}
+                        />
+                    </div>
+                    <div className={css.formField}>
+                        <label>Підпис: </label>
+                        <input value={signatory} onChange={handleSignatoryChange} disabled={disabled}/>
+                    </div>
+                </div>
 
-    <div className={css.formField}>
-        <label>Прим: </label>
-        <input value={note} onChange={handleNoteChange}/>
-    </div>
-</div>
+                <div className={css.formField}>
+                    <label>Прим: </label>
+                    <input value={note} onChange={handleNoteChange} disabled={disabled}/>
+                </div>
+            </div>
 
         </div>
     );
