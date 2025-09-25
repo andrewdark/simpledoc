@@ -12,9 +12,9 @@ export const CorrespondentType = {
 export interface ICorrespondent {
     id: number | null;
     outNum?: string | null;
-    outDate?: Date;
-    note: string;
-    signatory?: string;
+    outDate?: Date | null;
+    note: string | null;
+    signatory?: string | null;
     correspondentType: typeof CorrespondentType[keyof typeof CorrespondentType];
     deleted?: boolean;
     createdAt?: string;

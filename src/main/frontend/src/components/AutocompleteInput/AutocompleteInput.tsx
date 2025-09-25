@@ -13,9 +13,11 @@ import {clearCitizens} from "../../redux/catalog/citizen/slice";
 
 interface AutocompleteInputProps {
     recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
+    setOrganization: (val: IOrganization) => void;
+    setCitizen: (val: ICitizen) => void;
 }
 
-export const AutocompleteInput: FC<AutocompleteInputProps> = ({recordGroupType}) => {
+export const AutocompleteInput: FC<AutocompleteInputProps> = ({recordGroupType, setOrganization, setCitizen}) => {
     // Типізуємо useState для поля вводу та вибраного елемента
     const organizations = useAppSelector(state => state.organizationReducer.items);
     const citizens = useAppSelector(state => state.citizenReducer.items);
@@ -59,12 +61,12 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({recordGroupType})
 
     // Типізуємо обробник події кліку на елементі списку
     const handleSelectOrganization = (suggestion: IOrganization, event: MouseEvent<HTMLLIElement>) => {
-
+        setOrganization(suggestion);
         setInputValue(suggestion.name);
         setSelectedItem(suggestion.name);
     };
     const handleSelectCitizen = (suggestion: ICitizen, event: MouseEvent<HTMLLIElement>) => {
-
+        setCitizen(suggestion);
         setInputValue(suggestion.fullName);
         setSelectedItem(suggestion.fullName);
     };

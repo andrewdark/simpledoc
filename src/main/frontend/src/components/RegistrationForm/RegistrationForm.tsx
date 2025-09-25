@@ -16,11 +16,9 @@ import {BsFeather, BsFileText, BsFiletypePdf, BsTrash} from "react-icons/bs";
 import {getAllDelivery} from "../../redux/catalog/delivery/operations";
 import {AutocompleteInput} from "../AutocompleteInput/AutocompleteInput";
 import {FileUpload} from "../FileUpload/FileUpload";
-import {getAllOrganizationByName} from "../../redux/catalog/organization/operations";
-import {getAllCitizenByFullName} from "../../redux/catalog/citizen/operations";
 import {clearOrganizations} from "../../redux/catalog/organization/slice";
 import {clearCitizens} from "../../redux/catalog/citizen/slice";
-import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
+import {Correspondent} from "./Correspondent/Correspondent";
 
 
 interface RegistrationFormProps {
@@ -43,8 +41,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
     const [collective, setCollective] = useState<boolean>(false);
     const [signCount, setSignCount] = useState<number>(0);
 
-    const [recordGroup, setRecordGroup] = useState<IRecordGroup | null>(null); //IRecordGroup | null;
-    const [correspondents, setCorrespondents] = useState<ICorrespondent[] | null>([]); //ICorrespondent[];
+    // const [recordGroup, setRecordGroup] = useState<IRecordGroup | null>(null); //IRecordGroup | null;
+    const [correspondents, setCorrespondents] = useState<ICorrespondent[]>([]); //ICorrespondent[];
+
     const [delivery, setDelivery] = useState<IDelivery | null>(null); //IDelivery;
     const [resolutions, setResolutions] = useState<IResolution[] | null>(null); //IResolution[];
     const [files, setFiles] = useState<IFileLink[]>([]); //IFileLink[];
@@ -53,7 +52,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
 
     useEffect(() => {
         if (recordGroupInit) {
-            setRecordGroup(recordGroupInit);
             setRegNum(recordGroupInit.indexNum);
         } else {
 
@@ -75,7 +73,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             note: note,
             collective: collective,
             signCount: signCount,
-            recordGroup: recordGroup,
+            recordGroup: recordGroupInit,
             correspondents: correspondents,
             delivery: delivery,
             resolutions: resolutions,
@@ -167,7 +165,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                 <div className={css.mainContentGroup}>
                     <div className={css.mainContentCorrespondents}>
 
-                        {(RecordGroupType.OUTGOING === recordGroup?.recordGroupType) &&
+                        {(RecordGroupType.OUTGOING === recordGroupInit?.recordGroupType) &&
                             <div className={css.outgoingCorrespondent}>
                                 <h5>Підписанти</h5>
                                 <div className={css.formField}>
@@ -177,7 +175,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                             </div>
 
                         }
-                        {(RecordGroupType.INNER === recordGroup?.recordGroupType) &&
+                        {(RecordGroupType.INNER === recordGroupInit?.recordGroupType) &&
                             <div className={css.outgoingCorrespondent}>
                                 <h5>Підписанти</h5>
                                 <div className={css.formField}>
@@ -185,86 +183,19 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                                     <input/>
                                 </div>
                             </div>
-
                         }
 
-                        {(RecordGroupType.INCOMING === recordGroup?.recordGroupType) &&
-                            <div className={css.incomingCorrespondent}>
-                                <div className={css.correspondentHeader}>
-                                    <h5>Кореспонденти (0)</h5>
-                                    <div className={css.correspondentNavigation}>
-
-                                        <div onClick={() => {
-
-                                        }}>
-                                            <FiChevronLeft/>
-                                        </div>
-                                        <div onClick={() => {
-
-                                        }}>
-                                            <FiChevronRight/>
-                                        </div>
-                                        <div onClick={() => {
-
-                                        }}><VscNewFile/>
-                                        </div>
-                                        <div onClick={() => {
-
-                                        }}><VscSaveAs/>
-                                        </div>
-                                        <div onClick={() => {
-
-                                        }}><BsFileText/></div>
-
-                                        <div onClick={() => {
-
-                                        }}><BsFeather/></div>
-                                        <div onClick={() => {
-                                        }}><BsTrash/></div>
-                                    </div>
-                                </div>
-
-                                <div className={css.formField}>
-                                    <label>Коресп: </label>
-                                    <AutocompleteInput recordGroupType={RecordGroupType.INCOMING}/>
-                                </div>
-                                <div className={css.incomingOrgDetails}>
-                                    <div className={css.formField}>
-                                        <label>Вих №: </label>
-                                        <input/>
-                                    </div>
-                                    <div className={css.formField}>
-                                        <label>Дата: </label>
-                                        <DatePicker
-                                            className={css.datePickerField}
-                                            locale={uk}
-                                            selected={regDate} // Текущая выбранная дата
-                                            onChange={(date) => setRegDate(date)} // Функция для обновления состояния
-                                            dateFormat="yyyy-MM-dd" // Формат отображения даты
-                                        />
-                                    </div>
-                                    <div className={css.formField}>
-                                        <label>Підписав: </label>
-                                        <input/>
-                                    </div>
-                                </div>
-
-                                <div className={css.formField}>
-                                    <label>Прим: </label>
-                                    <input/>
-                                </div>
-                            </div>
-
+                        {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
+                            <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents} correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
                         }
-                        {(RecordGroupType.CITIZEN === recordGroup?.recordGroupType) &&
+                        {(RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
                             <div className={css.incomingCorrespondent}>
-                                <h5>Кореспонденти (0)</h5>
+                                <h5>Кореспонденти ({correspondents.length})</h5>
                                 <div className={css.formField}>
                                     <label>Громад: </label>
-                                    <AutocompleteInput recordGroupType={RecordGroupType.CITIZEN}/>
+                                    {/*<AutocompleteInput recordGroupType={RecordGroupType.CITIZEN}/>*/}
                                 </div>
                             </div>
-
                         }
 
 

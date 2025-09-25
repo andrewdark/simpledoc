@@ -85,15 +85,7 @@ textarea{
     margin-bottom: 16px;
 }
 
-.incomingCorrespondent {
-}
-.correspondentHeader{
-    display: flex;
-    justify-content: space-between;
-}
-.correspondentNavigation {
-    display: flex;
-}
+
 
 .outgoingCorrespondent {
 }

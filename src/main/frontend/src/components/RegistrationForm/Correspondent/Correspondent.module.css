@@ -1,0 +1,9 @@
+.incomingCorrespondent {
+}
+.correspondentHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.correspondentNavigation {
+    display: flex;
+}
