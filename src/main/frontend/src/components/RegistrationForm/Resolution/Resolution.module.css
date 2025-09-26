@@ -1,0 +1,42 @@
+.resolution{
+
+}
+
+.resolutionHeader {
+    display: flex;
+    margin-bottom: 16px;
+    justify-content: space-between;
+}
+
+.resolutionDateGroup{
+    display: flex;
+}
+.resolutionDate {
+    width: 88px;
+}
+
+.resolutionBody {
+    display: flex;
+
+}
+
+.resolutionText {
+    width: 45%;
+}
+
+.resolutionTextArea {
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 58px;
+}
+
+.performerList {
+    padding-left: 24px;
+    border: 1px solid #ccc;
+    width: 45%;
+    height: 58px;
+}
+
+.resolutionNavigation {
+
+}

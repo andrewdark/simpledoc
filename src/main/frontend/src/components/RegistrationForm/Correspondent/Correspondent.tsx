@@ -175,21 +175,21 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                 <h5>Кореспонденти ({position} з {correspondents.length})</h5>
                 <div className={css.correspondentNavigation}>
 
-                    <div onClick={navLeftBtn}>
-                        <FiChevronLeft/>
-                    </div>
-                    <div onClick={navRightBtn}>
+                    <button onClick={navLeftBtn}>
+                        <FiChevronLeft size={16}/>
+                    </button>
+                    <button onClick={navRightBtn}>
                         <FiChevronRight/>
-                    </div>
-                    <div onClick={AddNewCorrespondent}><VscNewFile/>
-                    </div>
-                    <div onClick={SaveCorrespondent}><VscSaveAs/></div>
-                    <div onClick={() => {
+                    </button>
+                    <button onClick={AddNewCorrespondent}><VscNewFile/>
+                    </button>
+                    <button onClick={SaveCorrespondent}><VscSaveAs/></button>
+                    <button onClick={() => {
 
-                    }}><BsFileText/></div>
+                    }}><BsFileText/></button>
 
-                    <div onClick={EditCorrespondent}><BsFeather/></div>
-                    <div onClick={RemoveCorrespondent}><BsTrash/></div>
+                    <button onClick={EditCorrespondent}><BsFeather/></button>
+                    <button onClick={RemoveCorrespondent}><BsTrash/></button>
                 </div>
             </div>
             {CorrespondentType.INCOMING_ORGANIZATION === correspondentType &&
@@ -247,7 +247,7 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                     <div className={css.incomingOrgDetails}>
                         <div className={css.formField}>
                             <label>Адреса: </label>
-                            <input value={citizen?.address} disabled={true}/>
+                            <input value={citizen?.address??''} disabled={true}/>
                         </div>
                     </div>
                 </div>

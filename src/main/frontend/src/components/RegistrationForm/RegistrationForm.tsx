@@ -18,6 +18,7 @@ import {FileUpload} from "../FileUpload/FileUpload";
 import {clearOrganizations} from "../../redux/catalog/organization/slice";
 import {clearCitizens} from "../../redux/catalog/citizen/slice";
 import {Correspondent} from "./Correspondent/Correspondent";
+import {Resolution} from "./Resolution/Resolution";
 
 
 interface RegistrationFormProps {
@@ -154,8 +155,10 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.numberOfDocGroup}>
                         <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
                                onChange={handleRegNumChange}/>
-                        <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`} value="/"/>
-                        <input type="text" className={css.singleInputForNumber} value={orderNum}
+                        <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`}
+                               value="/"/>
+                        <input type="text" className={`${css.singleInputForNumber} ${css.orderNumInput}`}
+                               value={orderNum}
                                onChange={handleOrderNumChange}/>
                     </div>
                 </div>
@@ -263,50 +266,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                 </div>
             </div>
             <div className={css.resolutionGroup}>
-                <h5>Резолюції</h5>
-                <div className={css.resolutionHeader}>
-                    <div className={css.formField}>
-                        <label>Автор: </label>
-                        <input/>
-                    </div>
-                    <div className={css.formField}>
-                        <label>Від: </label>
-                        <input value="0000-00-00" disabled={true}/>
-                    </div>
-                    <div className={css.formField}>
-                        <label>План: </label>
-                        <input value="0000-00-00" disabled={true}/>
-                    </div>
-                    <div className={css.formField}>
-                        <label>Факт: </label>
-                        <input value="0000-00-00" disabled={true}/>
-                    </div>
-                </div>
-                <div className={css.resolutionBody}>
-                    <div className={css.resolutionText}>
-                        <div className={css.formField}>
-                            <label>Текст: </label>
-                            <div className={css.resolutionTextArea}>Lorem Ipsum is simply dummy text MSME</div>
-                        </div>
-                    </div>
-
-                    <div className={css.performerList}>
-                        <ul>
-                            <li>Іванов І.І.</li>
-                            <li>Петров П.П.</li>
-                        </ul>
-                    </div>
-                    <div className={css.resolutionNavigation}>
-                        <div onClick={() => {
-
-                        }}><BsFileText/></div>
-                        <div onClick={() => {
-
-                        }}><BsFeather/></div>
-                        <div onClick={() => {
-                        }}><BsTrash/></div>
-                    </div>
-                </div>
+                <Resolution/>
             </div>
         </div>
     </form>
