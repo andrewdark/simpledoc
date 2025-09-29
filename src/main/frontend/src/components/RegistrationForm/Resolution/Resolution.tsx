@@ -21,8 +21,8 @@ export const Resolution = () => {
                         <button onClick={navLeftBtn}>
                             <FiChevronLeft size={16}/>
                         </button>
-                        <button onClick={navRightBtn}>
-                            <FiChevronRight/>
+                        <button onClick={navRightBtn} >
+                            <FiChevronRight size={16}/>
                         </button>
                     </div>
                     <div>

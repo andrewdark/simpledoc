@@ -161,6 +161,10 @@ textarea{
 .additionalContentFiles {
 }
 
+.fileHeader{
+    display: flex;
+    justify-content: space-between;
+}
 .navigationBar{
     margin-bottom: 8px;
 }

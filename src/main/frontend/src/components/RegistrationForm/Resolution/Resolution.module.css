@@ -25,6 +25,15 @@
     flex-grow: 1;
     justify-content: space-between;
 }
+.resolutionNavigation > div{
+    display: flex;
+    gap: 4px;
+}
+@media only screen and (min-width: 1158px) {
+    .resolutionNavigation > div{
+        gap: 8px;
+    }
+}
 
 .resolutionBody {
     width: 100%;
@@ -89,6 +98,10 @@
     padding: 0; /* Цей рядок також важливий */
     margin: 0;
 }
+.resolutionText,
+.resolutionPerformer {
+    padding: 4px 8px;
+}
 
 @media only screen and (min-width: 1158px) {
     .resolutionBodyDetail {
@@ -107,6 +120,5 @@
     .resolutionPerformer {
         flex: 1;
         border: 1px solid #ccc;
-        padding: 8px;
     }
 }

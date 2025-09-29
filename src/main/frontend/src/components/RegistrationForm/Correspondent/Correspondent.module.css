@@ -1,6 +1,10 @@
 .incomingCorrespondent {
     margin: 8px;
 }
+.formField{
+    display: flex;
+    flex: 1;
+}
 .correspondentHeader{
     display: flex;
     flex-wrap: wrap;
@@ -17,7 +21,12 @@
 }
 .correspondentNavigation > div{
     display: flex;
-    gap: 8px;
+    gap: 4px;
+}
+@media only screen and (min-width: 1158px) {
+    .correspondentNavigation > div{
+        gap: 8px;
+    }
 }
 .correspondentNavigation > button {
 
@@ -29,16 +38,18 @@
     margin-top: 8px;
     margin-bottom: 8px;
 }
-
 .incomingOrgDetails .datePickerField{
     width: 100%;
 }
-
-.formField{
-    display: flex;
-    width: 100%;
-
+@media only screen and (min-width: 1158px) {
+    .incomingOrgDetails {
+        flex-wrap: nowrap;
+    }
+    .incomingOrgDetails .datePickerField{
+        width: auto;
+    }
 }
+
 .formField > label{
     display: block;
     width: 64px;
