@@ -19,6 +19,7 @@ import {clearOrganizations} from "../../redux/catalog/organization/slice";
 import {clearCitizens} from "../../redux/catalog/citizen/slice";
 import {Correspondent} from "./Correspondent/Correspondent";
 import {Resolution} from "./Resolution/Resolution";
+import AppInput from "../../UI/AppInput/AppInput";
 
 
 interface RegistrationFormProps {
@@ -118,7 +119,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
         setConsist(val);
     };
     const handleDeliverySelect = (event: ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value)
         const value = parseStringToNumberOrDefaultZero(event.target.value);
         const val = deliveries.find(el => el.id === value);
         if (val) {
@@ -215,10 +215,13 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                         }
                     </div>
                     <div className={css.mainContentAttributes}>
-                        <div className={css.formField}>
-                            <label>Кому: </label>
-                            <input value={recipient} onChange={handleRecipientChange}/>
-                        </div>
+                        {/*<div className={css.formField}>*/}
+                        {/*    <label>Кому: </label>*/}
+                        {/*    <input value={recipient} onChange={handleRecipientChange}/>*/}
+                        {/*</div>*/}
+                        <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
+                                  onChange={handleRecipientChange} errorMessage={"Обов'язкове поле"} valid={true}
+                                  touched={true} shouldValidate={true}/>
                         <div className={css.formField}>
                             <label>Зміст: </label>
                             <textarea value={content} onChange={handleContentChange}/>
