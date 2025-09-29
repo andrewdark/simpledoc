@@ -174,22 +174,26 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
             <div className={css.correspondentHeader}>
                 <h5>Кореспонденти ({position} з {correspondents.length})</h5>
                 <div className={css.correspondentNavigation}>
+                    <div className={css.iterationButton}>
+                        <button onClick={navLeftBtn}>
+                            <FiChevronLeft size={16}/>
+                        </button>
+                        <button onClick={navRightBtn}>
+                            <FiChevronRight/>
+                        </button>
+                    </div>
+                    <div>
+                        <button onClick={AddNewCorrespondent}><VscNewFile/>
+                        </button>
+                        <button onClick={SaveCorrespondent}><VscSaveAs/></button>
+                        <button onClick={() => {
 
-                    <button onClick={navLeftBtn}>
-                        <FiChevronLeft size={16}/>
-                    </button>
-                    <button onClick={navRightBtn}>
-                        <FiChevronRight/>
-                    </button>
-                    <button onClick={AddNewCorrespondent}><VscNewFile/>
-                    </button>
-                    <button onClick={SaveCorrespondent}><VscSaveAs/></button>
-                    <button onClick={() => {
+                        }}><BsFileText/></button>
 
-                    }}><BsFileText/></button>
+                        <button onClick={EditCorrespondent}><BsFeather/></button>
+                        <button onClick={RemoveCorrespondent}><BsTrash/></button>
+                    </div>
 
-                    <button onClick={EditCorrespondent}><BsFeather/></button>
-                    <button onClick={RemoveCorrespondent}><BsTrash/></button>
                 </div>
             </div>
             {CorrespondentType.INCOMING_ORGANIZATION === correspondentType &&
@@ -247,7 +251,7 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                     <div className={css.incomingOrgDetails}>
                         <div className={css.formField}>
                             <label>Адреса: </label>
-                            <input value={citizen?.address??''} disabled={true}/>
+                            <input value={citizen?.address ?? ''} disabled={true}/>
                         </div>
                     </div>
                 </div>

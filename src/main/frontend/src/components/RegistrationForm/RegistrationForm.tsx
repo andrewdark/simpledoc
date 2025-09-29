@@ -140,7 +140,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
 
     return <form className={css.registrationForm} onSubmit={handleSubmit}>
         <div className={css.registrationFormContainer}>
-            <div className={css.navigationBar}>
+            <div className={css.navigationBarGroup}>
                 <button type="button" className={css.someButton}>
                     <VscNewFile size={24}/>
                 </button>
@@ -162,7 +162,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                                onChange={handleOrderNumChange}/>
                     </div>
                 </div>
-
                 <div className={css.formField}>
                     <label>Від:</label>
                     <DatePicker
@@ -177,93 +176,94 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             </div>
             <div className={css.bodyContentGroup}>
                 <div className={css.mainContentGroup}>
-                    <div className={css.mainContentCorrespondents}>
+                        <div className={css.mainContentCorrespondents}>
 
-                        {(RecordGroupType.OUTGOING === recordGroupInit?.recordGroupType) &&
-                            <div className={css.outgoingCorrespondent}>
-                                <h5>Підписанти</h5>
-                                <div className={css.formField}>
-                                    <label>Виконавець: </label>
-                                    <input/>
-                                </div>
-                            </div>
-
-                        }
-                        {(RecordGroupType.INNER === recordGroupInit?.recordGroupType) &&
-                            <div className={css.outgoingCorrespondent}>
-                                <h5>Підписанти</h5>
-                                <div className={css.formField}>
-                                    <label>Виконавець: </label>
-                                    <input/>
-                                </div>
-                            </div>
-                        }
-
-                        {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
-                            <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
-                                           correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
-                        }
-                        {(RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
-                            <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
-                                           correspondentType={CorrespondentType.INCOMING_CITIZEN}/>
-                        }
-                    </div>
-
-                    <div className={css.mainContentAttributes}>
-                        <div className={css.formField}>
-                            <label>Кому: </label>
-                            <input value={recipient} onChange={handleRecipientChange}/>
-                        </div>
-                        <div className={css.formField}>
-                            <label>Зміст: </label>
-                            <textarea value={content} onChange={handleContentChange}/>
-                        </div>
-                        <div className={css.formField}>
-                            <label>Прим: </label>
-                            <input value={note} onChange={handleNoteChange}/>
-                        </div>
-                    </div>
-                </div>
-                <div className={css.additionalContentGroup}>
-                    <div className={css.additionalContentAttributes}>
-                        <div className={css.formField}>
-                            <label>Склад: </label>
-                            <input value={consist} onChange={handleConsistChange}/>
-                        </div>
-
-                        <div className={css.formField}>
-                            <label>Доставка: </label>
-                            <select onChange={handleDeliverySelect}>
-                                <option value="">-- Спосіб доставки--</option>
-                                {deliveries.filter(el => el.id).map(el => <option key={el.id}
-                                                                                  value={el.id ?? 0}>{el.name}</option>)}
-                            </select>
-                        </div>
-
-                    </div>
-                    <div className={css.additionalContentFiles}>
-                        <h5>Файли</h5>
-                        <div className={css.navigationBar}>
-                            <FileUpload setFile={handleFilesSelect} accept={'.doc,.docx,.xls,.xlsx,.pdf,image/*'}>
-                                <button type="button" className={css.someButton}>
-                                    <VscAttach size={16}/>
-                                </button>
-                            </FileUpload>
-
-                        </div>
-                        <div className={css.fileList}>
-                            {files.map(el => (
-                                <div className={css.fileItem} key={el.id}>
-                                    <div className={css.fileName}>
-                                        <BsFiletypePdf/> <strong>{el.fileName}</strong>
+                            {(RecordGroupType.OUTGOING === recordGroupInit?.recordGroupType) &&
+                                <div className={css.outgoingCorrespondent}>
+                                    <h5>Підписанти</h5>
+                                    <div className={css.formField}>
+                                        <label>Виконавець: </label>
+                                        <input/>
                                     </div>
-                                    <div className={css.fileAction} onClick={() => {
-                                    }}><BsTrash/></div>
-                                </div>))
+                                </div>
+
+                            }
+                            {(RecordGroupType.INNER === recordGroupInit?.recordGroupType) &&
+                                <div className={css.outgoingCorrespondent}>
+                                    <h5>Підписанти</h5>
+                                    <div className={css.formField}>
+                                        <label>Виконавець: </label>
+                                        <input/>
+                                    </div>
+                                </div>
+                            }
+
+                            {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
+                                <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
+                                               correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
+                            }
+                            {(RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
+                                <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
+                                               correspondentType={CorrespondentType.INCOMING_CITIZEN}/>
                             }
                         </div>
-                    </div>
+                        <div className={css.mainContentAttributes}>
+                            <div className={css.formField}>
+                                <label>Кому: </label>
+                                <input value={recipient} onChange={handleRecipientChange}/>
+                            </div>
+                            <div className={css.formField}>
+                                <label>Зміст: </label>
+                                <textarea value={content} onChange={handleContentChange}/>
+                            </div>
+                            <div className={css.formField}>
+                                <label>Прим: </label>
+                                <input value={note} onChange={handleNoteChange}/>
+                            </div>
+                        </div>
                 </div>
+                <div className={css.additionalContentGroup}>
+                        <div className={css.additionalContentAttributes}>
+                            <div className={css.formField}>
+                                <label>Склад: </label>
+                                <input value={consist} onChange={handleConsistChange}/>
+                            </div>
+
+                            <div className={css.formField}>
+                                <label>Дост: </label>
+                                <select onChange={handleDeliverySelect}>
+                                    <option value="">-- Спосіб доставки--</option>
+                                    {deliveries.filter(el => el.id).map(el => <option key={el.id}
+                                                                                      value={el.id ?? 0}>{el.name}</option>)}
+                                </select>
+                            </div>
+
+                        </div>
+                        <div className={css.additionalContentFiles}>
+                            <h5>Файли</h5>
+                            <div className={css.navigationBar}>
+                                <FileUpload setFile={handleFilesSelect} accept={'.doc,.docx,.xls,.xlsx,.pdf,image/*'}>
+                                    <button type="button" className={css.someButton}>
+                                        <VscAttach size={16}/>
+                                    </button>
+                                </FileUpload>
+
+                            </div>
+                            <div className={css.fileList}>
+                                {files.map(el => (
+                                    <div className={css.fileItem} key={el.id}>
+                                        <div><BsFiletypePdf/></div>
+                                        <div className={css.fileName}>
+                                             <strong>{el.fileName}</strong>
+                                        </div>
+                                        <div className={css.fileAction} onClick={() => {
+                                        }}><BsTrash/></div>
+                                    </div>))
+                                }
+                            </div>
+                        </div>
+                </div>
+
             </div>
             <div className={css.resolutionGroup}>
                 <Resolution/>

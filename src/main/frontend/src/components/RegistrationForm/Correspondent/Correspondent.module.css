@@ -3,24 +3,35 @@
 }
 .correspondentHeader{
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-bottom: 16px;
 }
 .correspondentBody{
     margin-bottom: 8px;
 }
 .correspondentNavigation {
-    gap: 8px;
     display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+.correspondentNavigation > div{
+    display: flex;
+    gap: 8px;
 }
 .correspondentNavigation > button {
 
 }
 .incomingOrgDetails {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin-top: 8px;
     margin-bottom: 8px;
+}
+
+.incomingOrgDetails .datePickerField{
+    width: 100%;
 }
 
 .formField{

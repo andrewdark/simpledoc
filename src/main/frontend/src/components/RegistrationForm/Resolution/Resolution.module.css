@@ -1,42 +1,112 @@
-.resolution{
+.resolution {
 
+}
+
+.formField input {
+    width: 100%;
 }
 
 .resolutionHeader {
     display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin-bottom: 16px;
     justify-content: space-between;
 }
 
-.resolutionDateGroup{
-    display: flex;
-}
-.resolutionDate {
-    width: 88px;
-}
-
-.resolutionBody {
-    display: flex;
-
-}
-
-.resolutionText {
-    width: 45%;
-}
-
-.resolutionTextArea {
-    border: 1px solid #ccc;
-    width: 100%;
-    height: 58px;
-}
-
-.performerList {
-    padding-left: 24px;
-    border: 1px solid #ccc;
-    width: 45%;
-    height: 58px;
+@media only screen and (min-width: 768px) {
+    .resolutionHeader {
+        flex-direction: row;
+    }
 }
 
 .resolutionNavigation {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+}
 
+.resolutionBody {
+    width: 100%;
+
+}
+
+.resolutionBodyInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.resolutionBodyInfo .formField {
+    flex: 1;
+}
+@media only screen and (min-width: 1158px) {
+    .resolutionBodyInfo .formField {
+        display: flex;
+        gap: 8px;
+    }
+}
+.resolutionBodyInfo .resolutionDateGroup {
+    display: flex;
+}
+
+.resolutionDateGroup .formField {
+    flex: 1;
+}
+@media only screen and (min-width: 1158px) {
+    .resolutionDateGroup{
+        gap: 16px;
+    }
+    .resolutionDateGroup .formField {
+        flex: 1;
+        display: flex;
+        gap: 8px;
+    }
+}
+
+.resolutionBodyDetail {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.resolutionBodyDetail .formField {
+    width: 100%;
+}
+
+.resolutionText {
+    border: black 1px solid;
+}
+
+.resolutionPerformer {
+    border: black 1px solid;
+}
+
+.resolutionPerformer ul {
+    list-style-type: none; /* Це прибирає маркери */
+    padding: 0; /* Цей рядок також важливий */
+    margin: 0;
+}
+
+@media only screen and (min-width: 1158px) {
+    .resolutionBodyDetail {
+        flex-wrap: nowrap;
+    }
+
+    .resolutionBodyDetail .formField {
+        /* Додаємо flex-контейнер для вирівнювання елементів всередині */
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+    }
+
+    .resolutionText,
+    .resolutionPerformer {
+        flex: 1;
+        border: 1px solid #ccc;
+        padding: 8px;
+    }
 }

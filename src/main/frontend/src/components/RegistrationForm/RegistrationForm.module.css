@@ -1,6 +1,7 @@
 .registrationForm {
-    padding: 25px;
+    padding: 16px;
     background: #ffffff;
+    border-radius: 8px;
 }
 textarea{
     display: block;
@@ -8,35 +9,103 @@ textarea{
     resize: none;
     height: 120px;
 }
-
-.registrationFormContainer {
-    /*border: 1px solid #ccc;*/
-}
-
-.navigationBar {
-    border: 1px solid #ccc;
-    margin-bottom: 16px;
-}
-
 .someButton {
     margin-right: 8px;
 }
-
 .submitButton {
     margin-right: 8px;
 }
 
-.regInfoGroup {
-    display: flex; /* Выравнивает инпуты в ряд */
-    gap: 16px;
+/*START OF MAIN CONTAINER FOR BLOCK*/
+.registrationFormContainer {
+    width: 100%;
+    margin: 8px auto;
+
+    /*border: 1px solid #ccc;*/
+}
+
+.navigationBarGroup {
     border: 1px solid #ccc;
     margin-bottom: 16px;
 }
+.regInfoGroup {
+    display: flex; /* Выравнивает инпуты в ряд */
+    flex-wrap: wrap;
+    gap: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    margin-bottom: 16px;
+}
+.regInfoGroup .formField{
+    width: 100%;
+}
+.regInfoGroup .datePickerField{
+    width: 100%;
+    border: 1px solid #ccc;
+
+}
+@media only screen and (min-width: 768px) {
+    .regInfoGroup .formField{
+        width: auto;
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+}
+.bodyContentGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    margin-bottom: 16px;
+}
+
+/*mainContentGroup */
+.bodyContentGroup .mainContentGroup {
+    width: 100%;
+}
+@media only screen and (min-width: 1158px) {
+    .bodyContentGroup .mainContentGroup {
+        border: 1px solid #ccc;
+    }
+}
+/*additionalContentGroup */
+.bodyContentGroup .additionalContentGroup {
+    width: 100%;
+}
+@media only screen and (min-width: 1158px) {
+
+    .bodyContentGroup {
+        flex-wrap: nowrap;
+    }
+    /*mainContentGroup */
+    .bodyContentGroup .mainContentGroup {
+        width: auto;
+        flex: 2;
+    }
+    /*additionalContentGroup */
+    .bodyContentGroup .additionalContentGroup {
+        width: auto;
+        flex: 1;
+    }
+    .mainContentAttributes {
+        padding: 8px;
+    }
+}
+
+.resolutionGroup {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+}
+/*END OF MAIN CONTAINER FOR BLOCK*/
 
 .numberOfDocGroup {
     display: flex; /* Выравнивает инпуты в ряд */
     border: 1px solid #ccc; /* Общая граница для всего контейнера */
-    border-radius: 5px; /* Скругление углов контейнера */
+
     overflow: hidden; /* Скрывает границы инпутов, если они выходят за пределы контейнера */
     width: fit-content; /* Ширина по содержимому */
     padding-left: 4px;
@@ -75,19 +144,6 @@ textarea{
     height: 40px; /* Высота каждого инпута */
 }
 
-.bodyContentGroup {
-    display: flex;
-    column-gap: 8px;
-    border: 1px solid #ccc;
-    margin-bottom: 16px;
-}
-
-/*mainContentGroup */
-.mainContentGroup {
-    border: 1px solid #ccc;
-    flex-grow: 1;
-}
-
 .mainContentCorrespondents {
     border: 1px solid #ccc;
     margin-bottom: 16px;
@@ -98,15 +154,6 @@ textarea{
 .outgoingCorrespondent {
 }
 
-.mainContentAttributes {
-    padding: 8px;
-}
-
-/*additionalContentGroup */
-.additionalContentGroup {
-    max-width: 300px;
-}
-
 .additionalContentAttributes {
     margin-bottom: 16px;
 }
@@ -114,18 +161,30 @@ textarea{
 .additionalContentFiles {
 }
 
+.navigationBar{
+    margin-bottom: 8px;
+}
 .fileList {
+    /* Основные стили */
+    min-height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* Более светлый фон */
+    border: 1px solid #ccc; /* Светлая граница */
+
+    /* Эффект вдавливания */
+    box-shadow:
+            inset 0 2px 4px rgba(0, 0, 0, 0.15), /* Внутренняя тень: темная, падает сверху/слева */
+            inset 0 -2px 4px rgba(255, 255, 255, 0.5); /* Внутренняя тень: светлая, падает снизу/справа */
+
 }
 
 .fileItem {
     display: flex;
 }
-
-.resolutionGroup {
-    border: 1px solid #ccc;
+.fileName{
+    flex-grow: 1;
 }
-
-
 /* FORM - FIELD */
 .formField {
     display: flex;
@@ -137,7 +196,7 @@ textarea{
     display: block;
     width: 64px;
 }
-.formField > input, .formField > div{
+.formField > input, .formField > div, .formField > select{
     flex-grow: 1;
 }
 .regInfoGroup .formField > label{
@@ -152,6 +211,6 @@ textarea{
 @media only screen and (min-width: 768px) {
 
 }
-@media only screen and (min-width: 1440px) {
+@media only screen and (min-width: 1158px) {
 
 }
