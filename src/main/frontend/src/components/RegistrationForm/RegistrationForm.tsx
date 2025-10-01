@@ -20,6 +20,8 @@ import {clearCitizens} from "../../redux/catalog/citizen/slice";
 import {Correspondent} from "./Correspondent/Correspondent";
 import {Resolution} from "./Resolution/Resolution";
 import AppInput from "../../UI/AppInput/AppInput";
+import * as yup from 'yup';
+import {FormErrorMap} from "../../models/AppTypes";
 
 
 interface RegistrationFormProps {
@@ -27,11 +29,19 @@ interface RegistrationFormProps {
     formHandler: (registration: IRecord, fileList: File[]) => void;
 }
 
+const validationSchema = yup.object({
+    recipient: yup.string().required("Обов\'язкове поле"),
+    regDate: yup.date().required("Обов\'язкове поле"),
+    orderNum: yup.number().moreThan(0).required("Обов\'язкове поле"),
+    content: yup.string().required("Обов\'язкове поле"),
+});
+
 export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) => {
     const recordGroupInit: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
     const deliveries: IDelivery[] = useAppSelector(state => state.deliveryReducer.items);
     const dispatch = useAppDispatch();
 
+    const [errorObject, setErrorObject] = useState<FormErrorMap>({});
     const [id, setId] = useState<number | null>(null);
     const [orderNum, setOrderNum] = useState<number>(0);
     const [regNum, setRegNum] = useState<string>('');
@@ -63,7 +73,37 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
         dispatch(getAllDelivery({size: 100, number: 0}));
     }, [dispatch]);
 
+    function getErrorObject(dto: IRecord) {
+        try {
+            validationSchema.validateSync(dto, {abortEarly: false});
+            return {}; // Немає помилок
+        } catch (err) {
+            if (err instanceof yup.ValidationError) {
+                // 🎯 Перетворення внутрішнього масиву помилок (inner) в об'єкт
+                const errorObject: FormErrorMap = {};
+
+                err.inner.forEach(e => {
+                    // Уникаємо повторних ключів
+                    if (e.path && !errorObject[e.path]) {
+                        errorObject[e.path] = e.message;
+                    }
+                });
+
+                return errorObject;
+                /* Поверне:
+                  {
+                    name: "Ім'я повинно містити не менше 5 символів",
+                    age: "Ви повинні бути повнолітніми",
+                    email: "Email є обов'язковим"
+                  }
+                */
+            }
+            return {};
+        }
+    }
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+
         event.preventDefault(); // Предотвращаем перезагрузку страницы
         const dto: IRecord = {
             id: id,
@@ -83,17 +123,17 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             files: files,
             rubrics: rubrics,
         }
+        const errors = getErrorObject(dto);
+        setErrorObject(errors);
         // Здесь можно отправить данные на сервер
-        if (dto.recordGroup) {
-            console.log("FORM-DATA: ", {dto});
-            console.log("FILE-LIST: ", fileList);
+        if (Object.keys(errors).length === 0 && dto.recordGroup) {
             formHandler(dto, fileList);
-
         } else {
-            alert("RecordGroup is missing");
+            alert("Реєстраційна картка має помилки");
         }
 
     };
+
     const handleRegNumChange = (event: ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
         setRegNum(val);
@@ -215,13 +255,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                         }
                     </div>
                     <div className={css.mainContentAttributes}>
-                        {/*<div className={css.formField}>*/}
-                        {/*    <label>Кому: </label>*/}
-                        {/*    <input value={recipient} onChange={handleRecipientChange}/>*/}
-                        {/*</div>*/}
                         <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
-                                  onChange={handleRecipientChange} errorMessage={"Обов'язкове поле"} valid={true}
-                                  touched={true} shouldValidate={true}/>
+                                  onChange={handleRecipientChange} errorMessage={errorObject.recipient ?? null}/>
                         <div className={css.formField}>
                             <label>Зміст: </label>
                             <textarea value={content} onChange={handleContentChange}/>

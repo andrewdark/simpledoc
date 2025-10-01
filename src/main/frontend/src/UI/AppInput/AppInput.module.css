@@ -5,8 +5,13 @@
 
 .AppInput .formField {
     display: flex;
+    flex-direction: column;
 }
-
+@media only screen and (min-width: 768px) {
+    .AppInput .formField {
+        flex-direction: row;
+    }
+}
 .AppInput label {
     width: 64px;
     margin-bottom: 4px;

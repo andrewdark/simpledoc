@@ -1,16 +1,14 @@
 import React, {ChangeEvent, FC} from 'react';
 import css from './AppInput.module.css';
 import uuid from 'react-uuid';
+import {FormErrorMap} from "../../models/AppTypes";
 
 interface InputProps {
     inputType: string | 'text';
     inputLabel: string;
     value: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    errorMessage: string;
-    valid?: boolean;
-    touched?: boolean;
-    shouldValidate?: boolean;
+    errorMessage?: string;
 }
 
 const AppInput: FC<InputProps> = ({
@@ -19,14 +17,12 @@ const AppInput: FC<InputProps> = ({
                                       value,
                                       onChange,
                                       errorMessage,
-                                      valid,
-                                      touched,
-                                      shouldValidate
+
                                   }) => {
     const htmlFor: string = uuid();
 
     const isInvalid = () => {
-        return !valid && shouldValidate && touched;
+        return !!errorMessage;
     }
 
     const cls = [css.AppInput];
