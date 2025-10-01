@@ -256,10 +256,10 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                         }
                     </div>
                     <div className={css.mainContentAttributes}>
-                        <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
-                                  onChange={handleRecipientChange} errorMessage={errorObject.recipient ?? null}/>
+                        <AppInput disabled={true} inputType={"text"} inputLabel={"Кому:"} value={recipient}
+                                  onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
 
-                        <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange} errorMessage={errorObject.content ?? null}/>
+                        <AppTextArea disabled={true} inputLabel={"Зміст:"} value={content} onChange={handleContentChange} errorMessage={errorObject.content}/>
                         <div className={css.formField}>
                             <label>Прим: </label>
                             <input value={note} onChange={handleNoteChange}/>
