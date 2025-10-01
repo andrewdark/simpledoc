@@ -3,12 +3,7 @@
     background: #ffffff;
     border-radius: 8px;
 }
-textarea{
-    display: block;
-    flex-grow: 1;
-    resize: none;
-    height: 120px;
-}
+
 .someButton {
     margin-right: 8px;
 }

@@ -22,6 +22,7 @@ import {Resolution} from "./Resolution/Resolution";
 import AppInput from "../../UI/AppInput/AppInput";
 import * as yup from 'yup';
 import {FormErrorMap} from "../../models/AppTypes";
+import AppTextArea from "../../UI/AppTextArea/AppTextArea";
 
 
 interface RegistrationFormProps {
@@ -257,10 +258,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.mainContentAttributes}>
                         <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
                                   onChange={handleRecipientChange} errorMessage={errorObject.recipient ?? null}/>
-                        <div className={css.formField}>
-                            <label>Зміст: </label>
-                            <textarea value={content} onChange={handleContentChange}/>
-                        </div>
+
+                        <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange} errorMessage={errorObject.content ?? null}/>
                         <div className={css.formField}>
                             <label>Прим: </label>
                             <input value={note} onChange={handleNoteChange}/>

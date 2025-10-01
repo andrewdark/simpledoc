@@ -1,9 +1,9 @@
 import React, {ChangeEvent, FC} from 'react';
 import css from './AppInput.module.css';
 import uuid from 'react-uuid';
-import {FormErrorMap} from "../../models/AppTypes";
 
 interface InputProps {
+    disabled?: boolean;
     inputType: string | 'text';
     inputLabel: string;
     value: string;
@@ -12,6 +12,7 @@ interface InputProps {
 }
 
 const AppInput: FC<InputProps> = ({
+                                      disabled,
                                       inputType,
                                       inputLabel,
                                       value,
@@ -34,9 +35,8 @@ const AppInput: FC<InputProps> = ({
         <div className={cls.join(' ')}>
             <div className={css.formField}>
                 <label htmlFor={htmlFor}>{inputLabel}</label>
-                <input type={inputType} id={htmlFor} value={value} onChange={onChange}/>
+                <input disabled={disabled ?? false} type={inputType} id={htmlFor} value={value} onChange={onChange}/>
             </div>
-
             {isInvalid() ? <span>{errorMessage}</span> : null}
         </div>
     );
