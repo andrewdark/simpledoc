@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC} from 'react';
 import css from './AppTextArea.module.css';
 import uuid from 'react-uuid';
-import {bool, string} from "yup";
 
 interface TextAreaProps {
     resize?: boolean;

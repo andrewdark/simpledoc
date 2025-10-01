@@ -23,33 +23,29 @@
     border: 1px solid #ccc;
     margin-bottom: 16px;
 }
+
 .regInfoGroup {
     display: flex; /* Выравнивает инпуты в ряд */
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 4px;
     margin-bottom: 16px;
 }
-.regInfoGroup .formField{
-    width: 100%;
-}
-.regInfoGroup .datePickerField{
-    width: 100%;
-    border: 1px solid #ccc;
-
+.regInfoGroup .regInfoGroupItem{
+   flex: 1;
+    font-size: 1.5rem;
 }
 @media only screen and (min-width: 768px) {
-    .regInfoGroup .formField{
-        width: auto;
-        flex-basis: 0;
-        flex-grow: 1;
+    .regInfoGroup {
+        flex-direction: row;
     }
 }
+
 .bodyContentGroup {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -59,7 +55,6 @@
 
 /*mainContentGroup */
 .bodyContentGroup .mainContentGroup {
-    width: 100%;
 }
 @media only screen and (min-width: 1158px) {
     .bodyContentGroup .mainContentGroup {
@@ -68,21 +63,18 @@
 }
 /*additionalContentGroup */
 .bodyContentGroup .additionalContentGroup {
-    width: 100%;
 }
 @media only screen and (min-width: 1158px) {
 
     .bodyContentGroup {
-        flex-wrap: nowrap;
+        flex-direction: row;
     }
     /*mainContentGroup */
     .bodyContentGroup .mainContentGroup {
-        width: auto;
         flex: 2;
     }
     /*additionalContentGroup */
     .bodyContentGroup .additionalContentGroup {
-        width: auto;
         flex: 1;
     }
     .mainContentAttributes {
@@ -97,6 +89,8 @@
 }
 /*END OF MAIN CONTAINER FOR BLOCK*/
 
+
+/* BEGIN NUMBER OF DOCUMENT */
 .numberOfDocGroup {
     display: flex; /* Выравнивает инпуты в ряд */
     border: 1px solid #ccc; /* Общая граница для всего контейнера */
@@ -108,11 +102,11 @@
 
 .singleInputForNumber {
     width: 40px; /* Ширина каждого инпута */
-    height: 40px; /* Высота каждого инпута */
+    /*height: 40px; !* Высота каждого инпута *!*/
     text-align: center; /* Выравнивание текста по центру */
     border: none; /* Убираем индивидуальные границы */
     outline: none; /* Убираем синюю рамку при фокусе */
-    font-size: 1.5rem; /* Размер шрифта */
+    /*font-size: 1.5rem; !* Размер шрифта *!*/
     padding: 0;
     margin: 0;
 }
@@ -128,16 +122,8 @@
     text-align: left;
     width: 60px;
 }
+/* END NUMBER OF DOCUMENT */
 
-/*.singleInputForNumber:not(:last-child) {*/
-/*    border-right: 1px solid #ccc;*/
-/*}*/
-.datePickerField {
-    font-size: 1.5rem;
-    padding-left: 4px;
-    width: 140px; /* Ширина каждого инпута */
-    height: 40px; /* Высота каждого инпута */
-}
 
 .mainContentCorrespondents {
     border: 1px solid #ccc;
@@ -198,15 +184,7 @@
 .formField > input, .formField > div, .formField > select{
     flex-grow: 1;
 }
-.regInfoGroup .formField > label{
-    font-size: large;
-    display: block;
-    width: 36px;
-}
-.regInfoGroup .formField {
-    align-items: center;
-    margin: 0;
-}
+
 @media only screen and (min-width: 768px) {
 
 }

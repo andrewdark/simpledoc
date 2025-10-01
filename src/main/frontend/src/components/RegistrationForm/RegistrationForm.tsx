@@ -23,6 +23,7 @@ import AppInput from "../../UI/AppInput/AppInput";
 import * as yup from 'yup';
 import {FormErrorMap} from "../../models/AppTypes";
 import AppTextArea from "../../UI/AppTextArea/AppTextArea";
+import AppDatePicker from "../../UI/AppDatePicker/AppDatePicker";
 
 
 interface RegistrationFormProps {
@@ -198,29 +199,24 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                 </button>
             </div>
             <div className={css.regInfoGroup}>
-                <div className={css.formField}>
-                    <label>№:</label>
-                    <div className={css.numberOfDocGroup}>
-                        <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
-                               onChange={handleRegNumChange}/>
-                        <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`}
-                               value="/"/>
-                        <input type="text" className={`${css.singleInputForNumber} ${css.orderNumInput}`}
-                               value={orderNum}
-                               onChange={handleOrderNumChange}/>
+
+                <div className={css.regInfoGroupItem}>
+                    <div className={css.formField}>
+                        <label>№:</label>
+                        <div className={css.numberOfDocGroup}>
+                            <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
+                                   onChange={handleRegNumChange}/>
+                            <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`}
+                                   value="/"/>
+                            <input type="text" className={`${css.singleInputForNumber} ${css.orderNumInput}`}
+                                   value={orderNum}
+                                   onChange={handleOrderNumChange}/>
+                        </div>
                     </div>
                 </div>
-                <div className={css.formField}>
-                    <label>Від:</label>
-                    <DatePicker
-                        className={css.datePickerField}
-                        locale={uk}
-                        selected={regDate} // Текущая выбранная дата
-                        onChange={(date) => setRegDate(date)} // Функция для обновления состояния
-                        dateFormat="yyyy-MM-dd" // Формат отображения даты
-                    />
+                <div className={css.regInfoGroupItem}>
+                    <AppDatePicker inputLabel={"Від:"} value={regDate} onChange={(date) => setRegDate(date)} errorMessage={errorObject.regDate}/>
                 </div>
-
             </div>
             <div className={css.bodyContentGroup}>
                 <div className={css.mainContentGroup}>
@@ -256,14 +252,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                         }
                     </div>
                     <div className={css.mainContentAttributes}>
-                        <AppInput disabled={true} inputType={"text"} inputLabel={"Кому:"} value={recipient}
-                                  onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
-
-                        <AppTextArea disabled={true} inputLabel={"Зміст:"} value={content} onChange={handleContentChange} errorMessage={errorObject.content}/>
-                        <div className={css.formField}>
-                            <label>Прим: </label>
-                            <input value={note} onChange={handleNoteChange}/>
-                        </div>
+                        <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient} onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
+                        <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange} errorMessage={errorObject.content}/>
+                        <AppInput inputType={"text"} inputLabel={"Прим:"} value={note} onChange={handleNoteChange} errorMessage={errorObject.note}/>
                     </div>
                 </div>
                 <div className={css.additionalContentGroup}>

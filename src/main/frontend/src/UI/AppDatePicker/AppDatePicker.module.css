@@ -1,18 +1,18 @@
-.AppTextArea {
+.AppDatePicker {
     margin-bottom: 8px;
     width: 100%;
 }
 
-.AppTextArea .formField {
+.AppDatePicker .formField {
     display: flex;
     flex-direction: column;
 }
 @media only screen and (min-width: 768px) {
-    .AppTextArea .formField {
+    .AppDatePicker .formField {
         flex-direction: row;
     }
 }
-.AppTextArea label {
+.AppDatePicker label {
     width: 64px;
     margin-bottom: 4px;
     padding: 0;
@@ -20,28 +20,31 @@
     font-weight: bold;
 }
 
-.AppTextArea textarea {
+.AppDatePicker .datePickerField {
     display: block;
     box-sizing: border-box;
     border: 1px solid #bebebe;
     padding: 8px;
-    margin: 0 0 4px 0;
     flex: 1;
     outline: none;
     transition: all 300ms ease-in-out;
-    height: 120px;
 }
 
-.AppTextArea .resizable{
-    resize: none;
+.AppDatePicker input {
+    /* Прибрати зовнішню рамку */
+    border: none !important;
+    /* Прибрати тінь/рамку при фокусі */
+    box-shadow: none !important;
+    outline: none !important;
 }
 
-.AppTextArea span {
+.AppDatePicker span {
     color: #f01f30;
     font-size: 12px;
     font-weight: bold;
 }
 
-.AppTextArea.invalid label {
+.AppDatePicker.invalid label {
     color: #f01f30;
 }
+
