@@ -9,6 +9,7 @@
 }
 @media only screen and (min-width: 768px) {
     .AppDatePicker .formField {
+        align-items: center;
         flex-direction: row;
     }
 }
@@ -36,6 +37,7 @@
     /* Прибрати тінь/рамку при фокусі */
     box-shadow: none !important;
     outline: none !important;
+    padding: 0;
 }
 
 .AppDatePicker span {

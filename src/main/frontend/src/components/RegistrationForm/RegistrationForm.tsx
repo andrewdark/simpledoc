@@ -24,6 +24,7 @@ import * as yup from 'yup';
 import {FormErrorMap} from "../../models/AppTypes";
 import AppTextArea from "../../UI/AppTextArea/AppTextArea";
 import AppDatePicker from "../../UI/AppDatePicker/AppDatePicker";
+import AppDocNumber from "../../UI/AppDocNumber/AppDocNumber";
 
 
 interface RegistrationFormProps {
@@ -201,21 +202,13 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             <div className={css.regInfoGroup}>
 
                 <div className={css.regInfoGroupItem}>
-                    <div className={css.formField}>
-                        <label>№:</label>
-                        <div className={css.numberOfDocGroup}>
-                            <input type="text" className={`${css.singleInputForNumber} ${css.regNumInput}`} value={regNum}
-                                   onChange={handleRegNumChange}/>
-                            <input type="text" className={`${css.singleInputForNumber} ${css.regDelimiterInput}`}
-                                   value="/"/>
-                            <input type="text" className={`${css.singleInputForNumber} ${css.orderNumInput}`}
-                                   value={orderNum}
-                                   onChange={handleOrderNumChange}/>
-                        </div>
-                    </div>
+                    <AppDocNumber errorObject={errorObject} inputLabel={'№:'} regNum={regNum} orderNum={orderNum}
+                                  handleRegNumChange={handleRegNumChange} handleOrderNumChange={handleOrderNumChange}
+                                  delimiter={'/'} reverse={true} disabled={false}/>
                 </div>
                 <div className={css.regInfoGroupItem}>
-                    <AppDatePicker inputLabel={"Від:"} value={regDate} onChange={(date) => setRegDate(date)} errorMessage={errorObject.regDate}/>
+                    <AppDatePicker inputLabel={"Від:"} value={regDate} onChange={(date) => setRegDate(date)}
+                                   errorMessage={errorObject.regDate}/>
                 </div>
             </div>
             <div className={css.bodyContentGroup}>
@@ -252,9 +245,12 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                         }
                     </div>
                     <div className={css.mainContentAttributes}>
-                        <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient} onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
-                        <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange} errorMessage={errorObject.content}/>
-                        <AppInput inputType={"text"} inputLabel={"Прим:"} value={note} onChange={handleNoteChange} errorMessage={errorObject.note}/>
+                        <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
+                                  onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
+                        <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
+                                     errorMessage={errorObject.content}/>
+                        <AppInput inputType={"text"} inputLabel={"Прим:"} value={note} onChange={handleNoteChange}
+                                  errorMessage={errorObject.note}/>
                     </div>
                 </div>
                 <div className={css.additionalContentGroup}>
