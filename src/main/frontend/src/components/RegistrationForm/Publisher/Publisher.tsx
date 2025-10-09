@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import css from './Publisher.module.css';
-import {IPublisher, VisaType} from "../../../models/IPublisher";
+import {IPublisher, PublisherType} from "../../../models/IPublisher";
 import {RecordGroupType} from "../../../models/catalog/IRecordGroup";
 import {BsCaretDownFill, BsCaretUpFill} from "react-icons/bs";
 import {VscNewFile} from "react-icons/vsc";
@@ -28,7 +28,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
                 official: true
             },
             signingDate: null,
-            visaType: VisaType.SIGNATORY
+            publisherType: PublisherType.SIGNATORY
         }
         setPublishers([...publishers, pub]);
     }
@@ -42,7 +42,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
                 official: true
             },
             signingDate: null,
-            visaType: VisaType.APPROVER
+            publisherType: PublisherType.APPROVER
         }
         setPublishers([...publishers, pub]);
     }
@@ -56,7 +56,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
                 official: true
             },
             signingDate: null,
-            visaType: VisaType.EXECUTANT
+            publisherType: PublisherType.EXECUTANT
         }
         setPublishers([...publishers, pub]);
     }
@@ -70,7 +70,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
         openExecutant ? setOpenExecutant(false) : setOpenExecutant(true);
     }
 
-    const createPublisherGroup = (visaType: typeof VisaType[keyof typeof VisaType]) => {
+    const createPublisherGroup = (visaType: typeof PublisherType[keyof typeof PublisherType]) => {
         let showPubList = () => {
         };
         let addNewPub = () => {
@@ -79,25 +79,25 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
         let pubList: IPublisher[] = [];
         let isOpenList: boolean = false;
 
-        if (VisaType.SIGNATORY === visaType) {
+        if (PublisherType.SIGNATORY === visaType) {
             showPubList = ShowSignatory;
             addNewPub = AddNewSignatory;
-            pubLabel = `Підп: (${publishers.filter(publisher => VisaType.SIGNATORY === publisher.visaType).length})`;
-            pubList = publishers.filter(publisher => VisaType.SIGNATORY === publisher.visaType);
+            pubLabel = `Підп: (${publishers.filter(publisher => PublisherType.SIGNATORY === publisher.publisherType).length})`;
+            pubList = publishers.filter(publisher => PublisherType.SIGNATORY === publisher.publisherType);
             isOpenList = openSignatory;
         }
-        if (VisaType.APPROVER === visaType) {
+        if (PublisherType.APPROVER === visaType) {
             showPubList = ShowApprover;
             addNewPub = AddNewApprover;
-            pubLabel = `Візи: (${publishers.filter(publisher => VisaType.APPROVER === publisher.visaType).length})`;
-            pubList = publishers.filter(publisher => VisaType.APPROVER === publisher.visaType);
+            pubLabel = `Візи: (${publishers.filter(publisher => PublisherType.APPROVER === publisher.publisherType).length})`;
+            pubList = publishers.filter(publisher => PublisherType.APPROVER === publisher.publisherType);
             isOpenList = openApprover;
         }
-        if (VisaType.EXECUTANT === visaType) {
+        if (PublisherType.EXECUTANT === visaType) {
             showPubList = ShowExecutant;
             addNewPub = AddNewExecutant;
-            pubLabel = `Вик: (${publishers.filter(publisher => VisaType.EXECUTANT === publisher.visaType).length})`;
-            pubList = publishers.filter(publisher => VisaType.EXECUTANT === publisher.visaType);
+            pubLabel = `Вик: (${publishers.filter(publisher => PublisherType.EXECUTANT === publisher.publisherType).length})`;
+            pubList = publishers.filter(publisher => PublisherType.EXECUTANT === publisher.publisherType);
             isOpenList = openExecutant;
         }
 
@@ -119,9 +119,9 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
     return (
 
         <div className={css.Publisher}>
-            {createPublisherGroup(VisaType.SIGNATORY)}
-            {createPublisherGroup(VisaType.APPROVER)}
-            {createPublisherGroup(VisaType.EXECUTANT)}
+            {createPublisherGroup(PublisherType.SIGNATORY)}
+            {createPublisherGroup(PublisherType.APPROVER)}
+            {createPublisherGroup(PublisherType.EXECUTANT)}
         </div>
     );
 };

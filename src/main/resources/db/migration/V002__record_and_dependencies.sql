@@ -308,4 +308,37 @@ ALTER TABLE IF EXISTS public.citizen_category
     OWNER to postgres;
 ALTER SEQUENCE public.citizen_category_id_seq OWNED BY public.citizen_category.id;
 
+--publisher VISA--
+
+DROP TYPE IF EXISTS public.publisher_type;
+CREATE TYPE public.publisher_type AS enum ('SIGNATORY', 'APPROVER', 'EXECUTANT');
+
+DROP SEQUENCE IF EXISTS public.publisher_id_seq;
+CREATE SEQUENCE IF NOT EXISTS public.publisher_id_seq
+    INCREMENT BY 10
+    START WITH 1
+    CACHE 1
+    NO CYCLE;
+
+DROP TABLE IF EXISTS publisher;
+CREATE TABLE IF NOT EXISTS publisher
+(
+    id                 BIGINT NOT NULL DEFAULT nextval('publisher_id_seq'),
+    record_id          bigint,
+    signing_date       date,
+    department_id      bigint,
+    note               character varying(255),
+    publisher_type     publisher_type,
+    version            bigint,
+    created_at         timestamp(6) without time zone,
+    updated_at         timestamp(6) without time zone,
+    PRIMARY KEY (id),
+    FOREIGN KEY (record_id) REFERENCES record (id),
+    FOREIGN KEY (department_id) REFERENCES department (id)
+
+);
+ALTER TABLE IF EXISTS public.publisher
+    OWNER to postgres;
+ALTER SEQUENCE public.publisher_id_seq OWNED BY publisher.id;
+
 COMMIT;
