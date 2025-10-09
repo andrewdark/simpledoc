@@ -1,10 +1,9 @@
-import React, {ChangeEvent, FC, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import css from "./Correspondent.module.css";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {VscNewFile, VscSaveAs} from "react-icons/vsc";
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
 import {AutocompleteInput} from "../../AutocompleteInput/AutocompleteInput";
-import {RecordGroupType} from "../../../models/catalog/IRecordGroup";
 import DatePicker from "react-datepicker";
 import {uk} from "date-fns/locale";
 import {CorrespondentType, ICorrespondent} from "../../../models/ICorrespondent";

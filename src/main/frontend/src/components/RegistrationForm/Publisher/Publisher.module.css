@@ -1,0 +1,34 @@
+.Publisher {
+    margin: 8px;
+}
+
+.Publisher .publisherGroup {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.Publisher .openList {
+    display: flex;
+}
+.Publisher .openList {
+    display: flex;
+    max-width: 88px;
+}
+
+.publisherGroup > label {
+    display: block;
+    width: 64px;
+}
+
+.publisherGroup > ul {
+    display: block;
+    flex-grow: 1;
+    text-decoration: none;
+    list-style-type: none;
+    border: 1px solid #bebebe;
+    padding: 8px;
+}
+
+.publisherGroup > input, .publisherGroup > div {
+    flex-grow: 1;
+}

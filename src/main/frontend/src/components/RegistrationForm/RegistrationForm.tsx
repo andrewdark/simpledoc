@@ -1,7 +1,6 @@
 import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react';
 import {IRecord} from "../../models/IRecord";
 import css from "./RegistrationForm.module.css";
-import DatePicker from 'react-datepicker';
 import {IRecordGroup, RecordGroupType} from "../../models/catalog/IRecordGroup";
 import {CorrespondentType, ICorrespondent} from "../../models/ICorrespondent";
 import {IDelivery} from "../../models/catalog/IDelivery";
@@ -9,10 +8,9 @@ import {IResolution} from "../../models/IResolution";
 import {IFileLink} from "../../models/IFileLink";
 import {IRubric} from "../../models/catalog/IRubric";
 import {VscAttach, VscNewFile, VscSaveAs} from "react-icons/vsc";
-import {uk} from "date-fns/locale";
 import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {BsFeather, BsFileText, BsFiletypePdf, BsTrash} from "react-icons/bs";
+import {BsFiletypePdf, BsTrash} from "react-icons/bs";
 import {getAllDelivery} from "../../redux/catalog/delivery/operations";
 import {FileUpload} from "../FileUpload/FileUpload";
 import {clearOrganizations} from "../../redux/catalog/organization/slice";
@@ -25,6 +23,8 @@ import {FormErrorMap} from "../../models/AppTypes";
 import AppTextArea from "../../UI/AppTextArea/AppTextArea";
 import AppDatePicker from "../../UI/AppDatePicker/AppDatePicker";
 import AppDocNumber from "../../UI/AppDocNumber/AppDocNumber";
+import Publisher from "./Publisher/Publisher";
+import {IPublisher} from "../../models/IPublisher";
 
 
 interface RegistrationFormProps {
@@ -58,6 +58,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
 
     // const [recordGroup, setRecordGroup] = useState<IRecordGroup | null>(null); //IRecordGroup | null;
     const [correspondents, setCorrespondents] = useState<ICorrespondent[]>([]); //ICorrespondent[];
+    const [publishers, setPublishers] = useState<IPublisher[]>([]);
 
     const [delivery, setDelivery] = useState<IDelivery | null>(null); //IDelivery;
     const [resolutions, setResolutions] = useState<IResolution[] | null>(null); //IResolution[];
@@ -216,23 +217,10 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.mainContentCorrespondents}>
 
                         {(RecordGroupType.OUTGOING === recordGroupInit?.recordGroupType) &&
-                            <div className={css.outgoingCorrespondent}>
-                                <h5>Підписанти</h5>
-                                <div className={css.formField}>
-                                    <label>Виконавець: </label>
-                                    <input/>
-                                </div>
-                            </div>
-
+                           <Publisher publishers={publishers} setPublishers={setPublishers} recordGroupType={RecordGroupType.OUTGOING}/>
                         }
                         {(RecordGroupType.INNER === recordGroupInit?.recordGroupType) &&
-                            <div className={css.outgoingCorrespondent}>
-                                <h5>Підписанти</h5>
-                                <div className={css.formField}>
-                                    <label>Виконавець: </label>
-                                    <input/>
-                                </div>
-                            </div>
+                            <Publisher publishers={publishers} setPublishers={setPublishers} recordGroupType={RecordGroupType.INNER}/>
                         }
 
                         {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
