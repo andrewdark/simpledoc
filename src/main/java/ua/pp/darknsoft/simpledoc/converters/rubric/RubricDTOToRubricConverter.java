@@ -17,8 +17,6 @@ public class RubricDTOToRubricConverter implements Converter<RubricDTO, Rubric> 
                 .code(source.getCode())
                 .node(source.getNode())
                 .deleted(source.getDeleted())
-                .createdAt(source.getCreatedAt())
-                .updatedAt(source.getUpdatedAt())
                 .build();
     }
 }

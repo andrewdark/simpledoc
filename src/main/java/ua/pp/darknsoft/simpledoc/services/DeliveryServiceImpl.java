@@ -116,4 +116,9 @@ public class DeliveryServiceImpl implements DeliveryService {
             throw new AppException(ex);
         }
     }
+
+    @Override
+    public Delivery getReference(Long deliveryId) {
+        return deliveryRepository.getReferenceById(deliveryId);
+    }
 }

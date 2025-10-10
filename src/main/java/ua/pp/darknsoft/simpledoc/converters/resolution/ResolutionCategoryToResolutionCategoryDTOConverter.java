@@ -11,6 +11,7 @@ public class ResolutionCategoryToResolutionCategoryDTOConverter implements Conve
     public ResolutionCategoryDTO convert(ResolutionCategory source) {
         return ResolutionCategoryDTO.builder()
                 .id(source.getId())
+                .name(source.getName())
                 .deleted(source.getDeleted())
                 .build();
     }

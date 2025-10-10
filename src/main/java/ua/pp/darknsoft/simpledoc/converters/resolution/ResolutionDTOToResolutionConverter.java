@@ -21,8 +21,6 @@ public class ResolutionDTOToResolutionConverter implements Converter<ResolutionD
                 .resume(source.getResume())
                 .summary(source.getSummary())
                 .deleted(source.getDeleted())
-                .createdAt(source.getCreatedAt())
-                .updatedAt(source.getUpdatedAt())
                 .build();
     }
 }

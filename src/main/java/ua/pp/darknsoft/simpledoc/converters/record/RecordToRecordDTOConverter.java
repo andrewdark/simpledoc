@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupToRecordGroupDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
-import ua.pp.darknsoft.simpledoc.entities.records.CitizensRecord;
+import ua.pp.darknsoft.simpledoc.entities.records.*;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
+
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -72,9 +74,23 @@ public class RecordToRecordDTOConverter implements Converter<Record, RecordDTO> 
         };
 
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (source.getRecordGroup() != null && util.isLoaded(source.getRecordGroup())) {
+        if (Objects.nonNull(source.getRecordGroup()) && util.isLoaded(source.getRecordGroup())) {
             RecordGroupDTO recordGroupDTO = recordGroupToRecordGroupDTOConverter.convert(source.getRecordGroup());
             recordDTO.setRecordGroup(recordGroupDTO);
+        }
+
+
+        if (source.getClass().equals(CitizensRecord.class)){
+            System.out.println("CitizensRecord");
+        }
+        if (source.getClass().equals(IncomingRecord.class)){
+            System.out.println("IncomingRecord");
+        }
+        if (source.getClass().equals(InnerRecord.class)){
+            System.out.println("InnerRecord");
+        }
+        if (source.getClass().equals(OutgoingRecord.class)){
+            System.out.println("OutgoingRecord");
         }
 
         return recordDTO;

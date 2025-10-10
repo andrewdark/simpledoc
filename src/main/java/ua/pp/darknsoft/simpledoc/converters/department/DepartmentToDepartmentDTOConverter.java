@@ -9,6 +9,7 @@ import ua.pp.darknsoft.simpledoc.converters.security.AppUserToAppUserDTOConverte
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
 import ua.pp.darknsoft.simpledoc.entities.Department;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,13 +31,13 @@ public class DepartmentToDepartmentDTOConverter implements Converter<Department,
                 .build();
 
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (source.getParent() != null && util.isLoaded(source.getParent())) {
+        if (Objects.nonNull(source.getParent()) && util.isLoaded(source.getParent())) {
             target.setParent(this.convert(source.getParent()));
         }
-        if (source.getChildren() != null && util.isLoaded(source.getChildren())) {
+        if (Objects.nonNull(source.getChildren()) && util.isLoaded(source.getChildren())) {
             target.setChildren(source.getChildren().stream().map(this::convert).collect(Collectors.toList()));
         }
-        if (source.getAppUser() != null && util.isLoaded(source.getAppUser())) {
+        if (Objects.nonNull(source.getAppUser()) && util.isLoaded(source.getAppUser())) {
             target.setAppUserDTO(appUserToAppUserDTOConverter.convert(source.getAppUser()));
         }
         return target;

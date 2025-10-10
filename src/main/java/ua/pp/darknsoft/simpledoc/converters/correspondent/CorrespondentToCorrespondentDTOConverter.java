@@ -1,5 +1,7 @@
 package ua.pp.darknsoft.simpledoc.converters.correspondent;
 
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceUnitUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -14,7 +16,7 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class CorrespondentToCorrespondentDTOConverter implements Converter<Correspondent, CorrespondentDTO> {
-
+    private final EntityManagerFactory entityManagerFactory;
     private final OrganizationToOrganizationDTOConverter organizationToOrganizationDTOConverter;
     private final CitizenToCitizenDTOConverter citizenToCitizenDTOConverter;
     private final RecordToRecordDTOConverter recordToRecordDTOConverter;
@@ -33,15 +35,17 @@ public class CorrespondentToCorrespondentDTOConverter implements Converter<Corre
                 .updatedAt(source.getUpdatedAt())
                 .build();
 
-        if (Objects.nonNull(source.getRecord())) {
+        PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
+        if (Objects.nonNull(source.getRecord()) && util.isLoaded(source.getRecord())) {
             target.setRecord(recordToRecordDTOConverter.convert(source.getRecord()));
         }
-        if (Objects.nonNull(source.getOrganization())) {
+        if (Objects.nonNull(source.getOrganization()) && util.isLoaded(source.getOrganization())) {
             target.setOrganization(organizationToOrganizationDTOConverter.convert(source.getOrganization()));
         }
-        if (Objects.nonNull(source.getCitizen())) {
+        if (Objects.nonNull(source.getCitizen()) && util.isLoaded(source.getCitizen())) {
             target.setCitizen(citizenToCitizenDTOConverter.convert(source.getCitizen()));
         }
+
         return target;
     }
 }

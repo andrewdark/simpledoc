@@ -52,7 +52,7 @@ public class Publisher {
     /**
      * Примітка підписанта.
      */
-    private String Note;
+    private String note;
 
     /**
      * Тип підписанта: Підписав/Візував/Виконав

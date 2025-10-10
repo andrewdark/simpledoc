@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.dto.RubricDTO;
 import ua.pp.darknsoft.simpledoc.entities.Rubric;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,10 +29,10 @@ public class RubricToRubricDTOConverter implements Converter<Rubric, RubricDTO> 
                 .build();
 
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (source.getParent()!=null && util.isLoaded(source.getParent())) {
+        if (Objects.nonNull(source.getParent()) && util.isLoaded(source.getParent())) {
             target.setParent(this.convert(source.getParent()));
         }
-        if (source.getChildren()!=null && util.isLoaded(source.getChildren())) {
+        if (Objects.nonNull(source.getChildren()) && util.isLoaded(source.getChildren())) {
             target.setChildren(source.getChildren().stream().map(this::convert).collect(Collectors.toList()));
         }
         return target;

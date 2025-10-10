@@ -19,8 +19,6 @@ public class CitizenDTOToCitizenConverter implements Converter<CitizenDTO, Citiz
                 .fullName(source.getFullName())
                 .address(source.getAddress())
                 .deleted(source.getDeleted())
-                .createdAt(source.getCreatedAt())
-                .updatedAt(source.getUpdatedAt())
                 .build();
 //        if(source.getStatus() !=null && !source.getStatus().isEmpty()){
 //

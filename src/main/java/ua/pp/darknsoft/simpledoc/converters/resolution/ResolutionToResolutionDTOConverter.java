@@ -10,6 +10,8 @@ import ua.pp.darknsoft.simpledoc.converters.record.RecordToRecordDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.ResolutionDTO;
 import ua.pp.darknsoft.simpledoc.entities.Resolution;
 
+import java.util.Objects;
+
 @Component
 @RequiredArgsConstructor
 public class ResolutionToResolutionDTOConverter implements Converter<Resolution, ResolutionDTO> {
@@ -34,13 +36,13 @@ public class ResolutionToResolutionDTOConverter implements Converter<Resolution,
                 .build();
 
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (source.getAuthor() != null && util.isLoaded(source.getAuthor())) {
+        if (Objects.nonNull(source.getAuthor()) && util.isLoaded(source.getAuthor())) {
             target.setAuthor(departmentToDepartmentDTOConverter.convert(source.getAuthor()));
         }
-        if (source.getResolutionCategory() != null && util.isLoaded(source.getResolutionCategory())) {
+        if (Objects.nonNull(source.getResolutionCategory()) && util.isLoaded(source.getResolutionCategory())) {
             target.setResolutionCategory(resolutionCategoryToResolutionCategoryDTOConverter.convert(source.getResolutionCategory()));
         }
-        if (source.getRecord() != null && util.isLoaded(source.getRecord())) {
+        if (Objects.nonNull(source.getRecord()) && util.isLoaded(source.getRecord())) {
             target.setRecord(recordToRecordDTOConverter.convert(source.getRecord()));
         }
         return target;

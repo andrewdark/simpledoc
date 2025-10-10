@@ -15,8 +15,6 @@ public class ReplyDTOToReplyConverter implements Converter<ReplyDTO, Reply> {
                 .replyType(source.getReplyType())
                 .executor(source.getExecutor())
                 .content(source.getContent())
-                .createdAt(source.getCreatedAt())
-                .updatedAt(source.getUpdatedAt())
                 .build();
         if (source.getExecutor() != null) {
             target.setExecutor(source.getExecutor());

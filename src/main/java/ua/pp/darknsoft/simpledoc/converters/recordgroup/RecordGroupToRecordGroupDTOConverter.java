@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.dto.RecordGroupDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,7 +30,7 @@ public class RecordGroupToRecordGroupDTOConverter implements Converter<RecordGro
                 .node(source.getNode())
                 .build();
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (source.getChildren()!=null && util.isLoaded(source.getChildren())) {
+        if (Objects.nonNull(source.getChildren()) && util.isLoaded(source.getChildren())) {
             target.setChildren(source.getChildren().stream().map(this::convert).collect(Collectors.toList()));
         }
         return target;

@@ -113,6 +113,8 @@ CREATE TABLE IF NOT EXISTS public.record
     FOREIGN KEY (record_group_id) REFERENCES public.record_group (id),
     FOREIGN KEY (delivery_id) REFERENCES public.delivery (id)
 );
+CREATE UNIQUE INDEX unique_reg_order_year_idx
+    ON public.record (reg_num, order_num, EXTRACT(YEAR FROM reg_date));
 ALTER TABLE IF EXISTS public.record
     OWNER to postgres;
 ALTER SEQUENCE public.record_id_seq OWNED BY record.id;

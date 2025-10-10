@@ -5,14 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.simpledoc.converters.correspondent.CorrespondentDTOToCorrespondentConverter;
+import ua.pp.darknsoft.simpledoc.converters.delivery.DeliveryDTOToDeliveryConverter;
 import ua.pp.darknsoft.simpledoc.converters.recordgroup.RecordGroupDTOToRecordGroupConverter;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.entities.records.*;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -20,6 +20,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
 
     private final RecordGroupDTOToRecordGroupConverter recordGroupDTOToRecordGroupConverter;
     private final CorrespondentDTOToCorrespondentConverter correspondentDTOToCorrespondentConverter;
+    private final DeliveryDTOToDeliveryConverter deliveryDTOToDeliveryConverter;
 
     @Override
     @NonNull
@@ -35,6 +36,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .content(source.getContent())
                         .note(source.getNote())
                         .recordGroup(recordGroup)
+                        .delivery(Objects.nonNull(source.getDelivery()) ? deliveryDTOToDeliveryConverter.convert(source.getDelivery()) : null)
                         //.correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
                         .build();
                 case INNER -> InnerRecord.builder()
@@ -54,6 +56,7 @@ public class RecordDTOToRecordConverter implements Converter<RecordDTO, Record> 
                         .content(source.getContent())
                         .note(source.getNote())
                         .recordGroup(recordGroup)
+                        .delivery(Objects.nonNull(source.getDelivery()) ? deliveryDTOToDeliveryConverter.convert(source.getDelivery()) : null)
                         .collective(source.getCollective())
                         .signCount(source.getSignCount())
                         //.correspondents((source.getCorrespondents() != null && !source.getCorrespondents().isEmpty()) ? source.getCorrespondents().stream().map(correspondentDTOToCorrespondentConverter::convert).collect(Collectors.toList()) : null)
