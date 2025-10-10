@@ -174,23 +174,23 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                 <h5>Кореспонденти ({position} з {correspondents.length})</h5>
                 <div className={css.correspondentNavigation}>
                     <div className={css.iterationButton}>
-                        <button onClick={navLeftBtn}>
+                        <button type="button" onClick={navLeftBtn}>
                             <FiChevronLeft size={16}/>
                         </button>
-                        <button onClick={navRightBtn}>
+                        <button type="button" onClick={navRightBtn}>
                             <FiChevronRight/>
                         </button>
                     </div>
                     <div>
-                        <button onClick={AddNewCorrespondent}><VscNewFile/>
+                        <button type="button" onClick={AddNewCorrespondent}><VscNewFile/>
                         </button>
-                        <button onClick={SaveCorrespondent}><VscSaveAs/></button>
-                        <button onClick={() => {
+                        <button type="button" onClick={SaveCorrespondent}><VscSaveAs/></button>
+                        <button type="button" onClick={() => {
 
                         }}><BsFileText/></button>
 
-                        <button onClick={EditCorrespondent}><BsFeather/></button>
-                        <button onClick={RemoveCorrespondent}><BsTrash/></button>
+                        <button type="button" onClick={EditCorrespondent}><BsFeather/></button>
+                        <button type="button" onClick={RemoveCorrespondent}><BsTrash/></button>
                     </div>
 
                 </div>

@@ -18,21 +18,21 @@ export const Resolution = () => {
                 <h5>Резолюції (0 з 0)</h5>
                 <div className={css.resolutionNavigation}>
                     <div className={css.iterationButton}>
-                        <button onClick={navLeftBtn}>
+                        <button type="button" onClick={navLeftBtn}>
                             <FiChevronLeft size={16}/>
                         </button>
-                        <button onClick={navRightBtn} >
+                        <button type="button" onClick={navRightBtn} >
                             <FiChevronRight size={16}/>
                         </button>
                     </div>
                     <div>
-                        <button onClick={() => {
+                        <button type="button" onClick={() => {
 
                         }}><BsFileText/></button>
-                        <button onClick={() => {
+                        <button type="button" onClick={() => {
 
                         }}><BsFeather/></button>
-                        <button onClick={() => {
+                        <button type="button" onClick={() => {
                         }}><BsTrash/></button>
                     </div>
 

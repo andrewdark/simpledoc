@@ -112,7 +112,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
                     <li key={pubList[0]?.id}>{pubList[0]?.department?.name}</li>
                 }
             </ul>
-            <button onClick={addNewPub} type={"button"}><VscNewFile/>
+            <button onClick={addNewPub} type="button"><VscNewFile/>
             </button>
         </div>
     }
