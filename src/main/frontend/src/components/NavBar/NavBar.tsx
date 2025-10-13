@@ -32,16 +32,16 @@ export const NavBar: FC<NavBarProps> = (props) => {
                 </div>
             ))}
 
-            {props.isBackButton ? (
-                <div className={css.navBarItem}>
+            {/*{props.isBackButton ? (*/}
+            {/*    <div className={css.navBarItem}>*/}
 
-                    <Button onClickHandler={() => window.history.back()}>
-                        <BsArrowCounterclockwise/>
-                    </Button>
-                </div>
-            ) : null
+            {/*        <Button onClickHandler={() => window.history.back()}>*/}
+            {/*            <BsArrowCounterclockwise/>*/}
+            {/*        </Button>*/}
+            {/*    </div>*/}
+            {/*) : null*/}
 
-            }
+            {/*}*/}
             {props.isAddButton ? (
                 <div className={css.navBarItem}>
                     <Button onClickHandler={onClickHandler}>

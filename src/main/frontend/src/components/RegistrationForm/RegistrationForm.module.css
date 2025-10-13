@@ -1,9 +1,13 @@
 .registrationForm {
-    padding: 16px;
+    padding: 4px;
     background: #ffffff;
     border-radius: 8px;
 }
-
+@media only screen and (min-width: 768px) {
+    .registrationForm {
+        padding: 16px;
+    }
+}
 .someButton {
     margin-right: 8px;
 }
