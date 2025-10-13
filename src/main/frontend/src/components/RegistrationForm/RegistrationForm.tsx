@@ -217,10 +217,18 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.mainContentCorrespondents}>
 
                         {(RecordGroupType.OUTGOING === recordGroupInit?.recordGroupType) &&
-                           <Publisher publishers={publishers} setPublishers={setPublishers} recordGroupType={RecordGroupType.OUTGOING}/>
+                            <Publisher publishers={publishers} setPublishers={setPublishers}
+                                       recordGroupType={RecordGroupType.OUTGOING}>
+                                <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
+                                             errorMessage={errorObject.content}/>
+                            </Publisher>
                         }
                         {(RecordGroupType.INNER === recordGroupInit?.recordGroupType) &&
-                            <Publisher publishers={publishers} setPublishers={setPublishers} recordGroupType={RecordGroupType.INNER}/>
+                            <Publisher publishers={publishers} setPublishers={setPublishers}
+                                       recordGroupType={RecordGroupType.INNER}>
+                                <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
+                                             errorMessage={errorObject.content}/>
+                            </Publisher>
                         }
 
                         {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
@@ -235,8 +243,9 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
                     <div className={css.mainContentAttributes}>
                         <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
                                   onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
-                        <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
-                                     errorMessage={errorObject.content}/>
+                        {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType || RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
+                            <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
+                                         errorMessage={errorObject.content}/>}
                         <AppInput inputType={"text"} inputLabel={"Прим:"} value={note} onChange={handleNoteChange}
                                   errorMessage={errorObject.note}/>
                     </div>

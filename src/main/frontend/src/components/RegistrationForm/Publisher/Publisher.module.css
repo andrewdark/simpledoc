@@ -4,15 +4,42 @@
 
 .Publisher .publisherGroup {
     display: flex;
+    flex-direction: column;
     margin-bottom: 8px;
+}
+@media only screen and (min-width: 768px) {
+    .Publisher .publisherGroup {
+        flex-direction: row;
+    }
 }
 
 .Publisher .openList {
     display: flex;
 }
+
 .Publisher .openList {
     display: flex;
     max-width: 88px;
+}
+
+.publisherGroupChildren label {
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+    .publisherGroupChildren label {
+        display: flex;
+        width: 88px;
+        flex-direction: row;
+    }
+
+    .publisherGroupChildren label:before {
+        content: "";
+        display: block;
+        width: 16px;
+        height: 100%;
+    }
 }
 
 .publisherGroup > label {

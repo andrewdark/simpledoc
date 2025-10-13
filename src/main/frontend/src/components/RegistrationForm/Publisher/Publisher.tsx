@@ -11,9 +11,10 @@ interface PublisherProps {
     publishers: IPublisher[];
     setPublishers: (setPublishers: IPublisher[]) => void;
     recordGroupType: typeof RecordGroupType[keyof typeof RecordGroupType];
+    children?: React.ReactNode;
 }
 
-const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupType}) => {
+const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupType, children}) => {
     const [openSignatory, setOpenSignatory] = useState<boolean>(false);
     const [openApprover, setOpenApprover] = useState<boolean>(false);
     const [openExecutant, setOpenExecutant] = useState<boolean>(false);
@@ -120,6 +121,9 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
 
         <div className={css.Publisher}>
             {createPublisherGroup(PublisherType.SIGNATORY)}
+            <div className={`${css.publisherGroup} ${css.publisherGroupChildren}`}>
+                {children}
+            </div>
             {createPublisherGroup(PublisherType.APPROVER)}
             {createPublisherGroup(PublisherType.EXECUTANT)}
         </div>
