@@ -1,65 +1,80 @@
-import React, {FC} from 'react';
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
 import css from "../../../../default_styles/Form.module.css";
 import * as Yup from "yup";
-import {useAppSelector} from "../../../../hooks/redux";
 import {IPublisher, PublisherType} from "../../../../models/IPublisher";
-import {DatePickerField} from "../../../DatePickerField/DatePickerField";
+import AppDatePicker from "../../../../UI/AppDatePicker/AppDatePicker";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
-    });
+});
 
 
 interface PublisherFormProps {
-    publisherType: typeof PublisherType[keyof typeof PublisherType];
-    formHandler: (publisher: IPublisher) => void;
+    publisherType: typeof PublisherType[keyof typeof PublisherType] | null;
+    formHandler: (publisher: IPublisher | null) => void;
 }
 
 export const PublisherForm: FC<PublisherFormProps> = (props) => {
-    const itemForUpdate = useAppSelector(state => state.citizenReducer.item);
-    const handleSubmit = (values: any, actions: any) => {
-        props.formHandler(values);
-        actions.resetForm();
+    const [id, setId] = useState<number | null>(null);
+    const [signingDate, setSigningDate] = useState<Date | null>(new Date());
+    const [official, setOfficial] = useState<string>('');
+    const [note, setNote] = useState<string>('');
+
+    const handleOfficialChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const val = event.target.value;
+        setOfficial(val);
+    };
+    const handleNoteChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const val = event.target.value;
+        setNote(val);
     };
 
-    const initialValues: IPublisher = {
-        id: null,
-        official: null,
-        signingDate: new Date,
-        note: '',
-        publisherType: props.publisherType,
+    const handleSubmit = () => {
+        if (props.publisherType) {
+            const dto: IPublisher = {
+                id: null,
+                official: {
+                    name: official + " - APPROVER ",
+                    position: "Chief",
+                    official: true
+                },
+                signingDate: signingDate,
+                publisherType: props.publisherType,
+                note: note
+            }
+
+            props.formHandler(dto);
+        } else {
+            props.formHandler(null);
+        }
+
     };
 
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}
-                enableReinitialize={true}>
-            <Form className={css.form}>
-                <Field type="hidden" name="id"/>
-                <Field type="hidden" name="publisherType"/>
-                <div className={css.fieldsGroup}>
-                    <label htmlFor="signingDate">Дата:</label>
-                    <Field className={css.fInput} component={DatePickerField} id="signingDate" name="signingDate"
-                           placeholder="Дата підпису"/>
-                    <ErrorMessage className={css.error} name="signingDate" component="span"/>
-                </div>
-                <div className={css.fieldsGroup}>
-                    <label htmlFor="official">
-                        {PublisherType.SIGNATORY===props.publisherType && 'Підписав:'}
-                        {PublisherType.SIGNATORY===props.publisherType && 'Завізував:'}
-                        {PublisherType.SIGNATORY===props.publisherType && 'Підготовив:'}
-                    </label>
-                    <Field className={css.fInput} type="text" id="official" name="official"
-                           placeholder="official"/>
-                    <ErrorMessage className={css.error} name="official" component="span"/>
-                </div>
-                <div className={css.fieldsGroup}>
-                    <label htmlFor="note">Примітка:</label>
-                    <Field className={css.fInput} type="text" id="note" name="note" placeholder="note"/>
-                    <ErrorMessage className={css.error} name="note" component="span"/>
-                </div>
-                <button className={css.submitBtn} type="submit">Зберегти</button>
-            </Form>
-        </Formik>
+        <div className={css.registrationForm}>
+            <div className={css.fieldsGroup}>
+                <label htmlFor="signingDate">Дата:</label>
+                <AppDatePicker inputLabel={"Дата:"} value={signingDate} onChange={setSigningDate}/>
+                <span className={css.error}/>
+            </div>
+            <div className={css.fieldsGroup}>
+                <label htmlFor="official">
+                    {PublisherType.SIGNATORY === props.publisherType && 'Підписав:'}
+                    {PublisherType.APPROVER === props.publisherType && 'Завізував:'}
+                    {PublisherType.EXECUTANT === props.publisherType && 'Підготовив:'}
+                </label>
+                <input className={css.fInput} type="text" id="official" value={official} onChange={handleOfficialChange}
+                       placeholder="official"/>
+                <span className={css.error}/>
+            </div>
+            <div className={css.fieldsGroup}>
+                <label htmlFor="note">Примітка:</label>
+                <input className={css.fInput} type="text" id="note" name="note" placeholder="note" value={note}
+                       onChange={handleNoteChange}/>
+                <span className={css.error}/>
+            </div>
+            <button className={css.submitBtn} type="button" onClick={handleSubmit}>Зберегти</button>
+        </div>
+
     );
 };

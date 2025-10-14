@@ -6,6 +6,10 @@ import {BsCaretDownFill, BsCaretUpFill} from "react-icons/bs";
 import {VscNewFile} from "react-icons/vsc";
 import uuid from 'react-uuid';
 import {parseStringToNumberOrDefaultZero} from "../../../utils/parser";
+import ModalFormContainer from "../../../hoc/ModalFormContainer/ModalFormContainer";
+import {PublisherForm} from "./PublisherForm/PublisherForm";
+import {setModal} from "../../../redux/modal/slice";
+import {useAppDispatch} from "../../../hooks/redux";
 
 interface PublisherProps {
     publishers: IPublisher[];
@@ -18,49 +22,23 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
     const [openSignatory, setOpenSignatory] = useState<boolean>(false);
     const [openApprover, setOpenApprover] = useState<boolean>(false);
     const [openExecutant, setOpenExecutant] = useState<boolean>(false);
+    const [currentRecordGroupType, setCurrentRecordGroupType] = useState<typeof PublisherType[keyof typeof PublisherType] | null>(null);
+    const dispatch = useAppDispatch();
 
-    const AddNewSignatory = () => {
-        const idRandom = uuid();
-        const pub: IPublisher = {
-            id: parseStringToNumberOrDefaultZero(idRandom),
-            official: {
-                name: idRandom + " - SIGNATORY ",
-                position: "Chief",
-                official: true
-            },
-            signingDate: null,
-            publisherType: PublisherType.SIGNATORY
+    const AddNewPublisher = (publisher: IPublisher | null) => {
+        if (publisher) {
+            publisher.id = parseStringToNumberOrDefaultZero(uuid());
+            console.log("new-publisher: ", publisher)
+            setPublishers([...publishers, publisher]);
         }
-        setPublishers([...publishers, pub]);
+
+        dispatch(setModal(false));
     }
-    const AddNewApprover = () => {
-        const idRandom = uuid();
-        const pub: IPublisher = {
-            id: parseStringToNumberOrDefaultZero(idRandom),
-            official: {
-                name: idRandom + " - APPROVER ",
-                position: "Chief",
-                official: true
-            },
-            signingDate: null,
-            publisherType: PublisherType.APPROVER
-        }
-        setPublishers([...publishers, pub]);
+    const ShowModalForm = (visaType: typeof PublisherType[keyof typeof PublisherType]) => {
+        setCurrentRecordGroupType(visaType);
+        dispatch(setModal(true));
     }
-    const AddNewExecutant = () => {
-        const idRandom = uuid();
-        const pub: IPublisher = {
-            id: parseStringToNumberOrDefaultZero(idRandom),
-            official: {
-                name: idRandom + " - EXECUTANT ",
-                position: "Chief",
-                official: true
-            },
-            signingDate: null,
-            publisherType: PublisherType.EXECUTANT
-        }
-        setPublishers([...publishers, pub]);
-    }
+
     const ShowSignatory = () => {
         openSignatory ? setOpenSignatory(false) : setOpenSignatory(true);
     }
@@ -82,21 +60,27 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
 
         if (PublisherType.SIGNATORY === visaType) {
             showPubList = ShowSignatory;
-            addNewPub = AddNewSignatory;
+            addNewPub = () => {
+                ShowModalForm(PublisherType.SIGNATORY);
+            };
             pubLabel = `Підп: (${publishers.filter(publisher => PublisherType.SIGNATORY === publisher.publisherType).length})`;
             pubList = publishers.filter(publisher => PublisherType.SIGNATORY === publisher.publisherType);
             isOpenList = openSignatory;
         }
         if (PublisherType.APPROVER === visaType) {
             showPubList = ShowApprover;
-            addNewPub = AddNewApprover;
+            addNewPub = () => {
+                ShowModalForm(PublisherType.APPROVER)
+            };
             pubLabel = `Візи: (${publishers.filter(publisher => PublisherType.APPROVER === publisher.publisherType).length})`;
             pubList = publishers.filter(publisher => PublisherType.APPROVER === publisher.publisherType);
             isOpenList = openApprover;
         }
         if (PublisherType.EXECUTANT === visaType) {
             showPubList = ShowExecutant;
-            addNewPub = AddNewExecutant;
+            addNewPub = () => {
+                ShowModalForm(PublisherType.EXECUTANT)
+            };
             pubLabel = `Вик: (${publishers.filter(publisher => PublisherType.EXECUTANT === publisher.publisherType).length})`;
             pubList = publishers.filter(publisher => PublisherType.EXECUTANT === publisher.publisherType);
             isOpenList = openExecutant;
@@ -120,6 +104,11 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
     return (
 
         <div className={css.Publisher}>
+            <ModalFormContainer>
+                <ModalFormContainer>
+                    <PublisherForm publisherType={currentRecordGroupType} formHandler={AddNewPublisher}/>
+                </ModalFormContainer>
+            </ModalFormContainer>
             {createPublisherGroup(PublisherType.SIGNATORY)}
             <div className={`${css.publisherGroup} ${css.publisherGroupChildren}`}>
                 {children}
