@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.simpledoc.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.CookieSameSiteSupplier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -71,7 +72,8 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                //.cors(Customizer.withDefaults())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(req -> req.requestMatchers(WHITE_LIST_URL)
                         .permitAll()
                         .anyRequest()
@@ -88,7 +90,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:3000","http://192.168.9.110:8080", "http://idea.pp.ua:8080")); // безопаснее, чем allowedOrigins + "*"
+        config.setAllowedOrigins(List.of("http://localhost:3000","http://192.168.9.102:3000","http://192.168.9.110:8080", "http://idea.pp.ua:8080")); // безопаснее, чем allowedOrigins + "*"
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // если нужно передавать токены/куки
@@ -98,4 +100,9 @@ public class SecurityConfig {
 
         return source;
     }
+
+//    @Bean
+//    public CookieSameSiteSupplier applicationCookieSameSiteSupplier() {
+//        return CookieSameSiteSupplier.ofNone(); // <- SameSite=None
+//    }
 }

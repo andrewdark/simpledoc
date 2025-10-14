@@ -1,4 +1,5 @@
 import {IDepartment} from "./catalog/IDepartment";
+import {IRecord} from "./IRecord";
 
 export const PublisherType = {
     SIGNATORY: "SIGNATORY", APPROVER: "APPROVER", EXECUTANT: "EXECUTANT"
@@ -6,9 +7,11 @@ export const PublisherType = {
 
 export interface IPublisher {
     id: number | null;
-    department: IDepartment | null;
+    record?: IRecord;
+    official: IDepartment | null;
     signingDate: Date | null;
     publisherType: typeof PublisherType[keyof typeof PublisherType];
+    note?: string | null;
     createdAt?: string;
     updatedAt?: string;
 }

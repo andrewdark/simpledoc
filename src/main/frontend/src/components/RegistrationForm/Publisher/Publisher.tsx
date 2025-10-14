@@ -23,7 +23,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
         const idRandom = uuid();
         const pub: IPublisher = {
             id: parseStringToNumberOrDefaultZero(idRandom),
-            department: {
+            official: {
                 name: idRandom + " - SIGNATORY ",
                 position: "Chief",
                 official: true
@@ -37,7 +37,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
         const idRandom = uuid();
         const pub: IPublisher = {
             id: parseStringToNumberOrDefaultZero(idRandom),
-            department: {
+            official: {
                 name: idRandom + " - APPROVER ",
                 position: "Chief",
                 official: true
@@ -51,7 +51,7 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
         const idRandom = uuid();
         const pub: IPublisher = {
             id: parseStringToNumberOrDefaultZero(idRandom),
-            department: {
+            official: {
                 name: idRandom + " - EXECUTANT ",
                 position: "Chief",
                 official: true
@@ -108,9 +108,9 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
                 <label>{pubLabel}</label>
             </div>
             <ul>
-                {isOpenList ? pubList.map(publisher => <li key={publisher.id}>{publisher.department?.name}</li>)
+                {isOpenList ? pubList.map(publisher => <li key={publisher.id}>{publisher.official?.name}</li>)
                     :
-                    <li key={pubList[0]?.id}>{pubList[0]?.department?.name}</li>
+                    <li key={pubList[0]?.id}>{pubList[0]?.official?.name}</li>
                 }
             </ul>
             <button onClick={addNewPub} type="button"><VscNewFile/>

@@ -77,7 +77,7 @@ export const refreshUser = createAsyncThunk(
         // }
         try {
             // If there is a token, add it to the HTTP header and perform the request
-           // setAuthHeader(persistedToken); --> move to interceptor
+            // setAuthHeader(persistedToken); --> move to interceptor
             const res = await $api.get<IUser>('/user/me');
             return res.data;
         } catch (error: any) {
@@ -90,7 +90,10 @@ export const refreshToken = createAsyncThunk(
     'auth/refreshToken',
     async (_, thunkAPI) => {
         try {
-            const res = await axios.post<AuthResponse>(`${BASE_URL}/auth/refresh`, {withCredentials: true})
+            const res = await axios.post<AuthResponse>(`${BASE_URL}/auth/refresh`,
+                {}, // або body якщо потрібен
+                { withCredentials: true });
+
             const persistedToken = res.data.accessToken;
             return res.data;
         } catch (error: any) {
