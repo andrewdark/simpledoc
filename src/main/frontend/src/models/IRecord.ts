@@ -4,6 +4,7 @@ import {IDelivery} from "./catalog/IDelivery";
 import {IResolution} from "./IResolution";
 import {IFileLink} from "./IFileLink";
 import {IRubric} from "./catalog/IRubric";
+import {IPublisher} from "./IPublisher";
 
 export interface IRecord {
     id: number | null;
@@ -17,9 +18,10 @@ export interface IRecord {
     collective?: boolean | null;
     signCount?: number | null;
 
-    recordGroup:IRecordGroup | null;
+    recordGroup: IRecordGroup | null;
     correspondents?: ICorrespondent[] | null;
-    delivery?:IDelivery | null;
+    publishers?: IPublisher[] | null;
+    delivery?: IDelivery | null;
     resolutions?: IResolution[] | null;
     files?: IFileLink[] | null;
     rubrics?: IRubric[] | null;

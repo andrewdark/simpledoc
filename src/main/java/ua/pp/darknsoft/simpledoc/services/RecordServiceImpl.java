@@ -13,6 +13,7 @@ import ua.pp.darknsoft.simpledoc.converters.record.RecordToRecordDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
 import ua.pp.darknsoft.simpledoc.entities.Delivery;
+import ua.pp.darknsoft.simpledoc.entities.Publisher;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
 import ua.pp.darknsoft.simpledoc.entities.records.*;
@@ -44,6 +45,7 @@ public class RecordServiceImpl implements RecordService {
     private final OutgoingRecordRepository outgoingRecordRepository;
     private final RecordGroupService recordGroupService;
     private final CorrespondentService correspondentService;
+    private final PublisherService publisherService;
     private final DeliveryService deliveryService;
     private final RecordDTOToRecordConverter toEntityConverter;
     private final RecordToRecordDTOConverter toDTOConverter;
@@ -72,6 +74,7 @@ public class RecordServiceImpl implements RecordService {
             newEntity.setRecordGroup(recordGroup);
             Record savedEntity = recordRepository.save(newEntity);
             correspondentService.saveAll(savedEntity, recordDTO.getCorrespondents());
+            publisherService.saveAll(savedEntity, recordDTO.getPublishers());
             return toDTOConverter.convert(savedEntity);
         } catch (Exception ex) {
             throw new AppException(ex);

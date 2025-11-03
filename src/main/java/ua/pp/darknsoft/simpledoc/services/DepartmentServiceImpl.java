@@ -66,7 +66,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getReference(Long departmentId) throws AppException {
+    public Department getReferenceById(Long departmentId) throws AppException {
         return departmentRepository.getReferenceById(departmentId);
     }
 
@@ -137,6 +137,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Page<DepartmentDTO> getRootItems(Pageable pageable) throws AppException {
         try {
             return departmentRepository.findRootItems(pageable).map(toDTOConverter::convert);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
+    }
+
+    @Override
+    public Page<DepartmentDTO> getAllByNameLike(String name, Pageable pageable) throws AppException {
+        try {
+            return departmentRepository.findAllByDeletedAndOfficialAndNameLikeIgnoreCase(false, true, "%" + name.toUpperCase().trim() + "%", pageable).map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

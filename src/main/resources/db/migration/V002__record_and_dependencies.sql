@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS record_group
     CONSTRAINT record_group_fk_parent_id FOREIGN KEY (parent_id) REFERENCES record_group (id)
 );
 
-ALTER TABLE IF EXISTS public.record_group OWNER to postgres;
+ALTER TABLE IF EXISTS public.record_group
+    OWNER to postgres;
 ALTER SEQUENCE public.record_group_id_seq OWNED BY record_group.id;
 
 --delivery--
@@ -147,11 +148,9 @@ ALTER TABLE IF EXISTS public.incoming_record
 DROP TABLE IF EXISTS public.inner_record;
 CREATE TABLE IF NOT EXISTS public.inner_record
 (
-    id            BIGINT NOT NULL,
-    department_id bigint,
+    id BIGINT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES record (id),
-    FOREIGN KEY (department_id) REFERENCES department (id)
+    FOREIGN KEY (id) REFERENCES record (id)
 );
 ALTER TABLE IF EXISTS public.inner_record
     OWNER to postgres;
@@ -160,11 +159,9 @@ ALTER TABLE IF EXISTS public.inner_record
 DROP TABLE IF EXISTS public.outgoing_record;
 CREATE TABLE IF NOT EXISTS public.outgoing_record
 (
-    id            BIGINT NOT NULL,
-    department_id bigint,
+    id BIGINT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES record (id),
-    FOREIGN KEY (department_id) REFERENCES department (id)
+    FOREIGN KEY (id) REFERENCES record (id)
 );
 ALTER TABLE IF EXISTS public.outgoing_record
     OWNER to postgres;
@@ -325,15 +322,16 @@ CREATE SEQUENCE IF NOT EXISTS public.publisher_id_seq
 DROP TABLE IF EXISTS publisher;
 CREATE TABLE IF NOT EXISTS publisher
 (
-    id                 BIGINT NOT NULL DEFAULT nextval('publisher_id_seq'),
-    record_id          bigint,
-    signing_date       date,
-    department_id      bigint,
-    note               character varying(255),
-    publisher_type     publisher_type,
-    version            bigint,
-    created_at         timestamp(6) without time zone,
-    updated_at         timestamp(6) without time zone,
+    id             BIGINT NOT NULL DEFAULT nextval('publisher_id_seq'),
+    record_id      bigint,
+    signing_date   date,
+    department_id  bigint,
+    note           character varying(255),
+    publisher_type publisher_type,
+    deleted        boolean         default false NOT NULL,
+    version        bigint,
+    created_at     timestamp(6) without time zone,
+    updated_at     timestamp(6) without time zone,
     PRIMARY KEY (id),
     FOREIGN KEY (record_id) REFERENCES record (id),
     FOREIGN KEY (department_id) REFERENCES department (id)

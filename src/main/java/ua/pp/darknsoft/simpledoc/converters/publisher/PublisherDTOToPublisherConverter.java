@@ -24,11 +24,9 @@ public class PublisherDTOToPublisherConverter implements Converter<PublisherDTO,
                 .publisherType(source.getPublisherType())
                 .signingDate(source.getSigningDate())
                 .note(source.getNote())
+                .deleted(source.getDeleted())
                 .build();
 
-        if (Objects.nonNull(source.getRecord())) {
-            target.setRecord(recordDTOToRecordConverter.convert(source.getRecord()));
-        }
         if (Objects.nonNull(source.getOfficial())) {
             target.setOfficial(departmentDTOToDepartmentConverter.convert(source.getOfficial()));
         }

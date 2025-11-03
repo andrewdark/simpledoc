@@ -126,6 +126,7 @@ public class CorrespondentServiceImpl implements CorrespondentService {
     public Iterable<Correspondent> saveAll(Record record, List<CorrespondentDTO> dtoList) throws AppException {
 
         List<Correspondent> correspondents = dtoList.stream().map(toEntityConverter::convert)
+                .peek(el -> el.setId(null))
                 .peek(el -> el.setDeleted(false))
                 .peek(el -> el.setRecord(record))
                 .peek(el -> el.setCitizen(el.getCitizen()!=null?citizenService.getReferenceById(el.getCitizen().getId()):null))

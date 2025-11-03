@@ -62,6 +62,8 @@ public class Publisher {
     @Column(name = "publisher_type")
     private PublisherType publisherType;
 
+    @Column(name = "deleted")
+    private Boolean deleted;
     @Version
     private Long version;
     @CreationTimestamp

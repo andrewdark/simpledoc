@@ -10,6 +10,7 @@ interface DepartmentThunkPayload {
     size?: number;
     sort?:string;
     order?:SortOrder;
+    searchQuery?:string;
 }
 
 /*
@@ -91,6 +92,31 @@ export const getAllDepartment = createAsyncThunk(
                 order:payload.order
             };
             const res = await $api.get(`/department`, {
+                params: params,
+            });
+            return res.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data.data.message);
+        }
+    }
+);
+
+/*
+ * GET @ /department?name=dep-name-str&page=0&size=10&sort=id&order=ASC
+ * body: { }
+ */
+export const getAllDepartmentByName = createAsyncThunk(
+    "department/getAllDepartmentByFullName",
+    async (payload:DepartmentThunkPayload, thunkAPI) => {
+        try {
+            const params: { [key: string]: any } = {
+                name: payload.searchQuery,
+                number: payload.number,
+                size: payload.size,
+                sort:payload.sort,
+                order:payload.order
+            };
+            const res = await $api.get(`/department/search`, {
                 params: params,
             });
             return res.data;

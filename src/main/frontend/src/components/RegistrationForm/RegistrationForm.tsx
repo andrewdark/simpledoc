@@ -122,6 +122,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, formHandler}) 
             signCount: signCount,
             recordGroup: recordGroupInit,
             correspondents: correspondents,
+            publishers: publishers,
             delivery: delivery,
             resolutions: resolutions,
             files: files,

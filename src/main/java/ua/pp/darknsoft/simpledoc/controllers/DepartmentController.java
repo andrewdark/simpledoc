@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.simpledoc.dto.DepartmentDTO;
+import ua.pp.darknsoft.simpledoc.dto.OrganizationDTO;
 import ua.pp.darknsoft.simpledoc.services.DepartmentService;
 
 import java.util.Optional;
@@ -38,7 +39,22 @@ public class DepartmentController {
         Page<DepartmentDTO> items = departmentService.findAll(pageable);
         return ResponseEntity.ok(items);
     }
-
+    @GetMapping("/search")
+    public ResponseEntity<Page<DepartmentDTO>> getAllItemsByName(
+            @RequestParam(defaultValue = "name") String name,
+            @RequestParam(defaultValue = "0") int number,            // номер сторінки
+            @RequestParam(defaultValue = "10") int size,           // розмір сторінки
+            @RequestParam(defaultValue = "id") String sort,    // поле для сортування
+            @RequestParam(defaultValue = "asc") String order     // напрямок: asc/desc
+    ) {
+        Pageable pageable = PageRequest.of(
+                number,
+                size,
+                order.equalsIgnoreCase("asc") ? Sort.by(sort).ascending() : Sort.by(sort).descending()
+        );
+        Page<DepartmentDTO> items = departmentService.getAllByNameLike(name,pageable);
+        return ResponseEntity.ok(items);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<DepartmentDTO> getById(@PathVariable Long id) {

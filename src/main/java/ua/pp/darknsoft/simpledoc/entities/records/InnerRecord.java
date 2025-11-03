@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import ua.pp.darknsoft.simpledoc.entities.Department;
+import ua.pp.darknsoft.simpledoc.entities.Publisher;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,12 +16,9 @@ import ua.pp.darknsoft.simpledoc.entities.Department;
 @Table(name = "inner_record")
 @PrimaryKeyJoinColumn(name = "id")
 public class InnerRecord extends Record{
-    /** Исполнитель документа (Только для исходящих и внутреней документации) */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private Department executor;
-
-    /** Визы и Подписи */
-    // @OneToMany(mappedBy = "Document")
-    //private Set<Vise> Vises;
+    /**
+     * Візи Підписи Виконавці
+     */
+    @OneToMany(mappedBy = "record")
+    private List<Publisher> publishers;
 }

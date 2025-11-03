@@ -14,7 +14,9 @@ public interface DepartmentService extends CRUDService<DepartmentDTO, Long> {
 
     Page<DepartmentDTO> getRootItems(Pageable pageable) throws AppException;
 
+    Page<DepartmentDTO> getAllByNameLike(String name, Pageable pageable) throws AppException;
+
     DepartmentDTO addChildren(Long parentId, DepartmentDTO childrenDTO) throws AppException;
 
-    Department getReference(Long id) throws AppException;
+    Department getReferenceById(Long id) throws AppException;
 }

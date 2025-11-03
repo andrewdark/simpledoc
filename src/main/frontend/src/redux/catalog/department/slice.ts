@@ -1,7 +1,8 @@
 import {ActionReducerMapBuilder, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IPage, IPageable} from "../../../models/IPageable";
 import {IDepartment} from "../../../models/catalog/IDepartment";
-import {createDepartment, deleteDepartment, getAllDepartment, getDepartmentById, updateDepartment} from "./operations";
+import {createDepartment, deleteDepartment, getAllDepartment, getDepartmentById, updateDepartment, getAllDepartmentByName} from "./operations";
+import {organizationSlice} from "../organization/slice";
 
 interface DepartmentState {
     items: IDepartment[];
@@ -35,7 +36,11 @@ const handleRejected = (state: DepartmentState, action: any) => {
 export const departmentSlice = createSlice({
     name: "department",
     initialState,
-    reducers: {},
+    reducers: {
+        clearDepartments(state) {
+            state.items = []; // Просто присваиваем пустой массив
+        },
+    },
     extraReducers: (builder: ActionReducerMapBuilder<DepartmentState>) => {
 
         builder
@@ -82,6 +87,16 @@ export const departmentSlice = createSlice({
                 state.items = action.payload?.content ?? initialState.items;
                 state.page = action.payload?.page ?? initialState.page;
             })
+            //getAllDepartmentByName
+            .addCase(getAllDepartmentByName.pending, handlePending)
+            .addCase(getAllDepartmentByName.rejected, handleRejected)
+            .addCase(getAllDepartmentByName.fulfilled, (state: DepartmentState, action: PayloadAction<IPageable<IDepartment>>) => {
+                state.isLoading = false;
+                state.error = '';
+                console.log(action.payload);
+                state.items = action.payload?.content ?? initialState.items;
+                state.page = action.payload?.page ?? initialState.page;
+            })
             //getDepartmentById
             .addCase(getDepartmentById.pending, handlePending)
             .addCase(getDepartmentById.rejected, handleRejected)
@@ -93,5 +108,5 @@ export const departmentSlice = createSlice({
     }
 });
 
-
+export const { clearDepartments } = departmentSlice.actions;
 export const departmentReducer = departmentSlice.reducer;

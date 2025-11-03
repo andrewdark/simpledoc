@@ -28,7 +28,6 @@ const Publisher: FC<PublisherProps> = ({publishers, setPublishers, recordGroupTy
     const AddNewPublisher = (publisher: IPublisher | null) => {
         if (publisher) {
             publisher.id = parseStringToNumberOrDefaultZero(uuid());
-            console.log("new-publisher: ", publisher)
             setPublishers([...publishers, publisher]);
         }
 

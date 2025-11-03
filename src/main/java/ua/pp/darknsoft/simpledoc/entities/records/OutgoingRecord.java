@@ -1,9 +1,16 @@
 package ua.pp.darknsoft.simpledoc.entities.records;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import ua.pp.darknsoft.simpledoc.entities.Department;
+import ua.pp.darknsoft.simpledoc.entities.Publisher;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,12 +20,10 @@ import ua.pp.darknsoft.simpledoc.entities.Department;
 @Table(name = "outgoing_record")
 @PrimaryKeyJoinColumn(name = "id")
 public class OutgoingRecord extends Record {
-    /** Исполнитель документа (Только для исходящих и внутреней документации) */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
-    private Department executor;
 
-    /** Визы и Подписи */
-    // @OneToMany(mappedBy = "Document")
-    //private Set<Vise> Vises;
+    /**
+     * Візи Підписи Виконавці
+     */
+    @OneToMany(mappedBy = "record")
+    private List<Publisher> publishers;
 }

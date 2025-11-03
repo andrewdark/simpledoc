@@ -3,7 +3,7 @@ import css from "./Correspondent.module.css";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {VscNewFile, VscSaveAs} from "react-icons/vsc";
 import {BsFeather, BsFileText, BsTrash} from "react-icons/bs";
-import {AutocompleteInput} from "../../AutocompleteInput/AutocompleteInput";
+import {CorrespondentAutocompleteInput} from "./CorrespondentAutocompleteInput/CorrespondentAutocompleteInput";
 import DatePicker from "react-datepicker";
 import {uk} from "date-fns/locale";
 import {CorrespondentType, ICorrespondent} from "../../../models/ICorrespondent";
@@ -200,10 +200,10 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                     <div className={css.formField}>
                         <label>Коресп: </label>
                         <div>
-                            <AutocompleteInput correspondentType={CorrespondentType.INCOMING_ORGANIZATION}
-                                               organization={organization}
-                                               setOrganization={setOrganization}
-                                               citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
+                            <CorrespondentAutocompleteInput correspondentType={CorrespondentType.INCOMING_ORGANIZATION}
+                                                            organization={organization}
+                                                            setOrganization={setOrganization}
+                                                            citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
 
                         </div>
                     </div>
@@ -240,10 +240,10 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                     <div className={css.formField}>
                         <label>Громад: </label>
                         <div>
-                            <AutocompleteInput correspondentType={CorrespondentType.INCOMING_CITIZEN}
-                                               organization={organization}
-                                               setOrganization={setOrganization}
-                                               citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
+                            <CorrespondentAutocompleteInput correspondentType={CorrespondentType.INCOMING_CITIZEN}
+                                                            organization={organization}
+                                                            setOrganization={setOrganization}
+                                                            citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
 
                         </div>
                     </div>

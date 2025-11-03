@@ -27,6 +27,7 @@ public class PublisherToPublisherDTOConverter implements Converter<Publisher, Pu
                 .publisherType(source.getPublisherType())
                 .signingDate(source.getSigningDate())
                 .note(source.getNote())
+                .deleted(source.getDeleted())
                 .createdAt(source.getCreatedAt())
                 .updatedAt(source.getUpdatedAt())
                 .build();

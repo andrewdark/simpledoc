@@ -25,6 +25,7 @@ public class PublisherDTO {
     private DepartmentDTO official;
     private String note;
     private PublisherType publisherType;
+    private Boolean deleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

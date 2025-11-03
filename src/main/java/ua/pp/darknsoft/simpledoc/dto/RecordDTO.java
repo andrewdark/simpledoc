@@ -32,6 +32,7 @@ public class RecordDTO {
 
     private RecordGroupDTO recordGroup;
     private List<CorrespondentDTO> correspondents;
+    private List<PublisherDTO> publishers;
     private DeliveryDTO delivery;
     private List<ResolutionDTO> resolutions;
     private List<FileLinkDTO> files;

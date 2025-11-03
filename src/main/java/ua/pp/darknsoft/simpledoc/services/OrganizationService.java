@@ -11,5 +11,5 @@ import ua.pp.darknsoft.simpledoc.services.base.CRUDService;
 public interface OrganizationService extends CRUDService<OrganizationDTO, Long> {
     Organization getReferenceById(Long organizationId) throws AppException;
 
-    Page<OrganizationDTO> getAllByNameLike(String fullName, Pageable pageable) throws AppException;
+    Page<OrganizationDTO> getAllByNameLike(String name, Pageable pageable) throws AppException;
 }

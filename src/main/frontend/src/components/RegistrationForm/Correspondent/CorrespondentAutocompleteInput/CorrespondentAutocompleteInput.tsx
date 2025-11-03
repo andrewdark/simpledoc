@@ -1,16 +1,15 @@
-// AutocompleteInput.tsx (перероблено на TS)
+// CorrespondentAutocompleteInput.tsx (перероблено на TS)
 import React, {ChangeEvent, FC, MouseEvent, useCallback, useEffect, useState} from 'react';
 import {debounce} from 'lodash';
-import css from './AutocompleteInput.module.css';
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {getAllOrganizationByName} from "../../redux/catalog/organization/operations";
-import {getAllCitizenByFullName} from "../../redux/catalog/citizen/operations";
-import {RecordGroupType} from "../../models/catalog/IRecordGroup";
-import {IOrganization} from "../../models/catalog/IOrganization";
-import {ICitizen} from "../../models/catalog/ICitizen";
-import {clearOrganizations} from "../../redux/catalog/organization/slice";
-import {clearCitizens} from "../../redux/catalog/citizen/slice";
-import {CorrespondentType} from "../../models/ICorrespondent";
+import css from './CorrespondentAutocompleteInput.module.css';
+import {useAppDispatch, useAppSelector} from "../../../../hooks/redux";
+import {getAllOrganizationByName} from "../../../../redux/catalog/organization/operations";
+import {getAllCitizenByFullName} from "../../../../redux/catalog/citizen/operations";
+import {IOrganization} from "../../../../models/catalog/IOrganization";
+import {ICitizen} from "../../../../models/catalog/ICitizen";
+import {clearOrganizations} from "../../../../redux/catalog/organization/slice";
+import {clearCitizens} from "../../../../redux/catalog/citizen/slice";
+import {CorrespondentType} from "../../../../models/ICorrespondent";
 
 interface AutocompleteInputProps {
     correspondentType: typeof CorrespondentType[keyof typeof CorrespondentType];
@@ -21,7 +20,7 @@ interface AutocompleteInputProps {
     setCitizen: (val: ICitizen) => void;
 }
 
-export const AutocompleteInput: FC<AutocompleteInputProps> = ({
+export const CorrespondentAutocompleteInput: FC<AutocompleteInputProps> = ({
                                                                   correspondentType, disabled,
                                                                   organization,
                                                                   setOrganization,

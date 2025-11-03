@@ -3,6 +3,11 @@ import css from "../../../../default_styles/Form.module.css";
 import * as Yup from "yup";
 import {IPublisher, PublisherType} from "../../../../models/IPublisher";
 import AppDatePicker from "../../../../UI/AppDatePicker/AppDatePicker";
+import {CorrespondentType} from "../../../../models/ICorrespondent";
+import {CorrespondentAutocompleteInput} from "../../Correspondent/CorrespondentAutocompleteInput/CorrespondentAutocompleteInput";
+import department from "../../../../pages/catalog/DepartmentPage/Department/Department";
+import {PublisherAutocompleteInput} from "../PublisherAutocompleteInput/PublisherAutocompleteInput";
+import {IDepartment} from "../../../../models/catalog/IDepartment";
 
 const validationSchema = Yup.object().shape({
     id: Yup.number().nullable(),
@@ -17,32 +22,24 @@ interface PublisherFormProps {
 export const PublisherForm: FC<PublisherFormProps> = (props) => {
     const [id, setId] = useState<number | null>(null);
     const [signingDate, setSigningDate] = useState<Date | null>(new Date());
-    const [official, setOfficial] = useState<string>('');
+    const [official, setOfficial] = useState<IDepartment | null>(null);
     const [note, setNote] = useState<string>('');
+    const [disabled, setDisabled] = useState<boolean>(false);
 
-    const handleOfficialChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const val = event.target.value;
-        setOfficial(val);
-    };
     const handleNoteChange = (event: ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
         setNote(val);
     };
 
     const handleSubmit = () => {
-        if (props.publisherType) {
+        if (props.publisherType && official) {
             const dto: IPublisher = {
                 id: null,
-                official: {
-                    name: official + " - APPROVER ",
-                    position: "Chief",
-                    official: true
-                },
+                official: official,
                 signingDate: signingDate,
                 publisherType: props.publisherType,
                 note: note
             }
-
             props.formHandler(dto);
         } else {
             props.formHandler(null);
@@ -54,7 +51,7 @@ export const PublisherForm: FC<PublisherFormProps> = (props) => {
         <div className={css.registrationForm}>
             <div className={css.fieldsGroup}>
                 <label htmlFor="signingDate">Дата:</label>
-                <AppDatePicker inputLabel={"Дата:"} value={signingDate} onChange={setSigningDate}/>
+                <AppDatePicker inputLabel={""} value={signingDate} onChange={setSigningDate}/>
                 <span className={css.error}/>
             </div>
             <div className={css.fieldsGroup}>
@@ -63,8 +60,10 @@ export const PublisherForm: FC<PublisherFormProps> = (props) => {
                     {PublisherType.APPROVER === props.publisherType && 'Завізував:'}
                     {PublisherType.EXECUTANT === props.publisherType && 'Підготовив:'}
                 </label>
-                <input className={css.fInput} type="text" id="official" value={official} onChange={handleOfficialChange}
-                       placeholder="official"/>
+                <PublisherAutocompleteInput correspondentType={CorrespondentType.OUTGOING_ORGANIZATION}
+                                                department={official}
+                                                setDepartment={setOfficial}
+                                               disabled={disabled}/>
                 <span className={css.error}/>
             </div>
             <div className={css.fieldsGroup}>
@@ -75,6 +74,5 @@ export const PublisherForm: FC<PublisherFormProps> = (props) => {
             </div>
             <button className={css.submitBtn} type="button" onClick={handleSubmit}>Зберегти</button>
         </div>
-
     );
 };
