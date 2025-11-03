@@ -16,9 +16,12 @@ import {DocGroupTypeIcon} from "../DocGroupTypeIcon/DocGroupTypeIcon";
 
 interface RecordItemProps {
     item: IRecord,
+    readItemHandler: (id: number) => void;
+    updateItemHandler: (id: number) => void;
+    deleteItemHandler: (id: number) => void;
 }
 
-export const RecordItem: FC<RecordItemProps> = ({item}) => {
+export const RecordItem: FC<RecordItemProps> = ({item, readItemHandler, updateItemHandler, deleteItemHandler}) => {
 
     return (
         <div className={css.recordItem}>

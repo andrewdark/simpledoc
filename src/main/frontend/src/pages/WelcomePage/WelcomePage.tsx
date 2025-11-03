@@ -4,9 +4,12 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import React, {useEffect} from "react";
 import {clearNavegante} from "../../redux/navegante/slice";
 import List from "../../components/List/List";
-import {getAllRecord} from "../../redux/record/operations";
+import {deleteRecord, getAllRecord, getRecordById} from "../../redux/record/operations";
 import {RecordItem} from "../../components/RecordItem/RecordItem";
 import {IRecord} from "../../models/IRecord";
+import {setModal} from "../../redux/modal/slice";
+import {useNavigate} from "react-router-dom";
+import Record from "../RecordPage/Record/Record";
 
 const WelcomePage = () => {
     const dispatch = useAppDispatch();
@@ -14,7 +17,7 @@ const WelcomePage = () => {
 
     useEffect(() => {
         dispatch(clearNavegante(null));
-        dispatch(getAllRecord({sort:"id", order:"DESC"}));
+        dispatch(getAllRecord({sort: "id", order: "DESC"}));
     }, [dispatch]);
 
     return (
@@ -22,8 +25,7 @@ const WelcomePage = () => {
             <NavBar isAddButton={false} isBackButton={false}/>
             <h2>Останні зареєстровані документи</h2>
             <div className={css.container}>
-                <List items={items}
-                      renderItems={(item: IRecord) => <RecordItem item={item}/>}></List>
+                <Record items={items}/>
             </div>
         </div>
 

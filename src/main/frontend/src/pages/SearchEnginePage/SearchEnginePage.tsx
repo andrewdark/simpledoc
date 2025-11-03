@@ -14,6 +14,7 @@ import {PageBar} from "../../components/PageBar/PageBar";
 import {setModal} from "../../redux/modal/slice";
 import {clearRecords} from "../../redux/record/slice";
 import {getAllRecordGroup} from "../../redux/catalog/record_group/operations";
+import Record from "../RecordPage/Record/Record";
 
 const SearchEnginePage = () => {
     const dispatch = useAppDispatch();
@@ -43,8 +44,7 @@ const SearchEnginePage = () => {
             <NavBar isAddButton={true} isBackButton={true}/>
             <h2>SearchEngine</h2>
             <div className={css.container}>
-                <List items={items}
-                      renderItems={(item: IRecord) => <RecordItem item={item}/>}></List>
+                <Record items={items}/>
                 <PageBar page={page} clickPage={pageSelectionHandler}/>
             </div>
             <ModalFormContainer>
