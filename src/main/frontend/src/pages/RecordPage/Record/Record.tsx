@@ -3,7 +3,6 @@ import List from "../../../components/List/List";
 import {IRecord} from "../../../models/IRecord";
 import {RecordItem} from "../../../components/RecordItem/RecordItem";
 import {deleteRecord, getRecordById} from "../../../redux/record/operations";
-import {setModal} from "../../../redux/modal/slice";
 import {useAppDispatch} from "../../../hooks/redux";
 import {useNavigate} from "react-router-dom";
 
@@ -21,7 +20,7 @@ const Record:FC<Record> = ({items}) => {
     const updateItemHandler = async (id: number) => {
         if (id) {
             await dispatch(getRecordById({id: id}))
-            dispatch(setModal(true));
+            //dispatch(setModal(true));
         }
 
     };

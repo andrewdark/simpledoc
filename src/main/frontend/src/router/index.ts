@@ -27,6 +27,7 @@ import OrganizationId from "../pages/catalog/OrganizationPage/OrganizationId/Org
 import RecordGroup from "../pages/catalog/RecordGroupPage/RecordGroup/RecordGroup";
 import RecordGroupId from "../pages/catalog/RecordGroupPage/RecordGroupId/RecordGroupId";
 import SelectRecordGroupPage from "../pages/SelectRecordGroupPage/SelectRecordGroupPage";
+import RecordId from "../pages/RecordPage/RecordId/RecordId";
 
 
 export const routes = [
@@ -210,6 +211,13 @@ export const routes = [
         path: "/catalog/resolution-category/:id",
         component: ResolutionCategoryId,
         allowedRoles: [Role.ADMIN, Role.OPERATOR],
+        redirectToAuthentication: '/sign-in',
+        redirectToAuthorization: '/access-deny'
+    },
+    {
+        path: "/record/:id",
+        component: RecordId,
+        allowedRoles: [Role.ADMIN, Role.OPERATOR, Role.USER],
         redirectToAuthentication: '/sign-in',
         redirectToAuthorization: '/access-deny'
     },

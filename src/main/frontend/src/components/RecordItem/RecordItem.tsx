@@ -41,12 +41,13 @@ export const RecordItem: FC<RecordItemProps> = ({item, readItemHandler, updateIt
 
             <div className={css.itemNavigation}>
                 <div onClick={() => {
-
+                    readItemHandler(item.id ? item.id : 0)
                 }}><BsFileText/></div>
                 <div onClick={() => {
-
+                    updateItemHandler(item.id ? item.id : 0)
                 }}><BsFeather/></div>
                 <div onClick={() => {
+                    deleteItemHandler(item.id ? item.id : 0)
                 }}><BsTrash/></div>
             </div>
         </div>
