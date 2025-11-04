@@ -29,6 +29,10 @@
     display: flex;
     gap: 4px;
 }
+.iterationButton > button {
+    pointer-events: auto;
+    opacity: 1;
+}
 @media only screen and (min-width: 1158px) {
     .resolutionNavigation > div{
         gap: 8px;

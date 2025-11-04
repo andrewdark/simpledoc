@@ -38,7 +38,6 @@ const RecordId = () => {
         } else {
             console.log("CREATE: ", dto);
             //dispatch(createRecord({dto: dto, fileList: fileList}));
-
         }
     };
 
@@ -46,9 +45,8 @@ const RecordId = () => {
     return (
         <div className={css.recordId}>
             <NavBar isAddButton={false} isBackButton={false}/>
-            <h1>Record page ID: {id}</h1>
             <div>
-                {JSON.stringify(record, null, 2)}
+                {/*{JSON.stringify(record, null, 2)}*/}
                 {record && <RegistrationForm formHandler={saveItemHandler} dto={record} readonly={isReadOnly}/>}
 
             </div>

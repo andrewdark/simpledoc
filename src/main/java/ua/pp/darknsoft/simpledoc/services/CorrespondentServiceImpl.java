@@ -14,6 +14,7 @@ import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.repositories.CorrespondentRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -129,11 +130,20 @@ public class CorrespondentServiceImpl implements CorrespondentService {
                 .peek(el -> el.setId(null))
                 .peek(el -> el.setDeleted(false))
                 .peek(el -> el.setRecord(record))
-                .peek(el -> el.setCitizen(el.getCitizen()!=null?citizenService.getReferenceById(el.getCitizen().getId()):null))
-                .peek(el -> el.setOrganization(el.getOrganization()!=null?organizationService.getReferenceById(el.getOrganization().getId()):null))
+                .peek(el -> el.setCitizen(el.getCitizen() != null ? citizenService.getReferenceById(el.getCitizen().getId()) : null))
+                .peek(el -> el.setOrganization(el.getOrganization() != null ? organizationService.getReferenceById(el.getOrganization().getId()) : null))
                 .toList();
 
         return correspondentRepository.saveAll(correspondents);
 
+    }
+
+    @Override
+    public List<Correspondent> findAllByRecord(Record record) throws AppException {
+        try {
+            return correspondentRepository.findCorrespondentByRecord(record);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }

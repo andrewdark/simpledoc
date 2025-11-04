@@ -12,12 +12,13 @@ import ua.pp.darknsoft.simpledoc.converters.record.RecordDTOToRecordConverter;
 import ua.pp.darknsoft.simpledoc.converters.record.RecordToRecordDTOConverter;
 import ua.pp.darknsoft.simpledoc.dto.CorrespondentDTO;
 import ua.pp.darknsoft.simpledoc.dto.RecordDTO;
+import ua.pp.darknsoft.simpledoc.entities.Correspondent;
 import ua.pp.darknsoft.simpledoc.entities.Delivery;
 import ua.pp.darknsoft.simpledoc.entities.Publisher;
 import ua.pp.darknsoft.simpledoc.entities.RecordGroup;
 import ua.pp.darknsoft.simpledoc.entities.enums.RecordGroupType;
-import ua.pp.darknsoft.simpledoc.entities.records.*;
 import ua.pp.darknsoft.simpledoc.entities.records.Record;
+import ua.pp.darknsoft.simpledoc.entities.records.*;
 import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.filters.RecordSearchFilter;
 import ua.pp.darknsoft.simpledoc.repositories.RecordRepository;
@@ -27,10 +28,7 @@ import ua.pp.darknsoft.simpledoc.repositories.records.InnerRecordRepository;
 import ua.pp.darknsoft.simpledoc.repositories.records.OutgoingRecordRepository;
 import ua.pp.darknsoft.simpledoc.specifications.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -149,6 +147,8 @@ public class RecordServiceImpl implements RecordService {
     public Optional<RecordDTO> getById(Long id) throws AppException {
         try {
             Optional<Record> entity = recordRepository.findRecordById(id);
+            entity.ifPresent(this::populate);
+
             return entity.map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
@@ -223,6 +223,45 @@ public class RecordServiceImpl implements RecordService {
         } catch (
                 Exception ex) {
             throw new AppException(ex);
+        }
+    }
+
+    private void populate(Record source) {
+        if (source.getClass().equals(CitizensRecord.class)) {
+            CitizensRecord record = (CitizensRecord) source;
+
+            List<Correspondent> correspondents = correspondentService.findAllByRecord(source);
+            record.setCorrespondents(correspondents);
+        }
+
+        /*
+         * IncomingRecord
+         */
+        if (source.getClass().equals(IncomingRecord.class)) {
+            IncomingRecord record = (IncomingRecord) source;
+
+            List<Correspondent> correspondents = correspondentService.findAllByRecord(source);
+            record.setCorrespondents(correspondents);
+        }
+
+        /*
+         * InnerRecord
+         */
+        if (source.getClass().equals(InnerRecord.class)) {
+            InnerRecord record = (InnerRecord) source;
+
+            List<Publisher> publishers = publisherService.findAllByRecord(source);
+            record.setPublishers(publishers);
+        }
+
+        /*
+         * OutgoingRecord
+         */
+        if (source.getClass().equals(OutgoingRecord.class)) {
+            OutgoingRecord record = (OutgoingRecord) source;
+
+            List<Publisher> publishers = publisherService.findAllByRecord(source);
+            record.setPublishers(publishers);
         }
     }
 }

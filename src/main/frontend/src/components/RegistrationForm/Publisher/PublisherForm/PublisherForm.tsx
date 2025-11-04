@@ -1,11 +1,9 @@
-import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import css from "../../../../default_styles/Form.module.css";
 import * as Yup from "yup";
 import {IPublisher, PublisherType} from "../../../../models/IPublisher";
 import AppDatePicker from "../../../../UI/AppDatePicker/AppDatePicker";
 import {CorrespondentType} from "../../../../models/ICorrespondent";
-import {CorrespondentAutocompleteInput} from "../../Correspondent/CorrespondentAutocompleteInput/CorrespondentAutocompleteInput";
-import department from "../../../../pages/catalog/DepartmentPage/Department/Department";
 import {PublisherAutocompleteInput} from "../PublisherAutocompleteInput/PublisherAutocompleteInput";
 import {IDepartment} from "../../../../models/catalog/IDepartment";
 

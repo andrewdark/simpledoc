@@ -103,7 +103,7 @@ export const CorrespondentAutocompleteInput: FC<AutocompleteInputProps> = ({
 
             {/*  {error && <div className="error-message">Помилка: {error}</div>}*/}
 
-            {CorrespondentType.INCOMING_ORGANIZATION === correspondentType && organizations.length > 0 && !selectedItem && (
+            {!disabled && CorrespondentType.INCOMING_ORGANIZATION === correspondentType && organizations.length > 0 && !selectedItem && (
                 <ul className={css.suggestionsList}>
                     {organizations.map((item, index) => (
                         <li key={index} onClick={(event) => handleSelectOrganization(item, event)}>
@@ -112,7 +112,7 @@ export const CorrespondentAutocompleteInput: FC<AutocompleteInputProps> = ({
                     ))}
                 </ul>
             )}
-            {CorrespondentType.INCOMING_CITIZEN === correspondentType && citizens.length > 0 && !selectedItem && (
+            {!disabled && CorrespondentType.INCOMING_CITIZEN === correspondentType && citizens.length > 0 && !selectedItem && (
                 <ul className={css.suggestionsList}>
                     {citizens.map((item, index) => (
                         <li key={index} onClick={(event) => handleSelectCitizen(item, event)}>

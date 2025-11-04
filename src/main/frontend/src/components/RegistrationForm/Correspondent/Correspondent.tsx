@@ -18,14 +18,15 @@ interface CorrespondentProps {
 
 export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorrespondents, correspondentType}) => {
     const [isNewCorr, setIsNewCorr] = useState<boolean>(true);
-    const [disabled, setDisabled] = useState<boolean>(false);
-    const [position, setPosition] = useState<number>(0);
-    const [outNum, setOutNum] = useState<string>('');
-    const [outDate, setOutDate] = useState<Date | null>(null); //Date;
-    const [note, setNote] = useState<string>('');
-    const [signatory, setSignatory] = useState<string>('');
-    const [organization, setOrganization] = useState<IOrganization | null>(null);
-    const [citizen, setCitizen] = useState<ICitizen | null>(null);
+    const [disabled, setDisabled] = useState<boolean>(correspondents.length > 0);
+    const [position, setPosition] = useState<number>(correspondents.length > 0 ? 1 : 0);
+
+    const [outNum, setOutNum] = useState<string>(correspondents[position - 1]?.outNum ?? '');
+    const [outDate, setOutDate] = useState<Date | null>(correspondents[position - 1]?.outDate ?? null); //Date;
+    const [note, setNote] = useState<string>(correspondents[position - 1]?.note ?? '');
+    const [signatory, setSignatory] = useState<string>(correspondents[position - 1]?.signatory ?? '');
+    const [organization, setOrganization] = useState<IOrganization | null>(correspondents[position - 1]?.organization ?? null);
+    const [citizen, setCitizen] = useState<ICitizen | null>(correspondents[position - 1]?.citizen ?? null);
 
     const AddNewCorrespondent = () => {
         setIsNewCorr(true);
@@ -203,7 +204,8 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                             <CorrespondentAutocompleteInput correspondentType={CorrespondentType.INCOMING_ORGANIZATION}
                                                             organization={organization}
                                                             setOrganization={setOrganization}
-                                                            citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
+                                                            citizen={citizen} setCitizen={setCitizen}
+                                                            disabled={disabled}/>
 
                         </div>
                     </div>
@@ -243,7 +245,8 @@ export const Correspondent: FC<CorrespondentProps> = ({correspondents, setCorres
                             <CorrespondentAutocompleteInput correspondentType={CorrespondentType.INCOMING_CITIZEN}
                                                             organization={organization}
                                                             setOrganization={setOrganization}
-                                                            citizen={citizen} setCitizen={setCitizen} disabled={disabled}/>
+                                                            citizen={citizen} setCitizen={setCitizen}
+                                                            disabled={disabled}/>
 
                         </div>
                     </div>

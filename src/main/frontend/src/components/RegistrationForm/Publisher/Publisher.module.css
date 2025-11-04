@@ -15,11 +15,9 @@
 
 .Publisher .openList {
     display: flex;
-}
-
-.Publisher .openList {
-    display: flex;
     max-width: 88px;
+    pointer-events: auto;
+    opacity: 1;
 }
 
 .publisherGroupChildren label {

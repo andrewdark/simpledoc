@@ -6,9 +6,12 @@ import ua.pp.darknsoft.simpledoc.entities.records.Record;
 import ua.pp.darknsoft.simpledoc.exceptions.AppException;
 import ua.pp.darknsoft.simpledoc.services.base.CRUDService;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CorrespondentService extends CRUDService<CorrespondentDTO, Long> {
 
     Iterable<Correspondent> saveAll(Record record, List<CorrespondentDTO> entityList) throws AppException;
+
+    List<Correspondent> findAllByRecord(Record record) throws AppException;
 }

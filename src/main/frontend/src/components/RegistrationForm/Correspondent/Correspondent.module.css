@@ -28,8 +28,9 @@
         gap: 8px;
     }
 }
-.correspondentNavigation > button {
-
+.iterationButton > button {
+    pointer-events: auto;
+    opacity: 1;
 }
 .incomingOrgDetails {
     display: flex;

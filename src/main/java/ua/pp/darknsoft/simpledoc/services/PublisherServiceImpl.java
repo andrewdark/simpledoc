@@ -18,6 +18,7 @@ import ua.pp.darknsoft.simpledoc.repositories.PublisherRepository;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -134,5 +135,14 @@ public class PublisherServiceImpl implements PublisherService {
 
         return publisherRepository.saveAll(publishers);
 
+    }
+
+    @Override
+    public List<Publisher> findAllByRecord(Record record) throws AppException {
+        try {
+            return publisherRepository.findAllByRecord(record);
+        } catch (Exception ex) {
+            throw new AppException(ex);
+        }
     }
 }
