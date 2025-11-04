@@ -37,7 +37,7 @@ public interface RecordRepository extends JpaRepository<Record, Long>, JpaSpecif
 
     @Query("""
             SELECT rec FROM Record rec JOIN FETCH rec.recordGroup 
-            JOIN FETCH rec.delivery 
+            LEFT JOIN FETCH rec.delivery 
             WHERE rec.id = :id
             """)
     Optional<Record> findRecordById(Long id);
