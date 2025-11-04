@@ -61,6 +61,7 @@ export const recordSlice = createSlice({
             .addCase(createRecord.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = "";
+                state.item = action.payload;
                 state.items.push(action.payload);
             })
             //updateRecord

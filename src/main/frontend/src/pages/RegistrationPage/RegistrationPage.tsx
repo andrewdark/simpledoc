@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import css from './RegistrationPage.module.css'
 import {NavBar} from "../../components/NavBar/NavBar";
 import {RegistrationForm} from "../../components/RegistrationForm/RegistrationForm";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {addNavegante} from "../../redux/navegante/slice";
 import {getRecordGroupById} from "../../redux/catalog/record_group/operations";
@@ -19,6 +19,7 @@ interface RegistrationParams {
 }
 
 const RegistrationPage = () => {
+    const navigate = useNavigate();
     const {recordGroupId} = useParams<RegistrationParams>();
     const recordGroupInit: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
     const dispatch = useAppDispatch();
@@ -33,13 +34,18 @@ const RegistrationPage = () => {
         dispatch(getRecordGroupById({id: groupId}));
     }, [dispatch]);
 
-    const saveItemHandler = (dto: IRecord, fileList: File[]) => {
+    const saveItemHandler = async (dto: IRecord, fileList: File[]) => {
         if (dto && dto.id) {
             console.log("UPDATE")
         } else {
             console.log("CREATE: ", dto);
-            dispatch(createRecord({dto: dto, fileList: fileList}));
+            const resultAction = await dispatch(createRecord({dto: dto, fileList: fileList})).unwrap();
 
+            const newId = resultAction.id;
+
+            if(newId){
+               navigate(`/record/${newId}`, {state: {readonly: true, param2: "worm"}});
+            }
         }
     };
 
