@@ -39,6 +39,7 @@ export const departmentSlice = createSlice({
     reducers: {
         clearDepartments(state) {
             state.items = []; // Просто присваиваем пустой массив
+            state.item = null;
         },
     },
     extraReducers: (builder: ActionReducerMapBuilder<DepartmentState>) => {

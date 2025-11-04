@@ -7,13 +7,13 @@ import {IRubric} from "./catalog/IRubric";
 import {IPublisher} from "./IPublisher";
 
 export interface IRecord {
-    id: number | null;
-    orderNum: number | null;
-    regNum: string | null;
-    regDate: Date | null;
+    id?: number | null;
+    orderNum?: number | null;
+    regNum?: string | null;
+    regDate?: Date | null;
     consist?: string | null;
     recipient?: string | null; //TODO: ADD to other parts
-    content: string | null;
+    content?: string | null;
     note?: string | null;
     collective?: boolean | null;
     signCount?: number | null;

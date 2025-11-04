@@ -19,7 +19,7 @@ public class CorrespondentToCorrespondentDTOConverter implements Converter<Corre
     private final EntityManagerFactory entityManagerFactory;
     private final OrganizationToOrganizationDTOConverter organizationToOrganizationDTOConverter;
     private final CitizenToCitizenDTOConverter citizenToCitizenDTOConverter;
-    private final RecordToRecordDTOConverter recordToRecordDTOConverter;
+    //private final RecordToRecordDTOConverter recordToRecordDTOConverter;
 
     @Override
     public CorrespondentDTO convert(Correspondent source) {
@@ -36,9 +36,9 @@ public class CorrespondentToCorrespondentDTOConverter implements Converter<Corre
                 .build();
 
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (Objects.nonNull(source.getRecord()) && util.isLoaded(source.getRecord())) {
-            target.setRecord(recordToRecordDTOConverter.convert(source.getRecord()));
-        }
+//        if (Objects.nonNull(source.getRecord()) && util.isLoaded(source.getRecord())) {
+//            target.setRecord(recordToRecordDTOConverter.convert(source.getRecord()));
+//        }
         if (Objects.nonNull(source.getOrganization()) && util.isLoaded(source.getOrganization())) {
             target.setOrganization(organizationToOrganizationDTOConverter.convert(source.getOrganization()));
         }

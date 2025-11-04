@@ -3,12 +3,7 @@ import {NavBar} from "../../components/NavBar/NavBar";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import React, {useEffect} from "react";
 import {clearNavegante} from "../../redux/navegante/slice";
-import List from "../../components/List/List";
-import {deleteRecord, getAllRecord, getRecordById} from "../../redux/record/operations";
-import {RecordItem} from "../../components/RecordItem/RecordItem";
-import {IRecord} from "../../models/IRecord";
-import {setModal} from "../../redux/modal/slice";
-import {useNavigate} from "react-router-dom";
+import {getAllRecord} from "../../redux/record/operations";
 import Record from "../RecordPage/Record/Record";
 
 const WelcomePage = () => {

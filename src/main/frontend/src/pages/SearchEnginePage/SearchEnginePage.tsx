@@ -4,9 +4,6 @@ import React, {useEffect, useState} from "react";
 import {setNavegante} from "../../redux/navegante/slice";
 import {NavBar} from "../../components/NavBar/NavBar";
 import {getAllRecordByFilter} from "../../redux/record/operations";
-import List from "../../components/List/List";
-import {IRecord} from "../../models/IRecord";
-import {RecordItem} from "../../components/RecordItem/RecordItem";
 import ModalFormContainer from "../../hoc/ModalFormContainer/ModalFormContainer";
 import {IRecordSearchFilter} from "../../models/IRecordSearchFilter";
 import {SearchEngineForm} from "../../components/SearchEngineForm/SearchEngineForm";
@@ -24,7 +21,7 @@ const SearchEnginePage = () => {
 
     useEffect(() => {
         dispatch(setNavegante({id: 0, link: "/searching", title: "Пошук"}));
-        dispatch(clearRecords({}));
+        dispatch(clearRecords());
         dispatch(getAllRecordGroup({size: 10}));
     }, [dispatch]);
 

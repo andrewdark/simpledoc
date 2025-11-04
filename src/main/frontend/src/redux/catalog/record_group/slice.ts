@@ -10,6 +10,7 @@ import {
 } from "./operations";
 import RecordGroup from "../../../pages/catalog/RecordGroupPage/RecordGroup/RecordGroup";
 import {modalSlice} from "../../modal/slice";
+import {departmentSlice} from "../department/slice";
 
 interface RecordGroupState {
     items: IRecordGroup[];
@@ -42,7 +43,12 @@ const handleRejected = (state: RecordGroupState, action: any) => {
 export const recordGroupSlice = createSlice({
     name: "recordGroup",
     initialState,
-    reducers: {},
+    reducers: {
+        clearRecordGroups(state) {
+            state.items = []; // Просто присваиваем пустой массив
+            state.item = null;
+        },
+    },
     extraReducers: (builder: ActionReducerMapBuilder<RecordGroupState>) => {
 
         builder
@@ -116,5 +122,5 @@ export const recordGroupSlice = createSlice({
     }
 });
 
-
+export const { clearRecordGroups } = recordGroupSlice.actions;
 export const recordGroupReducer = recordGroupSlice.reducer;

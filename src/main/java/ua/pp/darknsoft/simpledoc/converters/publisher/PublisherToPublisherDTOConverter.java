@@ -17,7 +17,7 @@ import java.util.Objects;
 public class PublisherToPublisherDTOConverter implements Converter<Publisher, PublisherDTO> {
 
     private final EntityManagerFactory entityManagerFactory;
-    private final RecordToRecordDTOConverter recordToRecordDTOConverter;
+    //private final RecordToRecordDTOConverter recordToRecordDTOConverter;
     private final DepartmentToDepartmentDTOConverter departmentToDepartmentDTOConverter;
 
     @Override
@@ -33,9 +33,9 @@ public class PublisherToPublisherDTOConverter implements Converter<Publisher, Pu
                 .build();
 
         PersistenceUnitUtil util = entityManagerFactory.getPersistenceUnitUtil();
-        if (Objects.nonNull(source.getRecord()) && util.isLoaded(source.getRecord())) {
-            target.setRecord(recordToRecordDTOConverter.convert(source.getRecord()));
-        }
+//        if (Objects.nonNull(source.getRecord()) && util.isLoaded(source.getRecord())) {
+//            target.setRecord(recordToRecordDTOConverter.convert(source.getRecord()));
+//        }
         if (Objects.nonNull(source.getOfficial()) && util.isLoaded(source.getOfficial())) {
             target.setOfficial(departmentToDepartmentDTOConverter.convert(source.getOfficial()));
         }

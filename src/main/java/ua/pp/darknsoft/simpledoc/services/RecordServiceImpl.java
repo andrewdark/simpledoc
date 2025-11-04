@@ -148,7 +148,8 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public Optional<RecordDTO> getById(Long id) throws AppException {
         try {
-            return recordRepository.findById(id).map(toDTOConverter::convert);
+            Optional<Record> entity = recordRepository.findRecordById(id);
+            return entity.map(toDTOConverter::convert);
         } catch (Exception ex) {
             throw new AppException(ex);
         }

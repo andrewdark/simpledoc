@@ -28,8 +28,8 @@ import {IPublisher} from "../../models/IPublisher";
 
 
 interface RegistrationFormProps {
-    dto?: IRecord;
-    readonly? : boolean;
+    dto: IRecord;
+    readonly?: boolean;
     formHandler: (registration: IRecord, fileList: File[]) => void;
 }
 
@@ -41,42 +41,43 @@ const validationSchema = yup.object({
 });
 
 export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, formHandler}) => {
-    const recordGroupInit: IRecordGroup | null = useAppSelector(state => state.recordGroupReducer.item);
+
     const deliveries: IDelivery[] = useAppSelector(state => state.deliveryReducer.items);
     const dispatch = useAppDispatch();
 
     const [errorObject, setErrorObject] = useState<FormErrorMap>({});
     const [id, setId] = useState<number | null>(null);
-    const [orderNum, setOrderNum] = useState<number>(dto?.orderNum ?? 0);
-    const [regNum, setRegNum] = useState<string>(dto?.regNum ?? '');
-    const [regDate, setRegDate] = useState<Date | null>(dto?.regDate ?? null); //Date;
-    const [consist, setConsist] = useState<string>(dto?.consist ?? '');
-    const [recipient, setRecipient] = useState<string>(dto?.recipient ?? '');
-    const [content, setContent] = useState<string>(dto?.content ?? '');
-    const [note, setNote] = useState<string>(dto?.note ?? '');
-    const [collective, setCollective] = useState<boolean>(dto?.collective ?? false);
-    const [signCount, setSignCount] = useState<number>(dto?.signCount ?? 0);
+    const [orderNum, setOrderNum] = useState<number>(dto.orderNum ?? 0);
+    const [regNum, setRegNum] = useState<string>(dto.regNum ?? '');
+    const [regDate, setRegDate] = useState<Date | null>(dto.regDate ?? null); //Date;
+    const [consist, setConsist] = useState<string>(dto.consist ?? '');
+    const [recipient, setRecipient] = useState<string>(dto.recipient ?? '');
+    const [content, setContent] = useState<string>(dto.content ?? '');
+    const [note, setNote] = useState<string>(dto.note ?? '');
+    const [collective, setCollective] = useState<boolean>(dto.collective ?? false);
+    const [signCount, setSignCount] = useState<number>(dto.signCount ?? 0);
 
-    // const [recordGroup, setRecordGroup] = useState<IRecordGroup | null>(null); //IRecordGroup | null;
-    const [correspondents, setCorrespondents] = useState<ICorrespondent[]>(dto?.correspondents ?? []); //ICorrespondent[];
-    const [publishers, setPublishers] = useState<IPublisher[]>(dto?.publishers ?? []);
+    const [recordGroup, setRecordGroup] = useState<IRecordGroup | null>(dto.recordGroup ?? null); //IRecordGroup | null;
+    const [correspondents, setCorrespondents] = useState<ICorrespondent[]>(dto.correspondents ?? []); //ICorrespondent[];
+    const [publishers, setPublishers] = useState<IPublisher[]>(dto.publishers ?? []);
 
-    const [delivery, setDelivery] = useState<IDelivery | null>(dto?.delivery ?? null); //IDelivery;
-    const [resolutions, setResolutions] = useState<IResolution[] | null>(dto?.resolutions ?? null); //IResolution[];
-    const [files, setFiles] = useState<IFileLink[]>(dto?.files ?? []); //IFileLink[];
+    const [delivery, setDelivery] = useState<IDelivery | null>(dto.delivery ?? null); //IDelivery;
+    const [resolutions, setResolutions] = useState<IResolution[] | null>(dto.resolutions ?? null); //IResolution[];
+    const [files, setFiles] = useState<IFileLink[]>(dto.files ?? []); //IFileLink[];
     const [fileList, setFileList] = useState<File[]>([]);
-    const [rubrics, setRubrics] = useState<IRubric[] | null>(dto?.rubrics ?? null); //IRubric[];
+    const [rubrics, setRubrics] = useState<IRubric[] | null>(dto.rubrics ?? null); //IRubric[];
 
     useEffect(() => {
-        if (recordGroupInit) {
-            setRegNum(recordGroupInit.indexNum);
+        if (dto.recordGroup) {
+            setRecordGroup(dto.recordGroup);
+            setRegNum(dto.recordGroup.indexNum);
         } else {
 
         }
         dispatch(clearOrganizations());
         dispatch(clearCitizens());
         dispatch(getAllDelivery({size: 100, number: 0}));
-    }, [dispatch]);
+    }, [dispatch, regNum]);
 
     function getErrorObject(dto: IRecord) {
         try {
@@ -121,7 +122,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, form
             note: note,
             collective: collective,
             signCount: signCount,
-            recordGroup: recordGroupInit,
+            recordGroup: recordGroup,
             correspondents: correspondents,
             publishers: publishers,
             delivery: delivery,
@@ -191,7 +192,11 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, form
         setFileList(fList);
     }
 
-    return <form className={css.registrationForm} onSubmit={handleSubmit}>
+    const cls = [css.registrationForm];
+    if(readonly){
+        cls.push(css.formReadonlyOverlay)
+    }
+    return <form className={cls.join(' ')} onSubmit={handleSubmit}>
         <div className={css.registrationFormContainer}>
             <div className={css.navigationBarGroup}>
                 <button type="button" className={css.someButton}>
@@ -218,14 +223,14 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, form
                 <div className={css.mainContentGroup}>
                     <div className={css.mainContentCorrespondents}>
 
-                        {(RecordGroupType.OUTGOING === recordGroupInit?.recordGroupType) &&
+                        {(RecordGroupType.OUTGOING === recordGroup?.recordGroupType) &&
                             <Publisher publishers={publishers} setPublishers={setPublishers}
                                        recordGroupType={RecordGroupType.OUTGOING}>
                                 <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
                                              errorMessage={errorObject.content}/>
                             </Publisher>
                         }
-                        {(RecordGroupType.INNER === recordGroupInit?.recordGroupType) &&
+                        {(RecordGroupType.INNER === recordGroup?.recordGroupType) &&
                             <Publisher publishers={publishers} setPublishers={setPublishers}
                                        recordGroupType={RecordGroupType.INNER}>
                                 <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
@@ -233,11 +238,11 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, form
                             </Publisher>
                         }
 
-                        {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType) &&
+                        {(RecordGroupType.INCOMING === recordGroup?.recordGroupType) &&
                             <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
                                            correspondentType={CorrespondentType.INCOMING_ORGANIZATION}/>
                         }
-                        {(RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
+                        {(RecordGroupType.CITIZEN === recordGroup?.recordGroupType) &&
                             <Correspondent correspondents={correspondents} setCorrespondents={setCorrespondents}
                                            correspondentType={CorrespondentType.INCOMING_CITIZEN}/>
                         }
@@ -245,7 +250,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, form
                     <div className={css.mainContentAttributes}>
                         <AppInput inputType={"text"} inputLabel={"Кому:"} value={recipient}
                                   onChange={handleRecipientChange} errorMessage={errorObject.recipient}/>
-                        {(RecordGroupType.INCOMING === recordGroupInit?.recordGroupType || RecordGroupType.CITIZEN === recordGroupInit?.recordGroupType) &&
+                        {(RecordGroupType.INCOMING === recordGroup?.recordGroupType || RecordGroupType.CITIZEN === recordGroup?.recordGroupType) &&
                             <AppTextArea inputLabel={"Зміст:"} value={content} onChange={handleContentChange}
                                          errorMessage={errorObject.content}/>}
                         <AppInput inputType={"text"} inputLabel={"Прим:"} value={note} onChange={handleNoteChange}
@@ -261,8 +266,8 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({dto, readonly, form
 
                         <div className={css.formField}>
                             <label>Дост: </label>
-                            <select onChange={handleDeliverySelect}>
-                                <option value="">-- Спосіб доставки--</option>
+                            <select onChange={handleDeliverySelect} value={String(delivery?.id)}>
+                                <option value="" >-- Спосіб доставки--</option>
                                 {deliveries.filter(el => el.id).map(el => <option key={el.id}
                                                                                   value={el.id ?? 0}>{el.name}</option>)}
                             </select>

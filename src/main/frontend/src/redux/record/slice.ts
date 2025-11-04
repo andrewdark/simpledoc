@@ -43,7 +43,7 @@ export const recordSlice = createSlice({
     name: "record",
     initialState,
     reducers: {
-        clearRecords(state, action) {
+        clearRecords(state) {
             state.item = initialState.item;
             state.items = initialState.items;
             state.page = initialState.page;

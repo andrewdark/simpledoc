@@ -15,11 +15,12 @@ const Record:FC<Record> = ({items}) => {
     const navigate = useNavigate();
 
     const readItemHandler = (id: number) => {
-        navigate(`/record/${id}`, {state: {param1: "hello", param2: "worm"}})
+        navigate(`/record/${id}`, {state: {readonly: true, param2: "worm"}})
     };
     const updateItemHandler = async (id: number) => {
         if (id) {
             await dispatch(getRecordById({id: id}))
+            navigate(`/record/${id}`, {state: {readonly: false, param2: "worm"}})
             //dispatch(setModal(true));
         }
 

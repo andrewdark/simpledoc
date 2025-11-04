@@ -10,6 +10,7 @@ import {parseStringToNumberOrDefaultZero} from "../../utils/parser";
 import {createRecord} from "../../redux/record/operations";
 import {IRecord} from "../../models/IRecord";
 import {IRecordGroup} from "../../models/catalog/IRecordGroup";
+import {clearRecordGroups} from "../../redux/catalog/record_group/slice";
 
 interface RegistrationParams {
     recordGroupId: string;
@@ -23,6 +24,7 @@ const RegistrationPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        dispatch(clearRecordGroups());
         const groupId = parseStringToNumberOrDefaultZero(recordGroupId);
         dispatch(addNavegante({
             link: `.`,
@@ -41,11 +43,12 @@ const RegistrationPage = () => {
         }
     };
 
+    //TODO: SEE  RecordId
     return (
         recordGroupInit ?
             <div className={css.registrationPage}>
                 <NavBar isAddButton={false} isBackButton={true}/>
-                <RegistrationForm formHandler={saveItemHandler}/>
+                <RegistrationForm formHandler={saveItemHandler} dto={{recordGroup: recordGroupInit}}/>
             </div>
             : <div>
                 <h1>ВКАЖІТЬ ГРУПУ ДОКУМЕНТУ</h1>

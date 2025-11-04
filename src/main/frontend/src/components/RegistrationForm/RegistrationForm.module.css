@@ -3,6 +3,17 @@
     background: #ffffff;
     border-radius: 8px;
 }
+.formReadonlyOverlay{
+    /* Робимо елемент невидимим для кліків */
+    pointer-events: none;
+
+    /* Додаємо візуальний ефект "неактивності" */
+    opacity: 0.6;
+}
+
+.formReadonlyOverlay label{
+    opacity: 1;
+}
 @media only screen and (min-width: 768px) {
     .registrationForm {
         padding: 16px;
@@ -24,6 +35,8 @@
 }
 
 .navigationBarGroup {
+    pointer-events: auto; /* Дозволяє кліки та взаємодію */
+    opacity: 1;          /* Повертаємо нормальну прозорість */
     border: 1px solid #ccc;
     margin-bottom: 16px;
 }
