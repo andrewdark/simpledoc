@@ -1,0 +1,18 @@
+.Logo{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: darkcyan;
+    text-shadow: cyan 1px 1px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 1158px) {
+    .Logo{
+
+        gap: 16px;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}

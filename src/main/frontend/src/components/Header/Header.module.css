@@ -14,8 +14,12 @@
 }
 
 .nav {
-    color: #008b8b;
-    font-size: 24px;
+    /*color: #008b8b;*/
+    /*font-size: 24px;*/
+    color: darkcyan;
+    text-shadow: cyan 1px 1px;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .auth {

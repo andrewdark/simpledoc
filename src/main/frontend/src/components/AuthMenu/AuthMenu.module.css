@@ -1,7 +1,63 @@
 .AuthMenu{
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    z-index: 1;
 }
-.username{
 
+.userButton {
+    background: none;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.arrow {
+    font-size: 0.8rem;
+}
+
+/* Випадаюче меню */
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 2.4rem;
+    background-color: #2c2c2c;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    width:192px;
+}
+
+.dropdownOpen {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.dropdownItem {
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 0.6rem 1rem;
+    width: 100%;
+    cursor: pointer;
+}
+.userName{
+    display: none;
+}
+@media only screen and (min-width: 1158px) {
+    .userName{
+        display: inline-block;
+    }
+    .dropdown {
+        width:256px;
+    }
 }

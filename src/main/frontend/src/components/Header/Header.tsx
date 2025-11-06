@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {selectIsLoggedIn} from "../../redux/auth/selectors";
 import {AuthMenu} from "../AuthMenu/AuthMenu";
 import {AuthNav} from "../AuthNav/AuthNav";
-import {BsSun} from "react-icons/bs";
+import {Logo} from "./Logo/Logo";
 
 export const Header = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -11,9 +11,7 @@ export const Header = () => {
 
         <header className={css.header}>
             <div className={["container", css.container].join(' ')}>
-                <nav className={css.nav}>
-                    <BsSun className="logo-icon" size='24'/>SimpleDoc
-                </nav>
+                <Logo/>
                 <div className={css.auth}>
                     {isLoggedIn ? <AuthMenu/> : <AuthNav/>}
                 </div>
