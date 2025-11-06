@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {logOut} from "../../redux/auth/operations";
 import {BsPersonCircle} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
+import {RxExit} from "react-icons/rx";
 
 interface AuthMenuProps {
 }
@@ -68,7 +69,9 @@ export const AuthMenu: FC<AuthMenuProps> = (props) => {
 
                 <hr/>
                 <button className={css.dropdownItem} onClick={onLogout}>
-                    Вихід
+                    <div className={css.menuName}>
+                        <RxExit/><span>Вихід</span>
+                    </div>
                 </button>
             </div>
         </div>

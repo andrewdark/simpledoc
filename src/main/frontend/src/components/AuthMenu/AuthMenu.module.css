@@ -53,6 +53,11 @@
 .userName{
     display: none;
 }
+.menuName{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 @media only screen and (min-width: 1158px) {
     .userName{
         display: inline-block;
